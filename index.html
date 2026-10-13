@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小5 英語の文法まとめ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fffaf0;
+    --paper:#ffffff;
+    --ink:#2b2b2b;
+    --muted:#6b6b6b;
+    --line:#f0e4cc;
+    --accent:#ff8a3d;
+    --accent-soft:#fff1e6;
+    --sub:#3b82f6;   --sub-bg:#e3eeff;
+    --vb:#ef4444;    --vb-bg:#ffe5e5;
+    --comp:#16a34a;  --comp-bg:#e3f7e9;
+    --obj:#16a34a;   --obj-bg:#e3f7e9;
+    --aux:#f59e0b;   --aux-bg:#fff3d6;
+    --place:#8b5cf6; --place-bg:#efe8ff;
+    --q:#ec4899;     --q-bg:#ffe4f1;
+    --sig:#64748b;   --sig-bg:#e9eef5;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","BIZ UDPGothic","Meiryo",sans-serif;
+    font-size:17px;line-height:1.75;
+  }
+  .en{font-family:"Nunito","M PLUS Rounded 1c",sans-serif}
+
+  header{
+    background:linear-gradient(135deg,#ffb37a 0%,#ff8a3d 60%,#ff6f3d 100%);
+    color:#fff;padding:36px 16px 28px;text-align:center;
+  }
+  header h1{margin:0;font-size:2rem;font-weight:800;letter-spacing:.02em}
+  header p{margin:8px 0 0;opacity:.95;font-weight:700}
+
+  nav{
+    position:sticky;top:0;z-index:10;background:rgba(255,250,240,.95);
+    backdrop-filter:blur(6px);border-bottom:2px solid var(--line);
+    padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  }
+  nav a{
+    text-decoration:none;color:var(--ink);background:var(--paper);
+    border:2px solid var(--line);border-radius:999px;padding:4px 14px;
+    font-weight:700;font-size:.9rem;white-space:nowrap;
+  }
+  nav a:hover{border-color:var(--accent);color:var(--accent)}
+  nav a b{color:var(--accent);margin-right:4px}
+
+  main{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+
+  .legend{
+    background:var(--paper);border:2px dashed var(--line);border-radius:16px;
+    padding:14px 18px;margin-bottom:28px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;
+  }
+  .legend span.title{font-weight:800;margin-right:4px}
+
+  section{
+    background:var(--paper);border-radius:20px;padding:24px 24px 20px;margin-bottom:28px;
+    box-shadow:0 4px 18px rgba(120,80,20,.08);border:1px solid var(--line);
+  }
+  section h2{
+    display:flex;align-items:center;gap:14px;margin:0 0 6px;font-size:1.45rem;font-weight:800;
+  }
+  section h2 .num{
+    flex:none;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:800;
+  }
+  section h2 .en{color:var(--accent)}
+  .meaning{margin:0 0 18px 58px;color:var(--muted);font-weight:700}
+
+  h3{
+    margin:20px 0 10px;font-size:1.05rem;font-weight:800;color:var(--accent);
+    display:flex;align-items:center;gap:8px;
+  }
+  h3::before{content:"";width:6px;height:22px;border-radius:3px;background:var(--accent)}
+
+  .explain{background:var(--accent-soft);border-radius:14px;padding:14px 18px}
+  .explain p{margin:0 0 8px}
+  .explain p:last-child{margin-bottom:0}
+  .explain ul{margin:6px 0 0;padding-left:1.3em}
+  .explain li{margin:4px 0}
+  .form{
+    display:inline-block;background:#fff;border:2px solid var(--accent);border-radius:10px;
+    padding:4px 12px;font-weight:800;margin:4px 0;
+  }
+  .form .fl{color:var(--accent);margin-right:6px}
+
+  .examples{display:flex;flex-direction:column;gap:10px}
+  .ex{
+    background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 18px;
+    display:flex;flex-direction:column;gap:2px;
+  }
+  .ex .e{font-size:1.15rem;font-weight:800;line-height:1.45}
+  .ex .j{color:var(--muted);font-size:.95rem}
+  .ex .k{color:var(--accent);font-size:.95rem;font-weight:700}
+  .tagged .k{width:100%;color:var(--accent);font-weight:700;font-size:1rem;margin-top:6px}
+  .ex .note{font-size:.85rem;color:var(--place);font-weight:700}
+  .ex.wide{grid-column:1 / -1}
+
+  /* 品詞タグつき例文 */
+  .tagged{
+    display:flex;flex-wrap:wrap;gap:6px 10px;align-items:flex-end;
+    background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px;margin:8px 0 4px;
+  }
+  .chunk{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+  .chunk .w{font-size:1.35rem;font-weight:800;line-height:1.2}
+  .chunk .t{
+    font-size:.72rem;font-weight:800;border-radius:999px;padding:1px 10px;white-space:nowrap;
+  }
+  .chunk.punct .w{font-size:1.35rem;font-weight:800}
+  .chunk.punct .t{visibility:hidden}
+  .tagged .ja{width:100%;color:var(--muted);font-size:.95rem;margin-top:4px}
+
+  .tag{display:inline-block;font-size:.78rem;font-weight:800;border-radius:999px;padding:1px 10px}
+  .sub .t,.tag.sub{background:var(--sub-bg);color:var(--sub)}
+  .vb .t,.tag.vb{background:var(--vb-bg);color:var(--vb)}
+  .comp .t,.tag.comp{background:var(--comp-bg);color:var(--comp)}
+  .obj .t,.tag.obj{background:var(--obj-bg);color:var(--obj)}
+  .aux .t,.tag.aux{background:var(--aux-bg);color:var(--aux)}
+  .place .t,.tag.place{background:var(--place-bg);color:var(--place)}
+  .q .t,.tag.q{background:var(--q-bg);color:var(--q)}
+  .sig .t,.tag.sig{background:var(--sig-bg);color:var(--sig)}
+  .sub .w{color:var(--sub)} .vb .w{color:var(--vb)} .comp .w,.obj .w{color:var(--comp)}
+  .aux .w{color:var(--aux)} .place .w{color:var(--place)} .q .w{color:var(--q)} .sig .w{color:var(--sig)}
+
+  .qa .e .a{color:var(--sub)}
+  .qa .e .b{color:var(--comp)}
+
+  table{border-collapse:collapse;width:100%;max-width:420px;margin:8px 0 12px;background:#fff;border-radius:12px;overflow:hidden}
+  th,td{padding:8px 14px;border-bottom:1px solid var(--line);text-align:left}
+  th{background:var(--accent-soft);color:var(--accent);font-weight:800}
+  td.en{font-weight:800;color:var(--q);font-size:1.05rem}
+
+  .warn{
+    background:#fff5f5;border-left:5px solid var(--vb);border-radius:8px;padding:8px 14px;margin:8px 0;font-weight:700;
+  }
+  .warn .x{color:var(--vb);text-decoration:line-through}
+  .ok{color:var(--comp)}
+
+  .group{margin:10px 0 4px;font-weight:800;color:var(--q);font-size:1.05rem}
+
+  footer{
+    max-width:900px;margin:0 auto;padding:0 16px 48px;color:var(--muted);font-size:.95rem;
+  }
+  footer .box{background:#fff;border:2px dashed var(--line);border-radius:14px;padding:14px 18px}
+
+  .says{display:flex;flex-wrap:wrap;gap:6px;order:99;margin-top:8px;width:100%}
+  .say{
+    flex:1 1 auto;min-height:40px;border-radius:999px;border:2px solid var(--accent);
+    background:#fff;color:var(--accent);font-size:.9rem;font-weight:800;cursor:pointer;
+    padding:4px 10px;font-family:inherit;white-space:nowrap;
+  }
+  .say.vs{border-color:#16a34a;color:#16a34a}
+  .say.s{border-color:#3b82f6;color:#3b82f6}
+  .say:active,.say.playing{color:#fff}
+  .say.vs.playing,.say.vs:active{background:#16a34a}
+  .say.s.playing,.say.s:active{background:#3b82f6}
+  .say.n.playing,.say.n:active{background:var(--accent)}
+  .nosupport{display:none;background:#fff5f5;border-left:5px solid var(--vb);border-radius:8px;padding:8px 14px;margin:0 0 16px;font-weight:700}
+  .qrbox{display:none}
+  @media print{
+    @page{size:A4;margin:12mm 12mm 14mm}
+    html,body{background:#fff}
+    body{font-size:12.5px;line-height:1.6}
+    nav,.says,.nosupport{display:none !important}
+    header{
+      background:#ff8a3d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+      padding:16px 18px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:16px;
+      border-radius:12px;
+    }
+    header h1{font-size:1.5rem}
+    header p{margin:2px 0 0;font-size:.95rem}
+    .qrbox{display:flex;align-items:center;gap:10px;background:#fff;color:#2b2b2b;border-radius:10px;padding:6px 10px}
+    .qrbox img{width:84px;height:84px;display:block}
+    .qrtext{font-size:.72rem;line-height:1.5;font-weight:700}
+    .qrtext .url{font-family:Nunito,sans-serif;font-size:.68rem;font-weight:600;color:#555}
+    main{padding:12px 0 0;max-width:none}
+    .legend{padding:8px 12px;margin-bottom:12px;font-size:.85rem;gap:6px 10px}
+    section{box-shadow:none;margin-bottom:0;padding:14px 16px;border:1px solid #e6dcc6}
+    section + section{break-before:page;page-break-before:always}
+    section h2{font-size:1.2rem}
+    section h2 .num{width:32px;height:32px;font-size:1rem}
+    .meaning{margin:0 0 8px 46px}
+    h3{margin:12px 0 6px;font-size:.95rem}
+    .explain{padding:8px 12px;break-inside:avoid}
+    .explain li{margin:2px 0}
+    .examples{gap:5px}
+    .ex,.tagged{break-inside:avoid;page-break-inside:avoid;padding:6px 12px;border-width:1.5px}
+    .ex .e{font-size:1rem;line-height:1.35}
+    .ex .k,.tagged .k{font-size:.82rem}
+    .ex .j{font-size:.8rem}
+    .tagged{padding:8px 12px;margin:4px 0}
+    .chunk .w{font-size:1.1rem}
+    .chunk .t{font-size:.62rem}
+    .group{margin:6px 0 2px;font-size:.95rem}
+    table{max-width:320px;margin:4px 0 8px}
+    th,td{padding:3px 10px}
+    footer{padding:10px 0 0;font-size:.82rem}
+    footer .box{padding:8px 12px}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+  @media (max-width:520px){
+    header h1{font-size:1.5rem}
+    .meaning{margin-left:0}
+    section{padding:18px 14px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>小5 英語の文法まとめ</h1>
+  <p>8つの「文のかたち」をおぼえよう</p>
+  <div class="qrbox">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoAQAAAADDfFG0AAACDUlEQVR4nO1ZXW/DMAgEq///L98EB7bXNlofpphp0DZxah7QhY8DK+QDGZ8oSWulNBIpDxHlyh1NYT+1B8XaabxSHhMpCTHICNfaabxSHAlVQ0slrwlX7jReU3bPUQg/KgKi90brWv6bFsy57GsLhIcVsKta/pKJTIKkUGDbqWr9uF1LiIsYNK+fVKlq/bhdS1fUKfhEIoG/YP044l/Iha94W/4FtH+9ooo9x/tqErDmX5swAsXEMfJlRCUTvz1VjY5xu5a6XwlBYzPkEAVuzsS6H3riE2Lo4HsguquRuNZ92+NM/6i8xJ0haLDN4lnV+nGmPoIRGQWSlRGLmHV9XJJTGzB/MTD35OUQVn3b44QW3J8coyyKCz/nGZWtP6ClTPLMV/B8z7i0lNbznPd8VTn9cndSg8nhC+wqv+2f5Ze1lFmLfIK1kVOwoLIdj5vQh9SoBJnr/AVtRfG3fWieg41ReAGgm8W3qvXjlH9JpPfnzejBq1o/DmkhpjmeysgsYp7POlDb+tv9S4OoZufNXmiOKupaP47OV8Vl4hRntz2fuDjfBu/0Lo4nchBW9W2Pk+fbOqMyeX22SWWtH2e0lF2PHTwGnyBhtb+bf12jCru4mzEYGaJdH1/mqyGsjzGTYHPU85zL822sk0f2R/S0nn894xUF0rk8p/bI+X3QitLZ9xT/+oPWj9YKqYrEFxPtCiDWUrr5AAAAAElFTkSuQmCC" alt="QRコード" width="96" height="96">
+    <div class="qrtext">スマホでこのQRを読むと<br>例文の<b>発音を聞ける</b>ページが開くよ<br><span class="url">https://iwasehiroki00-hue.github.io/grade5-english/</span></div>
+  </div>
+</header>
+
+<nav>
+  <a href="#s1"><b>1</b>be動詞</a>
+  <a href="#s2"><b>2</b>一般動詞</a>
+  <a href="#s3"><b>3</b>can</a>
+  <a href="#s4"><b>4</b>want to</a>
+  <a href="#s5"><b>5</b>would like</a>
+  <a href="#s6"><b>6</b>疑問詞</a>
+  <a href="#s7"><b>7</b>命令文・Let's</a>
+  <a href="#s8"><b>8</b>決まった言い方</a>
+</nav>
+
+<main>
+
+<div class="nosupport" id="nosupport">このブラウザは読み上げに対応していません。iPhoneはSafari、AndroidはChromeで開いてください。</div>
+
+<div class="legend">
+  <span class="title">記号の見方</span>
+  <span class="tag sub">主語（だれが）</span>
+  <span class="tag vb">動詞（どうする）</span>
+  <span class="tag aux">助動詞</span>
+  <span class="tag comp">補語・目的語（何を・どんな）</span>
+  <span class="tag place">場所・方向</span>
+  <span class="tag q">疑問詞</span>
+  <span class="tag sig">質問の合図</span>
+  <span style="width:100%;color:var(--accent);font-weight:700;font-size:.92rem">★ オレンジ色のカタカナは読み方の目安だよ。ほんとうの音とは少しちがうので、声に出して読む練習に使ってね。</span>
+</div>
+
+<!-- 1 -->
+<section id="s1">
+  <h2><span class="num">1</span><span>be動詞 <span class="en">（am / is / are）</span></span></h2>
+  <p class="meaning">「〜です」「〜な状態です」</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>be動詞は「<b>＝（イコール）</b>」の役割をする動詞で、主語と後ろの言葉をつなぎます。</p>
+    <p><span class="form"><span class="fl">形</span>主語 ＋ be動詞 ＋ 補語</span><br><small>補語＝主語が何か・どんな様子かを説明する言葉</small></p>
+    <ul>
+      <li>主語によって形が変わります。<b class="en">I → am</b>、<b class="en">you・we・they → are</b>、<b class="en">he・she・it・this・1人や1つのもの → is</b></li>
+      <li>短く言うときは <b class="en">I am → I’m</b>、<b class="en">It is → It’s</b> になります。</li>
+      <li>天気・値段・様子を言うときは、主語に <b class="en">it</b> を使います（<span class="en">It’s rainy. / It’s 800 yen.</span>）。この it は「それ」とは訳しません。</li>
+    </ul>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk sub"><span class="w">I</span><span class="t">主語</span></span>
+    <span class="chunk vb"><span class="w">am</span><span class="t">be動詞</span></span>
+    <span class="chunk comp"><span class="w">happy.</span><span class="t">補語</span></span>
+    <span class="k">アイ アム ハッピー。</span><span class="ja">わたし ＝ うれしい</span>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Hi, I’m Yuto.</span><span class="k">ハイ、アイム ユウト。</span><span class="j">こんにちは、ゆうとです。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I’m happy. / I’m sleepy.</span><span class="k">アイム ハッピー。／アイム スリーピー。</span><span class="j">うれしいよ。／ねむいよ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">It’s rainy.</span><span class="k">イッツ レイニー。</span><span class="j">雨だよ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">This is my grandfather.</span><span class="k">ディス イズ マイ グランドファーザー。</span><span class="j">わたしのおじいちゃんだよ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">He is kind.</span><span class="k">ヒー イズ カインド。</span><span class="j">やさしいんだ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">This is Mei. She is my friend.</span><span class="k">ディス イズ メイ。シー イズ マイ フレンド。</span><span class="j">メイです。わたしの友だちです。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">My hero is my mother.</span><span class="k">マイ ヒーロー イズ マイ マザー。</span><span class="j">わたしのヒーローはお母さんです。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">She is a nurse. She is kind and strong.</span><span class="k">シー イズ ア ナース。シー イズ カインド アンド ストロング。</span><span class="j">看護師で、やさしくて強いんだ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">My hero is Ohtani Shohei. He is a baseball player.</span><span class="k">マイ ヒーロー イズ オオタニ ショウヘイ。ヒー イズ ア ベースボール プレイヤー。</span><span class="j">大谷翔平選手です。野球選手です。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">My birthday is October 14th.</span><span class="k">マイ バースデイ イズ オクトーバー フォーティーンス。</span><span class="j">誕生日は10月14日だよ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">It’s 800 yen.</span><span class="k">イッツ エイト ハンドレッド イェン。</span><span class="j">800円です。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">It’s fun!</span><span class="k">イッツ ファン！</span><span class="j">楽しいよ！</span></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2><span class="num">2</span><span>一般動詞 <span class="en">（like / want / have）</span></span></h2>
+  <p class="meaning">「〜が好き」「〜がほしい」「〜がある」</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>一般動詞は、be動詞以外の「動作」や「気持ち」を表す動詞です。</p>
+    <p><span class="form"><span class="fl">形</span>主語 ＋ 動詞 ＋ 目的語</span><br><small>目的語＝動詞の相手になる言葉</small></p>
+    <ul>
+      <li>日本語は「わたしは 青が 好き」と動詞が最後ですが、英語は「わたしは <b>好き</b> 青が」と<b>動詞が主語のすぐ後</b>にきます。</li>
+      <li>一般動詞とbe動詞は一緒に使いません。</li>
+      <li>5年生では主に <b class="en">I・you・we</b> が主語の文を学びます。he・she が主語のとき動詞に s がつく形（likes など）は中学で学びます。</li>
+    </ul>
+    <div class="warn"><span class="x en">I am like blue.</span> → <span class="ok en">I like blue.</span>　am はいらないよ！</div>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk sub"><span class="w">I</span><span class="t">主語</span></span>
+    <span class="chunk vb"><span class="w">like</span><span class="t">動詞</span></span>
+    <span class="chunk obj"><span class="w">blue.</span><span class="t">目的語</span></span>
+    <span class="k">アイ ライク ブルー。</span><span class="ja">わたしは 好き 青が</span>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I like blue.</span><span class="k">アイ ライク ブルー。</span><span class="j">青が好き。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I like soccer.</span><span class="k">アイ ライク サッカー。</span><span class="j">サッカーが好き。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I want a new bike.</span><span class="k">アイ ウォント ア ニュー バイク。</span><span class="j">新しい自転車がほしい。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">We have a big river and a nice park.</span><span class="k">ウィー ハヴ ア ビッグ リヴァー アンド ア ナイス パーク。</span><span class="j">大きな川とすてきな公園があるよ。</span></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2><span class="num">3</span><span><span class="en">can</span></span></h2>
+  <p class="meaning">「〜できる」「〜できない」</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p><b class="en">can</b> は動詞を助けて「できる」という意味をつけ加える言葉（助動詞）です。</p>
+    <p><span class="form"><span class="fl">形</span>主語 ＋ can ＋ 動詞（元の形）＋（目的語など）</span></p>
+    <ul>
+      <li>主語が he や she でも can の形は変わらず、後ろの動詞もそのままです（<span class="en">He can fish.</span>）。</li>
+      <li>否定（できない）：<b class="en">can’t</b>（cannot の短い形）</li>
+      <li>質問：<b class="en">Can ＋ 主語 ＋ 動詞 〜?</b> と can を文の先頭に出します。答えは <span class="en">Yes, I can. / No, I can’t.</span></li>
+      <li><b class="en">well</b>（上手に）、<b class="en">fast</b>（速く）、<b class="en">high</b>（高く）など、動作の様子を表す言葉を後ろにつけられます。</li>
+    </ul>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk sub"><span class="w">I</span><span class="t">主語</span></span>
+    <span class="chunk aux"><span class="w">can</span><span class="t">助動詞</span></span>
+    <span class="chunk vb"><span class="w">swim</span><span class="t">動詞</span></span>
+    <span class="chunk place"><span class="w">in the Shimanto River.</span><span class="t">場所</span></span>
+    <span class="k">アイ キャン スウィム イン ザ シマント リヴァー。</span><span class="ja">四万十川で泳げるよ。</span>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I can swim in the Shimanto River.</span><span class="k">アイ キャン スウィム イン ザ シマント リヴァー。</span><span class="j">四万十川で泳げるよ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I can run fast, but I can’t cook.</span><span class="k">アイ キャン ラン ファスト、バット アイ キャント クック。</span><span class="j">速く走れるけど、料理はできない。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">You can sing well, too!</span><span class="k">ユー キャン シング ウェル、トゥー！</span><span class="j">あなたも歌が上手だね！</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">He can fish well.</span><span class="k">ヒー キャン フィッシュ ウェル。</span><span class="j">魚つりが上手なんだ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">She can jump high.</span><span class="k">シー キャン ジャンプ ハイ。</span><span class="j">高くとべるよ。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">You can see it on your right.</span><span class="k">ユー キャン シー イット オン ユア ライト。</span><span class="j">右側に見えますよ。</span><span class="note">※ it は目的語</span></div>
+    <div class="ex qa"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en"><span class="a">Can you swim?</span> – <span class="b">Yes, I can.</span></span><span class="k">キャン ユー スウィム？ – イエス、アイ キャン。</span><span class="j">泳げる？ – うん、泳げる。</span></div>
+    <div class="ex qa"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en"><span class="a">Can you play the recorder?</span> – <span class="b">No, I can’t.</span></span><span class="k">キャン ユー プレイ ザ リコーダー？ – ノー、アイ キャント。</span><span class="j">リコーダーを吹ける？ – ううん、吹けない。</span></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2><span class="num">4</span><span><span class="en">want to 〜</span></span></h2>
+  <p class="meaning">「〜したい」</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>2で学んだ <b class="en">want</b>（ほしい）の後ろに <b class="en">to ＋ 動詞</b> をつけると、「〜することがほしい」、つまり「<b>〜したい</b>」という意味になります。</p>
+    <p><span class="form"><span class="fl">形</span>主語 ＋ want ＋ to ＋ 動詞（元の形）＋（目的語など）</span></p>
+    <ul>
+      <li>「to ＋ 動詞」のかたまりが、want の目的語になっています。</li>
+      <li><span class="en">I want <b>a bike</b>.</span>（もの：自転車がほしい）と <span class="en">I want <b>to go</b>.</span>（動作：行きたい）の違いを意識すると分かりやすくなります。</li>
+    </ul>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk sub"><span class="w">I</span><span class="t">主語</span></span>
+    <span class="chunk vb"><span class="w">want</span><span class="t">動詞</span></span>
+    <span class="chunk obj"><span class="w">to see Kochi Castle.</span><span class="t">目的語：高知城を見ること</span></span>
+    <span class="k">アイ ウォント トゥ シー コーチ キャッスル。</span><span class="ja">高知城を見たい。</span>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I want to go to Hokkaido.</span><span class="k">アイ ウォント トゥ ゴー トゥ ホッカイドー。</span><span class="j">北海道に行きたい。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I want to see Kochi Castle.</span><span class="k">アイ ウォント トゥ シー コーチ キャッスル。</span><span class="j">高知城を見たい。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I want to swim in the sea.</span><span class="k">アイ ウォント トゥ スウィム イン ザ シー。</span><span class="j">海で泳ぎたい。</span></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2><span class="num">5</span><span><span class="en">would like / I’d like</span></span></h2>
+  <p class="meaning">ていねいな言い方「〜をください」「〜はいかがですか」</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p><b class="en">would like</b> は want（ほしい）のていねいな言い方で、お店での注文などで使います。</p>
+    <p><span class="form"><span class="fl">形</span>主語 ＋ would like ＋ 目的語</span></p>
+    <ul>
+      <li>短く言うと <b class="en">I would like → I’d like</b> になります。</li>
+      <li>質問：<b class="en">Would you like ＋ 目的語?</b>（〜はいかがですか？）</li>
+      <li>断るときは <b class="en">No, thank you.</b>（いいえ、けっこうです）と言います。</li>
+      <li>最後に <b class="en">please</b> をつけると、さらにていねいになります。</li>
+    </ul>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk sub"><span class="w">I</span><span class="t">主語</span></span>
+    <span class="chunk vb"><span class="w">’d like</span><span class="t">動詞</span></span>
+    <span class="chunk obj"><span class="w">curry and rice.</span><span class="t">目的語</span></span>
+    <span class="k">アイド ライク カリー アンド ライス。</span><span class="ja">カレーライスをください。</span>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I’d like curry and rice and orange juice.</span><span class="k">アイド ライク カリー アンド ライス アンド オレンジ ジュース。</span><span class="j">カレーライスとオレンジジュースをください。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I’d like katsuo tataki, please.</span><span class="k">アイド ライク カツオ タタキ、プリーズ。</span><span class="j">かつおのたたきをください。</span></div>
+    <div class="ex qa"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en"><span class="a">Would you like dessert?</span> – <span class="b">No, thank you.</span></span><span class="k">ウッジュー ライク デザート？ – ノー、サンキュー。</span><span class="j">デザートはいかがですか？ – いいえ、けっこうです。</span></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2><span class="num">6</span><span>疑問詞を使った質問</span></h2>
+  <p class="meaning">「何・いつ・どこ・だれ・なぜ・どのように」をたずねる</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>たずねる言葉（疑問詞）は、必ず<b>文の先頭</b>に置きます。答えは Yes / No ではなく、たずねられた内容を答えます。</p>
+    <table>
+      <tr><th>疑問詞</th><th>意味</th></tr>
+      <tr><td class="en">What</td><td>何</td></tr>
+      <tr><td class="en">When</td><td>いつ</td></tr>
+      <tr><td class="en">Where</td><td>どこ</td></tr>
+      <tr><td class="en">Who</td><td>だれ</td></tr>
+      <tr><td class="en">Why</td><td>なぜ</td></tr>
+      <tr><td class="en">How</td><td>どのように・どんな様子</td></tr>
+      <tr><td class="en">How many</td><td>いくつ（数）</td></tr>
+      <tr><td class="en">How much</td><td>いくら（値段）</td></tr>
+    </table>
+    <p>文の形は、使う動詞によって2種類あります。</p>
+    <p><span class="form"><span class="fl">be動詞の文</span>疑問詞 ＋ be動詞 ＋ 主語?</span></p>
+    <p><span class="form"><span class="fl">一般動詞の文</span>疑問詞 ＋ do ＋ 主語 ＋ 動詞?</span></p>
+    <p>この <b class="en">do</b> は「する」という意味ではなく、<b>質問の文だという合図</b>です。</p>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk q"><span class="w">Where</span><span class="t">疑問詞</span></span>
+    <span class="chunk vb"><span class="w">is</span><span class="t">be動詞</span></span>
+    <span class="chunk sub"><span class="w">the station?</span><span class="t">主語</span></span>
+    <span class="k">ウェア イズ ザ ステイション？</span><span class="ja">駅はどこですか？（be動詞の文）</span>
+  </div>
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk q"><span class="w">What</span><span class="t">疑問詞</span></span>
+    <span class="chunk sig"><span class="w">do</span><span class="t">質問の合図</span></span>
+    <span class="chunk sub"><span class="w">you</span><span class="t">主語</span></span>
+    <span class="chunk vb"><span class="w">like?</span><span class="t">動詞</span></span>
+    <span class="k">ワット ドゥ ユー ライク？</span><span class="ja">何が好き？（一般動詞の文）</span>
+  </div>
+
+  <h3>例文</h3>
+  <p class="group">What</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">What color do you like?</span><span class="k">ワット カラー ドゥ ユー ライク？</span><span class="j">何色が好き？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">What sport do you like?</span><span class="k">ワット スポーツ ドゥ ユー ライク？</span><span class="j">何のスポーツが好き？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">What do you want for your birthday?</span><span class="k">ワット ドゥ ユー ウォント フォー ユア バースデイ？</span><span class="j">誕生日に何がほしい？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">What do you have in your town?</span><span class="k">ワット ドゥ ユー ハヴ イン ユア タウン？</span><span class="j">あなたの町には何がある？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">What would you like?</span><span class="k">ワット ウッジュー ライク？</span><span class="j">ご注文は？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">What do you want to do in Okinawa?</span><span class="k">ワット ドゥ ユー ウォント トゥ ドゥ イン オキナワ？</span><span class="j">沖縄で何をしたい？</span></div>
+  </div>
+  <p class="group">When</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">When is your birthday?</span><span class="k">ウェン イズ ユア バースデイ？</span><span class="j">誕生日はいつ？</span></div>
+  </div>
+  <p class="group">Where</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Where is the station?</span><span class="k">ウェア イズ ザ ステイション？</span><span class="j">駅はどこですか？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Where do you want to go?</span><span class="k">ウェア ドゥ ユー ウォント トゥ ゴー？</span><span class="j">どこに行きたい？</span></div>
+  </div>
+  <p class="group">Who</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Who is this?</span><span class="k">フー イズ ディス？</span><span class="j">この人はだれ？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Who is your hero?</span><span class="k">フー イズ ユア ヒーロー？</span><span class="j">あなたのヒーローはだれ？</span></div>
+  </div>
+  <p class="group">Why</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Why do you want to go to Kochi?</span><span class="k">ワイ ドゥ ユー ウォント トゥ ゴー トゥ コーチ？</span><span class="j">どうして高知に行きたいの？</span></div>
+  </div>
+  <p class="group">How</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">How are you?</span><span class="k">ハウ アー ユー？</span><span class="j">元気？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">How is the weather today?</span><span class="k">ハウ イズ ザ ウェザー トゥデイ？</span><span class="j">今日の天気は？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">How do you spell your name?</span><span class="k">ハウ ドゥ ユー スペル ユア ネーム？</span><span class="j">名前のつづりは？</span></div>
+  </div>
+  <p class="group">How many / How much</p>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">How many apples?</span><span class="k">ハウ メニー アップルズ？</span><span class="j">りんごはいくつ？</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">How much is it?</span><span class="k">ハウ マッチ イズ イット？</span><span class="j">いくらですか？</span></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2><span class="num">7</span><span>命令文・さそう文</span></h2>
+  <p class="meaning">「〜して」「〜しよう」</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>相手に「〜して」と伝える文を命令文といいます。</p>
+    <p><span class="form"><span class="fl">形</span>主語を省いて、動詞（元の形）から始める</span></p>
+    <ul>
+      <li>道案内で使うと「〜してください」という案内の意味になります。</li>
+      <li>「〜しないで」は <b class="en">Don’t ＋ 動詞</b>（<span class="en">Don’t run.</span> 走らないで）です。</li>
+      <li>「一緒に〜しよう」とさそうときは <b class="en">Let’s ＋ 動詞</b> です。</li>
+    </ul>
+  </div>
+
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk vb"><span class="w">Turn</span><span class="t">動詞</span></span>
+    <span class="chunk place"><span class="w">left.</span><span class="t">方向</span></span>
+    <span class="k">ターン レフト。</span><span class="ja">左に曲がって。（主語がない！）</span>
+  </div>
+  <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
+    <span class="chunk aux"><span class="w">Let’s</span><span class="t">さそう</span></span>
+    <span class="chunk vb"><span class="w">play</span><span class="t">動詞</span></span>
+    <span class="chunk obj"><span class="w">soccer</span><span class="t">目的語</span></span>
+    <span class="chunk punct"><span class="w">together.</span><span class="t">-</span></span>
+    <span class="k">レッツ プレイ サッカー トゥゲザー。</span><span class="ja">一緒にサッカーしよう。</span>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Let’s play soccer together.</span><span class="k">レッツ プレイ サッカー トゥゲザー。</span><span class="j">一緒にサッカーしよう。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Go straight for two blocks.</span><span class="k">ゴー ストレイト フォー トゥー ブロックス。</span><span class="j">2ブロックまっすぐ行ってください。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Turn left.</span><span class="k">ターン レフト。</span><span class="j">左に曲がってください。</span></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2><span class="num">8</span><span>決まった言い方</span></h2>
+  <p class="meaning">あいさつ・あいづちなど</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>ここに並べたのは、文法を考えずに<b>ひとまとまりで覚える</b>表現です。主語や動詞が省かれているものも多く、会話をなめらかにする役割があります。</p>
+    <ul>
+      <li><span class="en">Sounds nice!</span> は、もとは <span class="en">That sounds nice!</span>（それはよさそうに聞こえる）の主語 That が省かれた形です。</li>
+      <li>質問への答えでは、<span class="en">Five apples.</span> のように必要な情報だけを短く言うのが自然です。</li>
+    </ul>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Nice to meet you.</span><span class="k">ナイス トゥ ミーチュー。</span><span class="j">よろしくね。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Sounds nice!</span><span class="k">サウンズ ナイス！</span><span class="j">いいね！</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Happy birthday!</span><span class="k">ハッピー バースデイ！</span><span class="j">誕生日おめでとう！</span></div>
+    <div class="ex qa"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en"><span class="a">Here you are.</span> – <span class="b">Thank you!</span></span><span class="k">ヒア ユー アー。 – サンキュー！</span><span class="j">はい、どうぞ。 – ありがとう！</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Excuse me.</span><span class="k">エクスキューズ ミー。</span><span class="j">すみません。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Good job!</span><span class="k">グッド ジョブ！</span><span class="j">すごいね！</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.5">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.7">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">Five apples. / H-A-N-A. Hana.</span><span class="k">ファイブ アップルズ。／エイチ エー エヌ エー。ハナ。</span><span class="j">5個。／ハナです。</span><span class="note">※質問への短い答え方</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="box">
+    <b>おうちの方へ</b><br>
+    主語・動詞・目的語といった用語は、小学校の授業ではほとんど使いません。お子さんに説明するときは「<b>だれが</b>」「<b>どうする</b>」「<b>何を</b>」と言いかえると伝わりやすいと思います。
+  </div>
+</footer>
+
+
+<script>
+(function(){
+  var synth = window.speechSynthesis;
+  if(!synth || !window.SpeechSynthesisUtterance){
+    document.getElementById('nosupport').style.display='block';
+    return;
+  }
+
+  var voice = null;
+  function pickVoice(){
+    var vs = synth.getVoices();
+    if(!vs.length) return;
+    var prefer = ['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Daniel'];
+    for(var i=0;i<prefer.length;i++){
+      var f = vs.filter(function(v){ return v.name.indexOf(prefer[i])===0 && /^en/i.test(v.lang); });
+      if(f.length){ voice=f[0]; return; }
+    }
+    var us = vs.filter(function(v){ return /^en[-_]US/i.test(v.lang); });
+    var en = vs.filter(function(v){ return /^en/i.test(v.lang); });
+    voice = (us[0] || en[0] || null);
+  }
+  pickVoice();
+  if(typeof synth.onvoiceschanged !== 'undefined'){ synth.onvoiceschanged = pickVoice; }
+
+  function clearPlaying(){
+    document.querySelectorAll('.say.playing').forEach(function(b){ b.classList.remove('playing'); });
+  }
+
+  function textOf(container){
+    var t;
+    var e = container.querySelector('.e');
+    if(e){
+      t = e.textContent;
+    }else{
+      t = Array.prototype.map.call(container.querySelectorAll('.chunk .w'), function(w){ return w.textContent; }).join(' ');
+      t = t.replace(/\s+’/g,'’');
+    }
+    t = t.replace(/\s*–\s*/g,' ').replace(/\s*\/\s*/g,' ').replace(/\s+/g,' ').trim();
+    t = t.replace(/^Hi, I’m Yuto\.$/,'Hi, I am Yuto.');
+    return t;
+  }
+
+  function speak(text, rate, btn){
+    synth.cancel();
+    clearPlaying();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = rate;
+    u.pitch = 1;
+    if(voice) u.voice = voice;
+    u.onstart = function(){ btn.classList.add('playing'); };
+    u.onend = clearPlaying;
+    u.onerror = clearPlaying;
+    btn.classList.add('playing');
+    setTimeout(function(){ synth.speak(u); }, 60);
+  }
+
+  document.querySelectorAll('.say').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(btn.classList.contains('playing')){ synth.cancel(); clearPlaying(); return; }
+      var card = btn.closest('.ex, .tagged');
+      speak(textOf(card), parseFloat(btn.dataset.rate), btn);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
