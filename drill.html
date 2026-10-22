@@ -177,34 +177,46 @@
         ['[It] {is} 800 yen.','（それは）800円です。'],
         ['[It] {is} fun!','（それは）楽しいです！']
       ]},
-    { n:2, title:'一般動詞', sub:'like / want / have など', labels:{A:'主語',B:'動詞'},
-      pools:{A:['I','You','We','They','He','She'], B:['like','want','have','live','play','get up','eat','go','study','practice','do','watch','wash','clean','take','brush','cook','swim','read','walk','help','am','is','are']},
+    { n:2, title:'一般動詞① like / want / have', sub:'好き・ほしい・持っている', labels:{A:'主語',B:'動詞'},
+      pools:{A:['I','You','We','They','He','She'], B:['like','want','have','live','am','is','are','do']},
       items:[
         ['[I] {like} blue.','わたしは青が好きです。'],
         ['[I] {like} soccer.','わたしはサッカーが好きです。'],
+        ['[I] {like} music.','わたしは音楽が好きです。'],
         ['[I] {want} a new bike.','わたしは新しい自転車がほしいです。'],
+        ['[I] {want} a new tablet.','わたしは新しいタブレットがほしいです。'],
         ['[We] {have} a big river and a nice park.','わたしたちは大きな川とすてきな公園を持っています。'],
-        ['[I] {live} in Shimanto.','わたしは四万十に住んでいます。'],
-        ['[I] {play} soccer.','わたしはサッカーをします。'],
+        ['[I] {have} a question.','わたしは質問を持っています。（＝質問があります）'],
+        ['[I] {have} a dog.','わたしは犬を持っています。（＝犬を飼っています）'],
+        ['[I] {live} in Shimanto.','わたしは四万十に住んでいます。']
+      ]},
+    { n:3, title:'一般動詞② 一日の生活（朝・学校）', sub:'起きる・食べる・行く・勉強する', labels:{A:'主語',B:'動詞'},
+      pools:{A:['I','You','We','They','He','She'], B:['get up','brush','eat','go','study','read','practice','play','swim','am','is','are']},
+      items:[
         ['[I] {get up} at 7.','わたしは7時に起きます。'],
         ['[I] {brush} my teeth.','わたしはわたしの歯をみがきます。'],
         ['[I] {eat} breakfast.','わたしは朝ごはんを食べます。'],
         ['[I] {go} to school.','わたしは学校に行きます。'],
         ['[I] {study} math.','わたしは算数を勉強します。'],
+        ['[I] {read} books.','わたしは本を読みます。'],
         ['[I] {practice} soccer every day.','わたしは毎日サッカーを練習します。'],
+        ['[I] {play} soccer.','わたしはサッカーをします。'],
+        ['[I] {swim} in the river.','わたしは川で泳ぎます。']
+      ]},
+    { n:4, title:'一般動詞③ 一日の生活（家でのこと）', sub:'宿題をする・手伝う・おふろに入る', labels:{A:'主語',B:'動詞'},
+      pools:{A:['I','You','We','They','He','She'], B:['do','watch','cook','help','wash','clean','walk','take','go','am','is','are']},
+      items:[
         ['[I] {do} my homework.','わたしはわたしの宿題をします。'],
         ['[I] {watch} TV.','わたしはテレビを見ます。'],
+        ['[I] {cook} dinner.','わたしは夕ごはんを作ります。'],
+        ['[I] {help} my mother.','わたしはわたしのお母さんを手伝います。'],
         ['[We] {wash} the dishes.','わたしたちは皿を洗います。'],
         ['[I] {clean} my room.','わたしはわたしの部屋をそうじします。'],
-        ['[I] {take} a bath.','わたしはおふろに入ります。'],
-        ['[I] {cook} dinner.','わたしは夕ごはんを作ります。'],
-        ['[I] {swim} in the river.','わたしは川で泳ぎます。'],
-        ['[I] {read} books.','わたしは本を読みます。'],
         ['[I] {walk} my dog.','わたしはわたしの犬を散歩させます。'],
-        ['[I] {help} my mother.','わたしはわたしのお母さんを手伝います。'],
+        ['[I] {take} a bath.','わたしはおふろに入ります。'],
         ['[I] usually {go} to bed at 9.','わたしはたいてい9時に寝ます。']
       ]},
-    { n:3, title:'can', sub:'〜できる', labels:{A:'主語',B:'can'},
+    { n:5, title:'can', sub:'〜できる', labels:{A:'主語',B:'can'},
       pools:{A:['I','You','He','She','We','They','It'], B:['can','cannot','am','is','are','do']},
       items:[
         ['[I] {can} swim in the Shimanto River.','わたしは四万十川で泳ぐことができます。'],
@@ -216,21 +228,21 @@
         ['{Can} [you] swim? – Yes, I can.','あなたは泳ぐことができますか？ – はい、わたしはできます。'],
         ['{Can} [you] play the recorder? – No, I cannot.','あなたはリコーダーをふくことができますか？ – いいえ、わたしはできません。']
       ]},
-    { n:4, title:'want to 〜', sub:'〜したい', labels:{A:'主語',B:'動詞'},
+    { n:6, title:'want to 〜', sub:'〜したい', labels:{A:'主語',B:'動詞'},
       pools:{A:['I','You','He','She','We','They'], B:['want to','want','like','can','would like','am']},
       items:[
         ['[I] {want to} go to Hokkaido.','わたしは北海道に行きたいです。'],
         ['[I] {want to} see Kochi Castle.','わたしは高知城を見たいです。'],
         ['[I] {want to} swim in the sea.','わたしは海で泳ぎたいです。']
       ]},
-    { n:5, title:'would like', sub:'ていねいな「ほしい」', labels:{A:'主語',B:'動詞'},
+    { n:7, title:'would like', sub:'ていねいな「ほしい」', labels:{A:'主語',B:'動詞'},
       pools:{A:['I','You','He','She','We'], B:['would like','would','want','like','do','can']},
       items:[
         ['[I] {would like} curry and rice and orange juice.','わたしはカレーライスとオレンジジュースがほしいです。（ていねいな言い方）'],
         ['[I] {would like} katsuo tataki, please.','わたしはかつおのたたきがほしいです、お願いします。'],
         ['{Would} [you] like dessert? – No, thank you.','あなたはデザートがほしいですか？ – いいえ、ありがとう。']
       ]},
-    { n:6, title:'疑問詞① What', sub:'「何」をたずねる', labels:{A:'疑問詞',B:'動詞'},
+    { n:8, title:'疑問詞① What', sub:'「何」をたずねる', labels:{A:'疑問詞',B:'動詞'},
       pools:{A:['What','What color','What sport','When','Where','Who','Why','How','How many','How much'], B:['do','is','are','would','can','am']},
       items:[
         ['[What color] {do} you like?','あなたは何色が好きですか？'],
@@ -240,7 +252,7 @@
         ['[What] {would} you like?','あなたは何がほしいですか？（ていねいな言い方）'],
         ['[What] {do} you want to do in Okinawa?','あなたは沖縄で何をしたいですか？']
       ]},
-    { n:7, title:'疑問詞② When / Where / Who / Why', sub:'いつ・どこ・だれ・なぜ', labels:{A:'疑問詞',B:'動詞'},
+    { n:9, title:'疑問詞② When / Where / Who / Why', sub:'いつ・どこ・だれ・なぜ', labels:{A:'疑問詞',B:'動詞'},
       pools:{A:['What','What color','What sport','When','Where','Who','Why','How','How many','How much'], B:['do','is','are','would','can','am']},
       items:[
         ['[When] {is} your birthday?','あなたの誕生日はいつですか？'],
@@ -250,7 +262,7 @@
         ['[Who] {is} your hero?','あなたのヒーローはだれですか？'],
         ['[Why] {do} you want to go to Kochi?','なぜあなたは高知に行きたいのですか？']
       ]},
-    { n:8, title:'疑問詞③ How', sub:'どのように・いくつ・いくら', labels:{A:'疑問詞',B:'動詞'},
+    { n:10, title:'疑問詞③ How', sub:'どのように・いくつ・いくら', labels:{A:'疑問詞',B:'動詞'},
       pools:{A:['What','What color','What sport','When','Where','Who','Why','How','How many','How much'], B:['do','is','are','would','can','am']},
       items:[
         ['[How] {are} you?','あなたはどんな様子ですか？（＝元気ですか？）'],
@@ -259,14 +271,14 @@
         ['[How many] apples?','いくつのりんご（ですか）？'],
         ['[How much] {is} it?','（それは）いくらですか？']
       ]},
-    { n:9, title:'命令文・さそう文', sub:'Let’s / Go / Turn', labels:{A:'はじめの言葉',B:'つづく言葉'},
+    { n:11, title:'命令文・さそう文', sub:'Let’s / Go / Turn', labels:{A:'はじめの言葉',B:'つづく言葉'},
       pools:{A:['Let’s','Go','Turn','Don’t','Come','Look'], B:['play','straight','left','right','soccer','run']},
       items:[
         ['[Let’s] {play} soccer together.','いっしょにサッカーをしましょう。'],
         ['[Go] {straight} for two blocks.','2ブロックの間、まっすぐ行きなさい。'],
         ['[Turn] {left}.','左に曲がりなさい。']
       ]},
-    { n:10, title:'決まった言い方', sub:'あいさつ・あいづちなど', labels:{A:'言葉',B:'言葉'},
+    { n:12, title:'決まった言い方', sub:'あいさつ・あいづちなど', labels:{A:'言葉',B:'言葉'},
       pools:{A:['Nice','meet','Sounds','Happy','Here','Thank','Excuse','Good','Five','Four','Six','Sorry','Hello'], B:[]},
       items:[
         ['[Nice] to [meet] you.','あなたに会えてうれしいです。（＝はじめまして）'],

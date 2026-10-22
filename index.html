@@ -198,8 +198,8 @@
     section h2{font-size:1.2rem}
     section h2 .num{width:32px;height:32px;font-size:1rem}
     .meaning{margin:0 0 8px 46px}
-    h3{margin:12px 0 6px;font-size:.95rem}
-    .explain{padding:8px 12px;break-inside:avoid}
+    h3{margin:8px 0 4px;font-size:.95rem}
+    .explain{padding:5px 12px;break-inside:avoid}
     .explain li{margin:2px 0}
     .examples{gap:4px}
     .ex,.tagged{break-inside:avoid;page-break-inside:avoid;padding:4px 12px;border-width:1.5px}
@@ -208,10 +208,11 @@
     .ex .e{font-size:1rem;line-height:1.3}
     .ex .k,.tagged .k{font-size:.82rem}
     .ex .j{font-size:.8rem}
-    .ex{gap:0;padding-top:3px;padding-bottom:3px}
+    .ex{gap:0;padding-top:2px;padding-bottom:2px}
     .ex .k,.ex .j{line-height:1.35}
-    .examples{gap:3px}
-    .tagged{padding:8px 12px;margin:4px 0}
+    .examples{gap:2px}
+    .tagged{padding:5px 12px;margin:2px 0}
+    .warn{padding:4px 10px;margin:4px 0}
     .chunk .w{font-size:1.1rem}
     .chunk .t{font-size:.62rem}
     .group{margin:6px 0 2px;font-size:.95rem;break-after:avoid;page-break-after:avoid}
@@ -232,7 +233,7 @@
 
 <header>
   <h1>小5 英語の文法まとめ</h1>
-  <p>10の「文のかたち」をおぼえよう</p>
+  <p>12の「文のかたち」をおぼえよう</p>
   <div class="qrbox">
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASgAAAEoAQAAAADDfFG0AAACDUlEQVR4nO1ZXW/DMAgEq///L98EB7bXNlofpphp0DZxah7QhY8DK+QDGZ8oSWulNBIpDxHlyh1NYT+1B8XaabxSHhMpCTHICNfaabxSHAlVQ0slrwlX7jReU3bPUQg/KgKi90brWv6bFsy57GsLhIcVsKta/pKJTIKkUGDbqWr9uF1LiIsYNK+fVKlq/bhdS1fUKfhEIoG/YP044l/Iha94W/4FtH+9ooo9x/tqErDmX5swAsXEMfJlRCUTvz1VjY5xu5a6XwlBYzPkEAVuzsS6H3riE2Lo4HsguquRuNZ92+NM/6i8xJ0haLDN4lnV+nGmPoIRGQWSlRGLmHV9XJJTGzB/MTD35OUQVn3b44QW3J8coyyKCz/nGZWtP6ClTPLMV/B8z7i0lNbznPd8VTn9cndSg8nhC+wqv+2f5Ze1lFmLfIK1kVOwoLIdj5vQh9SoBJnr/AVtRfG3fWieg41ReAGgm8W3qvXjlH9JpPfnzejBq1o/DmkhpjmeysgsYp7POlDb+tv9S4OoZufNXmiOKupaP47OV8Vl4hRntz2fuDjfBu/0Lo4nchBW9W2Pk+fbOqMyeX22SWWtH2e0lF2PHTwGnyBhtb+bf12jCru4mzEYGaJdH1/mqyGsjzGTYHPU85zL822sk0f2R/S0nn894xUF0rk8p/bI+X3QitLZ9xT/+oPWj9YKqYrEFxPtCiDWUrr5AAAAAElFTkSuQmCC" alt="QRコード" width="96" height="96">
     <div class="qrtext">スマホでこのQRを読むと<br>例文の<b>発音を聞ける</b>ページが開くよ<br><span class="url">https://iwasehiroki00-hue.github.io/grade5-english/</span></div>
@@ -241,15 +242,17 @@
 
 <nav>
   <a href="#s1"><b>1</b>be動詞</a>
-  <a href="#s2"><b>2</b>一般動詞</a>
-  <a href="#s3"><b>3</b>can</a>
-  <a href="#s4"><b>4</b>want to</a>
-  <a href="#s5"><b>5</b>would like</a>
-  <a href="#s6"><b>6</b>疑問詞 What</a>
-  <a href="#s7"><b>7</b>疑問詞 When〜Why</a>
-  <a href="#s8"><b>8</b>疑問詞 How</a>
-  <a href="#s9"><b>9</b>命令文・Let's</a>
-  <a href="#s10"><b>10</b>決まった言い方</a>
+  <a href="#s2"><b>2</b>一般動詞①</a>
+  <a href="#s3"><b>3</b>一般動詞②</a>
+  <a href="#s4"><b>4</b>一般動詞③</a>
+  <a href="#s5"><b>5</b>can</a>
+  <a href="#s6"><b>6</b>want to</a>
+  <a href="#s7"><b>7</b>would like</a>
+  <a href="#s8"><b>8</b>疑問詞 What</a>
+  <a href="#s9"><b>9</b>疑問詞 When〜Why</a>
+  <a href="#s10"><b>10</b>疑問詞 How</a>
+  <a href="#s11"><b>11</b>命令文・Let's</a>
+  <a href="#s12"><b>12</b>決まった言い方</a>
   <a href="drill.html"><b>🎮</b>復習ドリル</a>
 </nav>
 
@@ -317,19 +320,16 @@
 
 <!-- 2 -->
 <section id="s2">
-  <h2><span class="num">2</span><span>一般動詞 <span class="en">（like / want / have など）</span></span></h2>
-  <p class="meaning">「〜が好き」「〜がほしい」「〜がある」「〜する」</p>
+  <h2><span class="num">2</span><span>一般動詞① <span class="en">like / want / have</span></span></h2>
+  <p class="meaning">「〜が好き」「〜がほしい」「〜がある・持っている」「〜に住んでいる」</p>
 
   <h3>解説</h3>
   <div class="explain">
     <p>一般動詞は、be動詞以外の「動作」や「気持ち」を表す動詞です。</p>
     <p><span class="form"><span class="fl">形</span>主語 ＋ 動詞 ＋ 目的語</span><br><small>目的語＝動詞の相手になる言葉</small></p>
     <ul>
-      <li>日本語は「わたしは 青が 好き」と動詞が最後ですが、英語は「わたしは <b>好き</b> 青が」と<b>動詞が主語のすぐ後</b>にきます。</li>
-      <li>一般動詞とbe動詞は一緒に使いません。</li>
-      <li>5年生では主に <b class="en">I・you・we</b> が主語の文を学びます。he・she が主語のとき動詞に s がつく形（likes など）は中学で学びます。</li>
-      <li>6年生では「一日の生活」の動詞も同じ形で使います。<span class="en">get up</span>（起きる）・<span class="en">eat</span>（食べる）・<span class="en">go to</span>（〜に行く）・<span class="en">watch</span>（見る）・<span class="en">study</span>（勉強する）・<span class="en">clean</span>（そうじする）・<span class="en">wash</span>（洗う）・<span class="en">brush</span>（みがく）・<span class="en">do</span>（する）・<span class="en">take</span>（〜に入る）・<span class="en">practice</span>（練習する）・<span class="en">live</span>（住んでいる）・<span class="en">cook</span>（料理する）・<span class="en">swim</span>（泳ぐ）・<span class="en">read</span>（読む）・<span class="en">walk</span>（歩く・散歩させる）・<span class="en">help</span>（手伝う）</li>
-      <li>「いつも・たいてい・ときどき」は<b>動詞の前</b>に置きます。<span class="en">always</span>（いつも）・<span class="en">usually</span>（たいてい）・<span class="en">sometimes</span>（ときどき）・<span class="en">never</span>（一度も〜ない）</li>
+      <li>英語は「わたしは <b>好き</b> 青が」の順で、<b>動詞が主語のすぐ後</b>にきます（日本語は動詞が最後）。</li>
+      <li>主語は主に <b class="en">I・you・we</b>。he・she が主語のときの形（likes など）は中学で学びます。</li>
     </ul>
     <div class="warn"><span class="x en">I am like blue.</span> → <span class="ok en">I like blue.</span>　am はいらないよ！</div>
   </div>
@@ -341,37 +341,82 @@
     <span class="k">アイ ライク ブルー。</span><span class="ja">わたしは 好き 青が</span>
   </div>
 
+
   <h3>例文</h3>
   <div class="examples">
     <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I like blue.</span><span class="k">アイ ライク ブルー。</span><span class="j">わたしは青が好きです。</span></div>
     <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I like soccer.</span><span class="k">アイ ライク サッカー。</span><span class="j">わたしはサッカーが好きです。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I like music.</span><span class="k">アイ ライク ミュージック。</span><span class="j">わたしは音楽が好きです。</span></div>
     <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I want a new bike.</span><span class="k">アイ ウォント ア ニュー バイク。</span><span class="j">わたしは新しい自転車がほしいです。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I want a new tablet.</span><span class="k">アイ ウォント ア ニュー タブレット。</span><span class="j">わたしは新しいタブレットがほしいです。</span></div>
     <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">We have a big river and a nice park.</span><span class="k">ウィー ハヴ ア ビッグ リヴァー アンド ア ナイス パーク。</span><span class="j">わたしたちは大きな川とすてきな公園を持っています。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I have a question.</span><span class="k">アイ ハヴ ア クエスチョン。</span><span class="j">わたしは質問を持っています。（＝質問があります）</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I have a dog.</span><span class="k">アイ ハヴ ア ドッグ。</span><span class="j">わたしは犬を持っています。（＝犬を飼っています）</span></div>
     <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I live in Shimanto.</span><span class="k">アイ リヴ イン シマント。</span><span class="j">わたしは四万十に住んでいます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I play soccer.</span><span class="k">アイ プレイ サッカー。</span><span class="j">わたしはサッカーをします。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I get up at 7.</span><span class="k">アイ ゲット アップ アット セブン。</span><span class="j">わたしは7時に起きます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I brush my teeth.</span><span class="k">アイ ブラッシュ マイ ティース。</span><span class="j">わたしはわたしの歯をみがきます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I eat breakfast.</span><span class="k">アイ イート ブレックファスト。</span><span class="j">わたしは朝ごはんを食べます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I go to school.</span><span class="k">アイ ゴー トゥ スクール。</span><span class="j">わたしは学校に行きます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I study math.</span><span class="k">アイ スタディ マス。</span><span class="j">わたしは算数を勉強します。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I practice soccer every day.</span><span class="k">アイ プラクティス サッカー エヴリ デイ。</span><span class="j">わたしは毎日サッカーを練習します。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I do my homework.</span><span class="k">アイ ドゥー マイ ホームワーク。</span><span class="j">わたしはわたしの宿題をします。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I watch TV.</span><span class="k">アイ ウォッチ ティーヴィー。</span><span class="j">わたしはテレビを見ます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">We wash the dishes.</span><span class="k">ウィー ウォッシュ ザ ディッシィズ。</span><span class="j">わたしたちは皿を洗います。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I clean my room.</span><span class="k">アイ クリーン マイ ルーム。</span><span class="j">わたしはわたしの部屋をそうじします。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I take a bath.</span><span class="k">アイ テイク ア バス。</span><span class="j">わたしはおふろに入ります。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I cook dinner.</span><span class="k">アイ クック ディナー。</span><span class="j">わたしは夕ごはんを作ります。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I swim in the river.</span><span class="k">アイ スウィム イン ザ リヴァー。</span><span class="j">わたしは川で泳ぎます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I read books.</span><span class="k">アイ リード ブックス。</span><span class="j">わたしは本を読みます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I walk my dog.</span><span class="k">アイ ウォーク マイ ドッグ。</span><span class="j">わたしはわたしの犬を散歩させます。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I help my mother.</span><span class="k">アイ ヘルプ マイ マザー。</span><span class="j">わたしはわたしのお母さんを手伝います。</span></div>
-    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I usually go to bed at 9.</span><span class="k">アイ ユージュアリー ゴー トゥ ベッド アット ナイン。</span><span class="j">わたしはたいてい9時に寝ます。</span></div>
   </div>
 </section>
 
 <!-- 3 -->
 <section id="s3">
-  <h2><span class="num">3</span><span><span class="en">can</span></span></h2>
+  <h2><span class="num">3</span><span>一般動詞② <span class="en">一日の生活（朝・学校）</span></span></h2>
+  <p class="meaning">「〜する」（起きる・食べる・行く・勉強する など）</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>6年生で習う「一日の生活」の動詞も、単元2と同じ <b>主語 ＋ 動詞 ＋ 目的語</b> の形で使います。</p>
+    <ul>
+      <li><span class="en">get up</span>（起きる）・<span class="en">brush</span>（みがく）・<span class="en">eat</span>（食べる）・<span class="en">go to</span>（〜に行く）・<span class="en">study</span>（勉強する）・<span class="en">read</span>（読む）・<span class="en">practice</span>（練習する）・<span class="en">play</span>（する・遊ぶ）・<span class="en">swim</span>（泳ぐ）</li>
+      <li>「7時に」「毎日」のような時間を表す言葉は、<b>文の最後</b>に置きます（<span class="en">I get up at 7.</span> / <span class="en">every day</span>）。</li>
+      <li><span class="en">go to school</span>（学校に行く）のように、<span class="en">go</span> の後ろには <span class="en">to</span> ＋ 場所 がきます。</li>
+    </ul>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I get up at 7.</span><span class="k">アイ ゲット アップ アット セブン。</span><span class="j">わたしは7時に起きます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I brush my teeth.</span><span class="k">アイ ブラッシュ マイ ティース。</span><span class="j">わたしはわたしの歯をみがきます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I eat breakfast.</span><span class="k">アイ イート ブレックファスト。</span><span class="j">わたしは朝ごはんを食べます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I go to school.</span><span class="k">アイ ゴー トゥ スクール。</span><span class="j">わたしは学校に行きます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I study math.</span><span class="k">アイ スタディ マス。</span><span class="j">わたしは算数を勉強します。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I read books.</span><span class="k">アイ リード ブックス。</span><span class="j">わたしは本を読みます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I practice soccer every day.</span><span class="k">アイ プラクティス サッカー エヴリ デイ。</span><span class="j">わたしは毎日サッカーを練習します。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I play soccer.</span><span class="k">アイ プレイ サッカー。</span><span class="j">わたしはサッカーをします。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I swim in the river.</span><span class="k">アイ スウィム イン ザ リヴァー。</span><span class="j">わたしは川で泳ぎます。</span></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2><span class="num">4</span><span>一般動詞③ <span class="en">一日の生活（家でのこと）</span></span></h2>
+  <p class="meaning">「〜する」（宿題をする・手伝う・おふろに入る など）</p>
+
+  <h3>解説</h3>
+  <div class="explain">
+    <p>家でのことを表す動詞です。形は単元2・3と同じです。</p>
+    <ul>
+      <li><span class="en">do</span>（する）・<span class="en">watch</span>（見る）・<span class="en">cook</span>（料理する）・<span class="en">help</span>（手伝う）・<span class="en">wash</span>（洗う）・<span class="en">clean</span>（そうじする）・<span class="en">walk</span>（歩く・散歩させる）・<span class="en">take a bath</span>（おふろに入る）・<span class="en">go to bed</span>（寝る）</li>
+      <li>「いつも・たいてい・ときどき」は<b>動詞の前</b>に置きます。<span class="en">always</span>（いつも）・<span class="en">usually</span>（たいてい）・<span class="en">sometimes</span>（ときどき）・<span class="en">never</span>（一度も〜ない）</li>
+      <li><span class="en">my</span>（わたしの）は日本語では言わないことが多いですが、英語では <span class="en">my homework</span>・<span class="en">my room</span> のようにつけます。</li>
+    </ul>
+  </div>
+
+  <h3>例文</h3>
+  <div class="examples">
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I do my homework.</span><span class="k">アイ ドゥー マイ ホームワーク。</span><span class="j">わたしはわたしの宿題をします。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I watch TV.</span><span class="k">アイ ウォッチ ティーヴィー。</span><span class="j">わたしはテレビを見ます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I cook dinner.</span><span class="k">アイ クック ディナー。</span><span class="j">わたしは夕ごはんを作ります。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I help my mother.</span><span class="k">アイ ヘルプ マイ マザー。</span><span class="j">わたしはわたしのお母さんを手伝います。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">We wash the dishes.</span><span class="k">ウィー ウォッシュ ザ ディッシィズ。</span><span class="j">わたしたちは皿を洗います。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I clean my room.</span><span class="k">アイ クリーン マイ ルーム。</span><span class="j">わたしはわたしの部屋をそうじします。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I walk my dog.</span><span class="k">アイ ウォーク マイ ドッグ。</span><span class="j">わたしはわたしの犬を散歩させます。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I take a bath.</span><span class="k">アイ テイク ア バス。</span><span class="j">わたしはおふろに入ります。</span></div>
+    <div class="ex"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div><span class="e en">I usually go to bed at 9.</span><span class="k">アイ ユージュアリー ゴー トゥ ベッド アット ナイン。</span><span class="j">わたしはたいてい9時に寝ます。</span></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2><span class="num">5</span><span><span class="en">can</span></span></h2>
   <p class="meaning">「〜できる」「〜できない」</p>
 
   <h3>解説</h3>
@@ -407,9 +452,9 @@
   </div>
 </section>
 
-<!-- 4 -->
-<section id="s4">
-  <h2><span class="num">4</span><span><span class="en">want to 〜</span></span></h2>
+<!-- 6 -->
+<section id="s6">
+  <h2><span class="num">6</span><span><span class="en">want to 〜</span></span></h2>
   <p class="meaning">「〜したい」</p>
 
   <h3>解説</h3>
@@ -437,9 +482,9 @@
   </div>
 </section>
 
-<!-- 5 -->
-<section id="s5">
-  <h2><span class="num">5</span><span><span class="en">would like / I’d like</span></span></h2>
+<!-- 7 -->
+<section id="s7">
+  <h2><span class="num">7</span><span><span class="en">would like / I’d like</span></span></h2>
   <p class="meaning">ていねいな言い方「〜をください」「〜はいかがですか」</p>
 
   <h3>解説</h3>
@@ -469,9 +514,9 @@
   </div>
 </section>
 
-<!-- 6 -->
-<section id="s6">
-  <h2><span class="num">6</span><span>疑問詞① <span class="en">What</span></span></h2>
+<!-- 8 -->
+<section id="s8">
+  <h2><span class="num">8</span><span>疑問詞① <span class="en">What</span></span></h2>
   <p class="meaning">「何」をたずねる（疑問詞の基本の形）</p>
 
   <h3>解説</h3>
@@ -485,7 +530,7 @@
     <p><span class="form"><span class="fl">be動詞の文</span>疑問詞 ＋ be動詞 ＋ 主語?</span></p>
     <p><span class="form"><span class="fl">一般動詞の文</span>疑問詞 ＋ do ＋ 主語 ＋ 動詞?</span></p>
     <p>この <b class="en">do</b> は「する」という意味ではなく、<b>質問の文だという合図</b>です。</p>
-    <p><b class="en">When・Where・Who・Why</b> は単元7、<b class="en">How</b> は単元8で練習します。</p>
+    <p><b class="en">When・Where・Who・Why</b> は単元9、<b class="en">How</b> は単元10で練習します。</p>
   </div>
 
   <div class="tagged en"><div class="says"><button class="say vs" type="button" data-rate="0.35">🐢 すごくゆっくり</button><button class="say s" type="button" data-rate="0.55">🚶 ゆっくり</button><button class="say n" type="button" data-rate="1">🔊 ふつう</button></div>
@@ -508,14 +553,14 @@
   </div>
 </section>
 
-<!-- 7 -->
-<section id="s7">
-  <h2><span class="num">7</span><span>疑問詞② <span class="en">When / Where / Who / Why</span></span></h2>
+<!-- 9 -->
+<section id="s9">
+  <h2><span class="num">9</span><span>疑問詞② <span class="en">When / Where / Who / Why</span></span></h2>
   <p class="meaning">「いつ・どこ・だれ・なぜ」をたずねる</p>
 
   <h3>解説</h3>
   <div class="explain">
-    <p>文の形は単元6と同じです（be動詞の文「疑問詞 ＋ be動詞 ＋ 主語?」／一般動詞の文「疑問詞 ＋ <span class="en">do</span> ＋ 主語 ＋ 動詞?」）。</p>
+    <p>文の形は単元8と同じです（be動詞の文「疑問詞 ＋ be動詞 ＋ 主語?」／一般動詞の文「疑問詞 ＋ <span class="en">do</span> ＋ 主語 ＋ 動詞?」）。</p>
     <ul>
       <li><span class="en">Who is this?</span> のように「だれ」をたずねたときは、答えは人（<span class="en">This is Mei.</span>）になります。</li>
     </ul>
@@ -549,9 +594,9 @@
   </div>
 </section>
 
-<!-- 8 -->
-<section id="s8">
-  <h2><span class="num">8</span><span>疑問詞③ <span class="en">How</span></span></h2>
+<!-- 10 -->
+<section id="s10">
+  <h2><span class="num">10</span><span>疑問詞③ <span class="en">How</span></span></h2>
   <p class="meaning">「どのように・いくつ・いくら」をたずねる</p>
 
   <h3>解説</h3>
@@ -583,9 +628,9 @@
   </div>
 </section>
 
-<!-- 9 -->
-<section id="s9">
-  <h2><span class="num">9</span><span>命令文・さそう文</span></h2>
+<!-- 11 -->
+<section id="s11">
+  <h2><span class="num">11</span><span>命令文・さそう文</span></h2>
   <p class="meaning">「〜して」「〜しよう」</p>
 
   <h3>解説</h3>
@@ -620,9 +665,9 @@
   </div>
 </section>
 
-<!-- 10 -->
-<section id="s10">
-  <h2><span class="num">10</span><span>決まった言い方</span></h2>
+<!-- 12 -->
+<section id="s12">
+  <h2><span class="num">12</span><span>決まった言い方</span></h2>
   <p class="meaning">あいさつ・あいづちなど</p>
 
   <h3>解説</h3>
