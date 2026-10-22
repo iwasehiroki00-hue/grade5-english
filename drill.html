@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小5 英語 復習ドリル</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fffaf0; --paper:#fff; --ink:#2b2b2b; --muted:#6b6b6b; --line:#f0e4cc;
+    --accent:#ff8a3d; --accent-soft:#fff1e6;
+    --sub:#3b82f6; --sub-bg:#e3eeff; --vb:#ef4444; --vb-bg:#ffe5e5;
+    --ok:#16a34a; --ok-bg:#e3f7e9; --ng:#ef4444; --ng-bg:#ffe5e5;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink)}
+  body{font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;line-height:1.6;-webkit-tap-highlight-color:transparent}
+  .en,.e{font-family:Nunito,"M PLUS Rounded 1c",sans-serif}
+  header{background:var(--accent);color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  header h1{margin:0;font-size:1.15rem;font-weight:800}
+  header a{color:#fff;text-decoration:none;font-size:.85rem;background:rgba(255,255,255,.22);padding:6px 10px;border-radius:999px;white-space:nowrap}
+  main{max-width:560px;margin:0 auto;padding:16px 16px 48px}
+  .screen{display:none}.screen.on{display:block}
+  .lead{margin:4px 0 14px;font-size:.95rem;color:var(--muted)}
+
+  /* 単元えらび */
+  .units{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .unit{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:12px 12px 10px;text-align:left;cursor:pointer;font:inherit;color:inherit;display:flex;flex-direction:column;gap:4px;min-height:96px;transition:transform .08s}
+  .unit:active{transform:scale(.97)}
+  .unit .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-family:Nunito;font-weight:800;font-size:.95rem}
+  .unit .t{font-weight:800;font-size:1rem;line-height:1.3}
+  .unit .s{font-size:.75rem;color:var(--muted)}
+  .unit .best{font-size:.75rem;color:var(--ok);font-weight:700}
+  .unit .best:empty{display:none}
+
+  /* ドリル */
+  .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .top .u{font-weight:800}
+  .top .u b{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-family:Nunito;font-size:.85rem;margin-right:6px}
+  .top .p{font-family:Nunito;font-weight:800;color:var(--muted)}
+  .bar{height:8px;background:#f3e9d6;border-radius:999px;overflow:hidden;margin-bottom:16px}
+  .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+  .card{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:18px 16px}
+  .ja{font-size:1rem;color:var(--ink);margin:0 0 12px;padding:10px 12px;background:var(--accent-soft);border-radius:12px}
+  .ja small{display:block;font-size:.72rem;color:var(--muted);font-weight:700;margin-bottom:2px}
+  .sent{font-family:Nunito,sans-serif;font-size:1.5rem;font-weight:800;line-height:2.2;letter-spacing:.01em}
+  .blank{display:inline-block;min-width:3.2em;padding:0 .4em;margin:0 .1em;border-bottom:3px solid #cbbfa6;text-align:center;color:transparent;border-radius:8px 8px 0 0;vertical-align:bottom;line-height:1.5;transition:background .15s}
+  .blank.cur{border-color:var(--accent);background:var(--accent-soft);animation:blink 1s infinite}
+  .blank.done{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+  .blank .lab{display:block;font-family:"M PLUS Rounded 1c",sans-serif;font-size:.62rem;font-weight:800;color:var(--accent);line-height:1.2;margin-top:2px}
+  .blank.done .lab{color:var(--ok)}
+  @keyframes blink{0%,100%{border-color:var(--accent)}50%{border-color:#ffd2b3}}
+  .ask{margin:14px 0 8px;font-weight:800;font-size:.95rem}
+  .ask span{display:inline-block;background:var(--accent);color:#fff;border-radius:999px;padding:1px 10px;margin-right:6px;font-size:.85rem}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .ch{font-family:Nunito,sans-serif;font-size:1.25rem;font-weight:800;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 8px;min-height:56px;cursor:pointer;color:var(--ink);transition:transform .08s}
+  .ch:active{transform:scale(.96)}
+  .ch.ng{background:var(--ng-bg);border-color:var(--ng);color:var(--ng);animation:shake .35s}
+  .ch.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+  .ch:disabled{cursor:default;opacity:.6}
+  .ch.ok:disabled,.ch.ng:disabled{opacity:1}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  .msg{min-height:1.6em;margin-top:12px;font-weight:800;text-align:center;font-size:1.05rem}
+  .msg.ok{color:var(--ok)}.msg.ng{color:var(--ng)}
+  .after{display:none;margin-top:12px;gap:10px}
+  .after.on{display:flex}
+  .btn{font:inherit;font-weight:800;font-size:1rem;border:0;border-radius:14px;padding:14px 16px;cursor:pointer;flex:1;transition:transform .08s}
+  .btn:active{transform:scale(.97)}
+  .btn.main{background:var(--accent);color:#fff}
+  .btn.sub{background:#fff;border:2px solid var(--line);color:var(--ink)}
+  .btn.say{flex:0 0 auto;background:var(--sub-bg);color:var(--sub);border:2px solid #cfe0ff}
+  .quit{margin-top:18px;text-align:center}
+  .quit button{font:inherit;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.85rem}
+
+  /* 結果 */
+  .result{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:24px 16px;text-align:center}
+  .result .u{font-weight:800;color:var(--muted);font-size:.9rem}
+  .score{font-family:Nunito,sans-serif;font-size:4.2rem;font-weight:800;line-height:1.1;color:var(--accent);margin:6px 0 0}
+  .score small{font-size:1.4rem;font-family:"M PLUS Rounded 1c",sans-serif;color:var(--ink);margin-left:4px}
+  .stars{font-size:2rem;letter-spacing:.1em;margin:4px 0;color:#f5b301}
+  .stars .off{opacity:.25}
+  .cmt{font-weight:800;font-size:1.15rem;margin:6px 0 4px}
+  .detail{font-size:.9rem;color:var(--muted)}
+  .newbest{display:inline-block;background:var(--ok-bg);color:var(--ok);font-weight:800;border-radius:999px;padding:2px 12px;font-size:.85rem;margin-top:6px}
+  .acts{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .acts .btn{font-size:1.05rem;padding:16px}
+  .miss{margin-top:18px;text-align:left;font-size:.9rem}
+  .miss h3{font-size:.9rem;margin:0 0 6px;color:var(--muted)}
+  .miss ul{margin:0;padding-left:18px}
+  .miss li{font-family:Nunito,sans-serif;font-weight:700;margin:2px 0}
+  .miss li small{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:400;color:var(--muted);margin-left:6px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎮 小5 英語 復習ドリル</h1>
+  <a href="index.html">📖 文法まとめへ</a>
+</header>
+
+<main>
+
+<!-- 単元えらび -->
+<section id="sel" class="screen on">
+  <p class="lead">単元をえらんでスタート！ 英文の <b>主語</b> と <b>動詞</b> をあてよう。全部おわると100点満点で点数が出るよ。</p>
+  <div class="units" id="units"></div>
+</section>
+
+<!-- ドリル -->
+<section id="drill" class="screen">
+  <div class="top"><div class="u" id="dUnit"></div><div class="p" id="dProg"></div></div>
+  <div class="bar"><i id="dBar"></i></div>
+  <div class="card">
+    <p class="ja" id="dJa"></p>
+    <div class="sent" id="dSent"></div>
+    <div class="ask" id="dAsk"></div>
+    <div class="choices" id="dChoices"></div>
+    <div class="msg" id="dMsg"></div>
+    <div class="after" id="dAfter">
+      <button class="btn say" id="dSay" type="button">🔊</button>
+      <button class="btn main" id="dNext" type="button">つぎへ ▶</button>
+    </div>
+  </div>
+  <div class="quit"><button type="button" id="dQuit">やめて単元えらびにもどる</button></div>
+</section>
+
+<!-- 結果 -->
+<section id="res" class="screen">
+  <div class="result">
+    <div class="u" id="rUnit"></div>
+    <div class="score"><span id="rScore">0</span><small>点</small></div>
+    <div class="stars" id="rStars"></div>
+    <div class="cmt" id="rCmt"></div>
+    <div class="detail" id="rDetail"></div>
+    <div id="rBest"></div>
+    <div class="acts">
+      <button class="btn main" id="rAgain" type="button">🔁 もう一度</button>
+      <button class="btn sub" id="rOther" type="button">📚 ほかの単元にチャレンジ</button>
+    </div>
+    <div class="miss" id="rMiss"></div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  /* ===== データ =====
+     [語] は A の候補から、{語} は B の候補からえらぶ。 */
+  var UNITS = [
+    { n:1, title:'be動詞', sub:'am / is / are', labels:{A:'主語',B:'be動詞'},
+      pools:{A:['I','You','He','She','It','This','We','They','My hero','My birthday'], B:['am','is','are']},
+      items:[
+        ['Hi, [I] {am} Yuto.','こんにちは、わたしはゆうとです。'],
+        ['[I] {am} happy.','わたしはうれしいです。'],
+        ['[I] {am} sleepy.','わたしはねむいです。'],
+        ['[It] {is} rainy.','（天気は）雨ふりです。'],
+        ['[This] {is} my grandfather.','こちらはわたしのおじいさんです。'],
+        ['[He] {is} kind.','彼はやさしいです。'],
+        ['[This] {is} Mei.','こちらはメイです。'],
+        ['[She] {is} my friend.','彼女はわたしの友だちです。'],
+        ['[My hero] {is} my mother.','わたしのヒーローはわたしのお母さんです。'],
+        ['[She] {is} a nurse.','彼女は看護師です。'],
+        ['[She] {is} kind and strong.','彼女はやさしくて強いです。'],
+        ['[My hero] {is} Ohtani Shohei.','わたしのヒーローは大谷翔平です。'],
+        ['[He] {is} a baseball player.','彼は野球選手です。'],
+        ['[My birthday] {is} October 14th.','わたしの誕生日は10月14日です。'],
+        ['[It] {is} 800 yen.','（それは）800円です。'],
+        ['[It] {is} fun!','（それは）楽しいです！']
+      ]},
+    { n:2, title:'一般動詞', sub:'like / want / have', labels:{A:'主語',B:'動詞'},
+      pools:{A:['I','You','We','They','He','She'], B:['like','want','have','am','is','are']},
+      items:[
+        ['[I] {like} blue.','わたしは青が好きです。'],
+        ['[I] {like} soccer.','わたしはサッカーが好きです。'],
+        ['[I] {want} a new bike.','わたしは新しい自転車がほしいです。'],
+        ['[We] {have} a big river and a nice park.','わたしたちは大きな川とすてきな公園を持っています。']
+      ]},
+    { n:3, title:'can', sub:'〜できる', labels:{A:'主語',B:'can'},
+      pools:{A:['I','You','He','She','We','They','It'], B:['can','cannot','am','is','are','do']},
+      items:[
+        ['[I] {can} swim in the Shimanto River.','わたしは四万十川で泳ぐことができます。'],
+        ['I can run fast, but [I] {cannot} cook.','わたしは速く走ることができます、しかし、わたしは料理することができません。'],
+        ['[You] {can} sing well, too!','あなたも上手に歌うことができます！'],
+        ['[He] {can} fish well.','彼は上手に魚つりをすることができます。'],
+        ['[She] {can} jump high.','彼女は高くとぶことができます。'],
+        ['[You] {can} see it on your right.','あなたはそれをあなたの右側に見ることができます。'],
+        ['{Can} [you] swim? – Yes, I can.','あなたは泳ぐことができますか？ – はい、わたしはできます。'],
+        ['{Can} [you] play the recorder? – No, I cannot.','あなたはリコーダーをふくことができますか？ – いいえ、わたしはできません。']
+      ]},
+    { n:4, title:'want to 〜', sub:'〜したい', labels:{A:'主語',B:'動詞'},
+      pools:{A:['I','You','He','She','We','They'], B:['want to','want','like','can','would like','am']},
+      items:[
+        ['[I] {want to} go to Hokkaido.','わたしは北海道に行きたいです。'],
+        ['[I] {want to} see Kochi Castle.','わたしは高知城を見たいです。'],
+        ['[I] {want to} swim in the sea.','わたしは海で泳ぎたいです。']
+      ]},
+    { n:5, title:'would like', sub:'ていねいな「ほしい」', labels:{A:'主語',B:'動詞'},
+      pools:{A:['I','You','He','She','We'], B:['would like','would','want','like','do','can']},
+      items:[
+        ['[I] {would like} curry and rice and orange juice.','わたしはカレーライスとオレンジジュースがほしいです。（ていねいな言い方）'],
+        ['[I] {would like} katsuo tataki, please.','わたしはかつおのたたきがほしいです、お願いします。'],
+        ['{Would} [you] like dessert? – No, thank you.','あなたはデザートがほしいですか？ – いいえ、ありがとう。']
+      ]},
+    { n:6, title:'疑問詞', sub:'What / When / Where / Who / Why / How', labels:{A:'疑問詞',B:'動詞'},
+      pools:{A:['What','What color','What sport','When','Where','Who','Why','How','How many','How much'], B:['do','is','are','would','can','am']},
+      items:[
+        ['[What color] {do} you like?','あなたは何色が好きですか？'],
+        ['[What sport] {do} you like?','あなたは何のスポーツが好きですか？'],
+        ['[What] {do} you want for your birthday?','あなたはあなたの誕生日に何がほしいですか？'],
+        ['[What] {do} you have in your town?','あなたはあなたの町に何を持っていますか？'],
+        ['[What] {would} you like?','あなたは何がほしいですか？（ていねいな言い方）'],
+        ['[What] {do} you want to do in Okinawa?','あなたは沖縄で何をしたいですか？'],
+        ['[When] {is} your birthday?','あなたの誕生日はいつですか？'],
+        ['[Where] {is} the station?','駅はどこにありますか？'],
+        ['[Where] {do} you want to go?','あなたはどこに行きたいですか？'],
+        ['[Who] {is} this?','こちらはだれですか？'],
+        ['[Who] {is} your hero?','あなたのヒーローはだれですか？'],
+        ['[Why] {do} you want to go to Kochi?','なぜあなたは高知に行きたいのですか？'],
+        ['[How] {are} you?','あなたはどんな様子ですか？（＝元気ですか？）'],
+        ['[How] {is} the weather today?','今日の天気はどのようですか？'],
+        ['[How] {do} you spell your name?','あなたはあなたの名前をどのようにつづりますか？'],
+        ['[How many] apples?','いくつのりんご（ですか）？'],
+        ['[How much] {is} it?','（それは）いくらですか？']
+      ]},
+    { n:7, title:'命令文・さそう文', sub:'Let’s / Go / Turn', labels:{A:'はじめの言葉',B:'つづく言葉'},
+      pools:{A:['Let’s','Go','Turn','Don’t','Come','Look'], B:['play','straight','left','right','soccer','run']},
+      items:[
+        ['[Let’s] {play} soccer together.','いっしょにサッカーをしましょう。'],
+        ['[Go] {straight} for two blocks.','2ブロックの間、まっすぐ行きなさい。'],
+        ['[Turn] {left}.','左に曲がりなさい。']
+      ]},
+    { n:8, title:'決まった言い方', sub:'あいさつ・あいづちなど', labels:{A:'言葉',B:'言葉'},
+      pools:{A:['Nice','meet','Sounds','Happy','Here','Thank','Excuse','Good','Five','Four','Six','Sorry','Hello'], B:[]},
+      items:[
+        ['[Nice] to [meet] you.','あなたに会えてうれしいです。（＝はじめまして）'],
+        ['[Sounds] nice!','すてきに聞こえます！（＝いいね）'],
+        ['[Happy] birthday!','幸せな誕生日を！（＝誕生日おめでとう）'],
+        ['[Here] you are. – [Thank] you!','ここにあなたの物があります（＝はい、どうぞ）。 – ありがとう！'],
+        ['[Excuse] me.','わたしを許してください。（＝すみません）'],
+        ['[Good] job!','よい仕事です！（＝よくできました）'],
+        ['[Five] apples.','5個のりんご。']
+      ]}
+  ];
+
+  /* ===== ユーティリティ ===== */
+  function $(id){ return document.getElementById(id); }
+  function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+  function parse(s){
+    var parts=[], re=/\[([^\]]+)\]|\{([^}]+)\}/g, m, last=0;
+    while((m=re.exec(s))){
+      if(m.index>last) parts.push({t:s.slice(last,m.index)});
+      parts.push({blank:true, ans:m[1]||m[2], pool:m[1]?'A':'B'});
+      last=re.lastIndex;
+    }
+    if(last<s.length) parts.push({t:s.slice(last)});
+    return parts;
+  }
+  function plain(s){ return s.replace(/[\[\]{}]/g,''); }
+  function matchCase(word, like){
+    if(word==='I') return word;
+    var up = like.charAt(0)===like.charAt(0).toUpperCase() && like.charAt(0)!==like.charAt(0).toLowerCase();
+    return up ? word.charAt(0).toUpperCase()+word.slice(1) : word.charAt(0).toLowerCase()+word.slice(1);
+  }
+  function makeChoices(unit, blank){
+    var pool = unit.pools[blank.pool]; if(!pool || !pool.length) pool = unit.pools.A;
+    var others = pool.filter(function(w){ return w.toLowerCase()!==blank.ans.toLowerCase(); });
+    var picked = shuffle(others).slice(0,3).map(function(w){ return matchCase(w, blank.ans); });
+    return shuffle([blank.ans].concat(picked));
+  }
+  function bestKey(n){ return 'g5drill_best_u'+n; }
+  function getBest(n){ try{ var v=localStorage.getItem(bestKey(n)); return v===null?null:parseInt(v,10); }catch(e){ return null; } }
+  function setBest(n,v){ try{ localStorage.setItem(bestKey(n), String(v)); }catch(e){} }
+  function show(id){ ['sel','drill','res'].forEach(function(s){ $(s).classList.toggle('on', s===id); }); window.scrollTo(0,0); }
+
+  /* ===== 音 ===== */
+  var AC = null;
+  function tone(freqs, dur, type){
+    try{
+      AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+      var t0 = AC.currentTime;
+      freqs.forEach(function(f,i){
+        var o=AC.createOscillator(), g=AC.createGain();
+        o.type=type||'sine'; o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,t0+i*dur); g.gain.exponentialRampToValueAtTime(0.25,t0+i*dur+0.01); g.gain.exponentialRampToValueAtTime(0.0001,t0+(i+1)*dur);
+        o.connect(g); g.connect(AC.destination); o.start(t0+i*dur); o.stop(t0+(i+1)*dur+0.02);
+      });
+    }catch(e){}
+  }
+  function sndOk(){ tone([660,880],0.12); }
+  function sndNg(){ tone([200],0.25,'square'); }
+  function sndDone(){ tone([523,659,784,1047],0.13); }
+
+  var synth = window.speechSynthesis, voice=null;
+  function pickVoice(){
+    if(!synth) return;
+    var vs = synth.getVoices(); if(!vs.length) return;
+    var prefer = ['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Daniel'];
+    for(var i=0;i<prefer.length;i++){
+      var f = vs.filter(function(v){ return v.name.indexOf(prefer[i])===0 && /^en/i.test(v.lang); });
+      if(f.length){ voice=f[0]; return; }
+    }
+    var us = vs.filter(function(v){ return /^en[-_]US/i.test(v.lang); });
+    var en = vs.filter(function(v){ return /^en/i.test(v.lang); });
+    voice = us[0]||en[0]||null;
+  }
+  if(synth){ pickVoice(); if(typeof synth.onvoiceschanged!=='undefined') synth.onvoiceschanged=pickVoice; }
+  function speak(text){
+    if(!synth || !window.SpeechSynthesisUtterance) return;
+    synth.cancel();
+    var u = new SpeechSynthesisUtterance(text.replace(/\s*–\s*/g,' ').replace(/\s+/g,' ').trim());
+    u.lang='en-US'; u.rate=0.8; u.pitch=1; if(voice) u.voice=voice;
+    setTimeout(function(){ synth.speak(u); }, 80);
+  }
+
+  /* ===== 単元えらび ===== */
+  function renderUnits(){
+    var box = $('units'); box.innerHTML='';
+    UNITS.forEach(function(u){
+      var b = document.createElement('button'); b.type='button'; b.className='unit';
+      var best = getBest(u.n);
+      b.innerHTML = '<span class="num">'+u.n+'</span><span class="t">'+u.title+'</span><span class="s">'+u.sub+'・'+u.items.length+'問</span><span class="best">'+(best===null?'':'ベスト '+best+'点')+'</span>';
+      b.addEventListener('click', function(){ start(u); });
+      box.appendChild(b);
+    });
+  }
+
+  /* ===== ドリル本体 ===== */
+  var G = null; // 進行中の状態
+  function start(unit){
+    G = { unit:unit, order:shuffle(unit.items), i:0, miss:[], missTotal:0, cur:null };
+    $('dUnit').innerHTML = '<b>'+unit.n+'</b>'+unit.title;
+    show('drill');
+    nextItem();
+  }
+  function nextItem(){
+    var it = G.order[G.i];
+    G.cur = { parts:parse(it[0]), full:plain(it[0]), ja:it[1], bi:0, m:0 };
+    G.cur.blanks = G.cur.parts.filter(function(p){ return p.blank; });
+    $('dProg').textContent = (G.i+1)+' / '+G.order.length;
+    $('dBar').style.width = (G.i/G.order.length*100)+'%';
+    $('dJa').innerHTML = '<small>日本語</small>'+G.cur.ja;
+    $('dMsg').textContent=''; $('dMsg').className='msg';
+    $('dAfter').classList.remove('on');
+    renderSentence();
+    renderChoices();
+  }
+  function renderSentence(){
+    var el = $('dSent'); el.innerHTML='';
+    var bi=0;
+    G.cur.parts.forEach(function(p){
+      if(!p.blank){ el.appendChild(document.createTextNode(p.t)); return; }
+      var s = document.createElement('span'); s.className='blank';
+      var idx = bi++;
+      if(idx<G.cur.bi){ s.classList.add('done'); s.textContent=p.ans; }
+      else { s.textContent=p.ans; if(idx===G.cur.bi) s.classList.add('cur'); }
+      var lab=document.createElement('span'); lab.className='lab'; lab.textContent=G.unit.labels[p.pool]||''; s.appendChild(lab);
+      el.appendChild(s);
+    });
+  }
+  function renderChoices(){
+    var box=$('dChoices'); box.innerHTML='';
+    var blank = G.cur.blanks[G.cur.bi];
+    if(!blank){ $('dAsk').innerHTML=''; return; }
+    var no = G.cur.bi+1;
+    $('dAsk').innerHTML = '<span>'+(G.cur.blanks.length>1?no+'つ目':'')+'</span>'+(G.unit.labels[blank.pool]||'言葉')+' をえらぼう';
+    makeChoices(G.unit, blank).forEach(function(w){
+      var b=document.createElement('button'); b.type='button'; b.className='ch'; b.textContent=w;
+      b.addEventListener('click', function(){ answer(b, w, blank); });
+      box.appendChild(b);
+    });
+  }
+  function answer(btn, w, blank){
+    if(w===blank.ans){
+      btn.classList.add('ok'); sndOk();
+      Array.prototype.forEach.call($('dChoices').children, function(c){ c.disabled=true; });
+      G.cur.bi++;
+      setTimeout(function(){
+        renderSentence();
+        if(G.cur.bi>=G.cur.blanks.length){ itemDone(); }
+        else { renderChoices(); }
+      }, 350);
+    }else{
+      btn.classList.add('ng'); btn.disabled=true; sndNg();
+      G.cur.m++;
+      $('dMsg').textContent = 'ちがうよ。もう一度えらんでみよう'; $('dMsg').className='msg ng';
+    }
+  }
+  function itemDone(){
+    var m=G.cur.m;
+    if(m>0){ G.miss.push({en:G.cur.full, m:m}); G.missTotal+=m; }
+    $('dMsg').textContent = m===0 ? '🎉 正解！ 一発クリア！' : '⭕ 正解！（まちがい '+m+'回）';
+    $('dMsg').className='msg ok';
+    $('dChoices').innerHTML=''; $('dAsk').innerHTML='';
+    $('dAfter').classList.add('on');
+    $('dBar').style.width = ((G.i+1)/G.order.length*100)+'%';
+    speak(G.cur.full);
+    $('dNext').textContent = (G.i+1>=G.order.length) ? '点数を見る ▶' : 'つぎへ ▶';
+    $('dNext').focus();
+  }
+  $('dSay').addEventListener('click', function(){ if(G&&G.cur) speak(G.cur.full); });
+  $('dNext').addEventListener('click', function(){
+    G.i++;
+    if(G.i>=G.order.length) finish(); else nextItem();
+  });
+  $('dQuit').addEventListener('click', function(){ if(synth) synth.cancel(); G=null; renderUnits(); show('sel'); });
+
+  /* ===== 結果 ===== */
+  function finish(){
+    var N=G.order.length, per=100/N, total=0;
+    var missMap={}; G.miss.forEach(function(x){ missMap[x.en]=x.m; });
+    G.order.forEach(function(it){
+      var m = missMap[plain(it[0])]||0;
+      total += per*Math.max(0, 1-0.5*m);
+    });
+    var score = Math.round(total);
+    var u=G.unit;
+    $('rUnit').textContent = '単元'+u.n+'　'+u.title;
+    $('rScore').textContent = score;
+    var stars = score===100?3 : score>=70?2 : score>=40?1 : 0;
+    $('rStars').innerHTML = [1,2,3].map(function(k){ return '<span class="'+(k<=stars?'':'off')+'">★</span>'; }).join('');
+    $('rCmt').textContent = score===100 ? 'パーフェクト！すごい！' : score>=80 ? 'とてもよくできました！' : score>=60 ? 'いいかんじ！もう少し！' : 'もう一度チャレンジしてみよう！';
+    $('rDetail').textContent = N+'問中 一発クリア '+(N-G.miss.length)+'問・まちがい合計 '+G.missTotal+'回';
+    var best=getBest(u.n);
+    if(best===null || score>best){ setBest(u.n, score); $('rBest').innerHTML = best===null ? '' : '<span class="newbest">🏆 ベスト記録更新！（前回 '+best+'点）</span>'; }
+    else { $('rBest').innerHTML = '<span class="detail">ベスト記録 '+best+'点</span>'; }
+    var miss=$('rMiss');
+    if(G.miss.length){
+      miss.innerHTML = '<h3>まちがえた文（おさらいしよう）</h3><ul>'+G.miss.map(function(x){ return '<li>'+x.en+'<small>まちがい '+x.m+'回</small></li>'; }).join('')+'</ul>';
+    } else miss.innerHTML='';
+    show('res');
+    sndDone();
+  }
+  $('rAgain').addEventListener('click', function(){ start(G.unit); });
+  $('rOther').addEventListener('click', function(){ G=null; renderUnits(); show('sel'); });
+
+  renderUnits();
+})();
+</script>
+</body>
+</html>
