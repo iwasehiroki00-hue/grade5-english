@@ -92,6 +92,9 @@
   .miss ul{margin:0;padding-left:18px}
   .miss li{font-family:Nunito,sans-serif;font-weight:700;margin:2px 0}
   .miss li small{font-family:"M PLUS Rounded 1c",sans-serif;font-weight:400;color:var(--muted);margin-left:6px}
+  .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+  .confetti span{position:absolute;top:-40px;animation:fall linear forwards}
+  @keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(540deg);opacity:.8}}
 </style>
 </head>
 <body>
@@ -158,11 +161,13 @@
         ['Hi, [I] {am} Yuto.','こんにちは、わたしはゆうとです。'],
         ['[I] {am} happy.','わたしはうれしいです。'],
         ['[I] {am} sleepy.','わたしはねむいです。'],
+        ['[We] {are} happy.','わたしたちはうれしいです。'],
         ['[It] {is} rainy.','（天気は）雨ふりです。'],
         ['[This] {is} my grandfather.','こちらはわたしのおじいさんです。'],
         ['[He] {is} kind.','彼はやさしいです。'],
         ['[This] {is} Mei.','こちらはメイです。'],
         ['[She] {is} my friend.','彼女はわたしの友だちです。'],
+        ['[You] {are} my friend.','あなたはわたしの友だちです。'],
         ['[My hero] {is} my mother.','わたしのヒーローはわたしのお母さんです。'],
         ['[She] {is} a nurse.','彼女は看護師です。'],
         ['[She] {is} kind and strong.','彼女はやさしくて強いです。'],
@@ -291,14 +296,70 @@
       });
     }catch(e){}
   }
-  function sndOk(){ tone([660,880],0.12); }
-  function sndNg(){ tone([200],0.25,'square'); }
-  function sndDone(){ tone([523,659,784,1047],0.13); }
+  // 1音（周波数の配列なら和音）を鳴らす
+  function note(freqs, at, dur, type, vol){
+    try{
+      AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+      var t0 = AC.currentTime + at;
+      [].concat(freqs).forEach(function(f){
+        var o=AC.createOscillator(), g=AC.createGain();
+        o.type=type||'triangle'; o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,t0);
+        g.gain.exponentialRampToValueAtTime(vol||0.2,t0+0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+        o.connect(g); g.connect(AC.destination); o.start(t0); o.stop(t0+dur+0.03);
+      });
+    }catch(e){}
+  }
+  // 連続再生: [[周波数, 長さ(秒)], ...]  周波数 0 は休符
+  function seq(list, type, vol){
+    var t=0;
+    list.forEach(function(n){ if(n[0]) note(n[0], t, n[1]*0.95, type, vol); t+=n[1]; });
+    return t;
+  }
+  var N={C4:262,D4:294,E4:330,F4:349,G4:392,A4:440,B4:494,C5:523,D5:587,E5:659,F5:698,G5:784,A5:880,B5:988,C6:1047,D6:1175,E6:1319,G6:1568,C7:2093};
+  function sndOk(){ note(N.C6,0,0.14,'sine',0.25); note(N.E6,0.14,0.32,'sine',0.25); }           // ピンポン
+  function sndNg(){ note([150,152],0,0.28,'square',0.045); }                                      // ブー（軽め）
+  function sndResult(stars){
+    if(stars>=3) return;
+    if(stars===2) seq([[N.C5,.13],[N.E5,.13],[N.G5,.13],[N.C6,.13],[[N.C6,N.E6,N.G6],.7]]);
+    else if(stars===1) seq([[N.C5,.16],[N.E5,.16],[N.G5,.45]]);
+    else seq([[N.E4,.3],[N.D4,.3],[N.C4,.6]],'sine',0.15);
+  }
+  function sndPerfect(){
+    // ファンファーレ → かけ上がり → 歓喜のメロディ → 大団円
+    var m=[
+      [N.G4,.14],[N.G4,.14],[N.G4,.14],[[N.C5,N.E5,N.G5],.6],[0,.08],
+      [N.E5,.14],[N.D5,.14],[N.C5,.14],[[N.E5,N.G5,N.C6],.6],[0,.1],
+      [N.C5,.09],[N.D5,.09],[N.E5,.09],[N.F5,.09],[N.G5,.09],[N.A5,.09],[N.B5,.09],[N.C6,.3],[0,.06],
+      [N.G5,.18],[N.E5,.18],[N.C5,.18],[N.G5,.18],[N.C6,.36],[N.E6,.18],[N.D6,.18],[N.C6,.5],[0,.1],
+      [[N.C5,N.E5,N.G5,N.C6],.25],[[N.C5,N.E5,N.G5,N.C6],.25],[[N.C5,N.E5,N.G5,N.C6,N.E6],1.6]
+    ];
+    var len=seq(m,'triangle',0.2);
+    // きらきら（高音のかざり）
+    var t=0.1; while(t<len){ note([N.C7,N.G6][Math.round(t*10)%2],t,0.08,'sine',0.05); t+=0.25; }
+    confetti(len*1000+1500);
+  }
+  function confetti(ms){
+    var box=document.createElement('div'); box.className='confetti';
+    var em=['🎉','✨','⭐','🎊','💮','🌟'];
+    for(var i=0;i<60;i++){
+      var e=document.createElement('span'); e.textContent=em[i%em.length];
+      e.style.left=(Math.random()*100)+'%'; e.style.animationDelay=(Math.random()*2.5)+'s'; e.style.animationDuration=(2.5+Math.random()*2)+'s'; e.style.fontSize=(16+Math.random()*22)+'px';
+      box.appendChild(e);
+    }
+    document.body.appendChild(box);
+    setTimeout(function(){ box.parentNode&&box.parentNode.removeChild(box); }, ms);
+  }
 
-  var synth = window.speechSynthesis, voice=null;
+  var synth = window.speechSynthesis, voice=null, voiceJa=null;
   function pickVoice(){
     if(!synth) return;
     var vs = synth.getVoices(); if(!vs.length) return;
+    var pj = ['Kyoko','O-Ren','Google 日本語','Microsoft Nanami','Microsoft Ayumi','Microsoft Haruka','Microsoft Sayaka'];
+    voiceJa=null;
+    for(var k=0;k<pj.length&&!voiceJa;k++){ var fj=vs.filter(function(v){ return v.name.indexOf(pj[k])===0 && /^ja/i.test(v.lang); }); if(fj.length) voiceJa=fj[0]; }
+    if(!voiceJa){ var ja=vs.filter(function(v){ return /^ja/i.test(v.lang); }); voiceJa=ja[0]||null; }
     var prefer = ['Samantha','Google US English','Microsoft Aria','Microsoft Jenny','Microsoft Zira','Karen','Daniel'];
     for(var i=0;i<prefer.length;i++){
       var f = vs.filter(function(v){ return v.name.indexOf(prefer[i])===0 && /^en/i.test(v.lang); });
@@ -315,6 +376,14 @@
     var u = new SpeechSynthesisUtterance(text.replace(/\s*–\s*/g,' ').replace(/\s+/g,' ').trim());
     u.lang='en-US'; u.rate=0.8; u.pitch=1; if(voice) u.voice=voice;
     setTimeout(function(){ synth.speak(u); }, 80);
+  }
+  function speakJa(text){
+    if(!synth || !window.SpeechSynthesisUtterance) return;
+    synth.cancel();
+    var t = text.replace(/（[^）]*）/g,'').replace(/\s*–\s*/g,'、').replace(/\s+/g,' ').trim();
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang='ja-JP'; u.rate=1; u.pitch=1; if(voiceJa) u.voice=voiceJa;
+    setTimeout(function(){ synth.speak(u); }, 120);
   }
 
   /* ===== 単元えらび ===== */
@@ -348,6 +417,7 @@
     $('dAfter').classList.remove('on');
     renderSentence();
     renderChoices();
+    speakJa(G.cur.ja);
   }
   function renderSentence(){
     var el = $('dSent'); el.innerHTML='';
@@ -438,7 +508,7 @@
       miss.innerHTML = '<h3>まちがえた文（おさらいしよう）</h3><ul>'+G.miss.map(function(x){ return '<li>'+x.en+'<small>まちがい '+x.m+'回</small></li>'; }).join('')+'</ul>';
     } else miss.innerHTML='';
     show('res');
-    sndDone();
+    if(stars>=3) sndPerfect(); else sndResult(stars);
   }
   $('rAgain').addEventListener('click', function(){ start(G.unit); });
   $('rReview').addEventListener('click', function(){ if(G.missItems && G.missItems.length) start(G.unit, G.missItems, true); });
