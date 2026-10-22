@@ -70,6 +70,8 @@
   .btn.main{background:var(--accent);color:#fff}
   .btn.sub{background:#fff;border:2px solid var(--line);color:var(--ink)}
   .btn.say{flex:0 0 auto;background:var(--sub-bg);color:var(--sub);border:2px solid #cfe0ff}
+  .btn.review{background:var(--ok);color:#fff}
+  .btn.review[hidden]{display:none}
   .quit{margin-top:18px;text-align:center}
   .quit button{font:inherit;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.85rem}
 
@@ -135,6 +137,7 @@
     <div class="detail" id="rDetail"></div>
     <div id="rBest"></div>
     <div class="acts">
+      <button class="btn review" id="rReview" type="button">📝 まちがえた文だけおさらい</button>
       <button class="btn main" id="rAgain" type="button">🔁 もう一度</button>
       <button class="btn sub" id="rOther" type="button">📚 ほかの単元にチャレンジ</button>
     </div>
@@ -328,9 +331,9 @@
 
   /* ===== ドリル本体 ===== */
   var G = null; // 進行中の状態
-  function start(unit){
-    G = { unit:unit, order:shuffle(unit.items), i:0, miss:[], missTotal:0, cur:null };
-    $('dUnit').innerHTML = '<b>'+unit.n+'</b>'+unit.title;
+  function start(unit, items, review){
+    G = { unit:unit, order:shuffle(items||unit.items), i:0, miss:[], missTotal:0, cur:null, review:!!review };
+    $('dUnit').innerHTML = '<b>'+unit.n+'</b>'+unit.title+(review?' <small style="color:var(--ok)">おさらい</small>':'');
     show('drill');
     nextItem();
   }
@@ -416,14 +419,19 @@
     });
     var score = Math.round(total);
     var u=G.unit;
-    $('rUnit').textContent = '単元'+u.n+'　'+u.title;
+    $('rUnit').textContent = '単元'+u.n+'　'+u.title+(G.review?'（おさらい）':'');
+    var missItems = G.order.filter(function(it){ return missMap[plain(it[0])]; });
+    G.missItems = missItems;
+    $('rReview').hidden = missItems.length===0;
+    $('rReview').textContent = '📝 まちがえた文だけおさらい（'+missItems.length+'問）';
     $('rScore').textContent = score;
     var stars = score===100?3 : score>=70?2 : score>=40?1 : 0;
     $('rStars').innerHTML = [1,2,3].map(function(k){ return '<span class="'+(k<=stars?'':'off')+'">★</span>'; }).join('');
     $('rCmt').textContent = score===100 ? 'パーフェクト！すごい！' : score>=80 ? 'とてもよくできました！' : score>=60 ? 'いいかんじ！もう少し！' : 'もう一度チャレンジしてみよう！';
     $('rDetail').textContent = N+'問中 一発クリア '+(N-G.miss.length)+'問・まちがい合計 '+G.missTotal+'回';
     var best=getBest(u.n);
-    if(best===null || score>best){ setBest(u.n, score); $('rBest').innerHTML = best===null ? '' : '<span class="newbest">🏆 ベスト記録更新！（前回 '+best+'点）</span>'; }
+    if(G.review){ $('rBest').innerHTML = best===null ? '' : '<span class="detail">ベスト記録 '+best+'点（おさらいでは更新しません）</span>'; }
+    else if(best===null || score>best){ setBest(u.n, score); $('rBest').innerHTML = best===null ? '' : '<span class="newbest">🏆 ベスト記録更新！（前回 '+best+'点）</span>'; }
     else { $('rBest').innerHTML = '<span class="detail">ベスト記録 '+best+'点</span>'; }
     var miss=$('rMiss');
     if(G.miss.length){
@@ -433,6 +441,7 @@
     sndDone();
   }
   $('rAgain').addEventListener('click', function(){ start(G.unit); });
+  $('rReview').addEventListener('click', function(){ if(G.missItems && G.missItems.length) start(G.unit, G.missItems, true); });
   $('rOther').addEventListener('click', function(){ G=null; renderUnits(); show('sel'); });
 
   renderUnits();
