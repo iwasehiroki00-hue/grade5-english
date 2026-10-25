@@ -95,12 +95,100 @@
   .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
   .confetti span{position:absolute;top:-40px;animation:fall linear forwards}
   @keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(540deg);opacity:.8}}
+
+  /* ===== RPG（ゆうしゃとモンスター） ===== */
+  .lvb{display:inline-block;font-family:Nunito,sans-serif;font-weight:800;font-size:.75rem;background:#1b1b3a;color:#ffd60a;border:2px solid #fff;padding:1px 8px;border-radius:6px;white-space:nowrap;vertical-align:middle;margin-left:6px}
+  .status{display:flex;gap:12px;align-items:center;background:#1b1b3a;color:#fff;border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;padding:12px 14px;margin:6px 3px 16px}
+  .hm svg{width:100%;height:100%;display:block;overflow:visible}
+  .status .hm{flex:0 0 auto;width:60px;height:72px}
+  .status .lv{font-weight:800;font-size:1rem;line-height:1.3}
+  .status .lv b{font-family:Nunito,sans-serif;color:#ffd60a;font-size:1.35rem}
+  .status .sm{font-size:.76rem;opacity:.92;line-height:1.5}
+  .xpbar{display:block;height:10px;background:#000;border:2px solid #fff;border-radius:4px;overflow:hidden;margin:4px 0}
+  .xpbar b{display:block;height:100%;background:linear-gradient(90deg,#4895ef,#7fdfff);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+  .zukan{margin:0 3px 16px;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:8px 12px}
+  .zukan summary{font-weight:800;cursor:pointer;font-size:.9rem}
+  .zgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+  .zc{text-align:center;font-size:.68rem;font-weight:700;background:#1b1b3a;color:#fff;border-radius:8px;padding:6px 2px}
+  .zc svg{width:44px;height:44px;display:block;margin:0 auto 2px}
+  .zc.un svg{filter:brightness(0) opacity(.35)}
+  .zc .t{display:block;line-height:1.2}
+  .zc .l{display:block;font-size:.6rem;opacity:.7}
+
+  .scene{position:relative;height:176px;background:radial-gradient(ellipse at 50% 115%,#2a2a5e 0%,#0e0e24 70%);border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;margin:0 3px 14px;overflow:hidden;user-select:none;--d:150px}
+  .scene .ground{position:absolute;left:0;right:0;bottom:30px;height:2px;background:rgba(255,255,255,.15)}
+  .hero{position:absolute;left:10%;bottom:34px;width:64px;height:76px;z-index:2}
+  .hero svg{width:100%;height:100%;animation:bob 1.4s ease-in-out infinite;overflow:visible}
+  .mon{position:absolute;right:10%;bottom:36px;width:92px;height:92px;z-index:1}
+  .mon svg{width:100%;height:100%;animation:bob 1.8s ease-in-out infinite .5s;shape-rendering:crispEdges}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  .hero svg .wpn{transform-box:fill-box;transform-origin:50% 95%}
+  .hero svg .wpn.glow{filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #ffd60a)}
+  .hero.swing svg .wpn{animation:swing .55s ease-in-out}
+  @keyframes swing{0%{transform:rotate(0)}30%{transform:rotate(-55deg)}60%{transform:rotate(100deg)}100%{transform:rotate(0)}}
+  .hero.lunge{animation:lunge .6s ease-in-out}
+  @keyframes lunge{0%{transform:translateX(0)}45%{transform:translateX(var(--d))}100%{transform:translateX(0)}}
+  .hero.step{animation:step .55s ease-in-out}
+  @keyframes step{0%{transform:translateX(0)}50%{transform:translateX(calc(var(--d) * .3))}100%{transform:translateX(0)}}
+  .hero.hurt{animation:hurt .5s}
+  @keyframes hurt{0%,100%{transform:translateX(0);filter:none}20%,60%{transform:translateX(-8px);filter:brightness(.5) sepia(1) saturate(8) hue-rotate(-40deg)}40%,80%{transform:translateX(6px);filter:brightness(2)}}
+  .mon.appear{animation:appear .45s cubic-bezier(.3,1.5,.5,1)}
+  @keyframes appear{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}
+  .mon.hit{animation:mhit .45s}
+  @keyframes mhit{0%,100%{transform:translateX(0);filter:none}15%{transform:translateX(10px);filter:brightness(5)}35%{transform:translateX(-6px);filter:brightness(1)}55%{transform:translateX(5px);filter:brightness(5)}75%{transform:translateX(-3px);filter:brightness(1)}}
+  .mon.die{animation:mdie .75s ease-in forwards}
+  @keyframes mdie{0%{opacity:1;transform:scale(1);filter:brightness(1)}30%{filter:brightness(6)}60%{opacity:.7;transform:scale(1.1,.6) translateY(10px);filter:brightness(1) hue-rotate(90deg)}100%{opacity:0;transform:scale(1.3,.05) translateY(40px)}}
+  .mon.atk{animation:matk .5s ease-in-out}
+  @keyframes matk{0%{transform:translateX(0)}40%{transform:translateX(calc(var(--d) * -1))}100%{transform:translateX(0)}}
+  .scene.shake{animation:shake2 .4s}
+  @keyframes shake2{0%,100%{transform:translate(0,0)}20%{transform:translate(-6px,4px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-4px,-3px)}80%{transform:translate(4px,3px)}}
+  .scene.shake3{animation:shake3 .6s}
+  @keyframes shake3{0%,100%{transform:translate(0,0)}10%{transform:translate(-10px,6px)}20%{transform:translate(10px,-6px)}30%{transform:translate(-8px,-5px)}40%{transform:translate(8px,5px)}50%{transform:translate(-6px,3px)}60%{transform:translate(6px,-3px)}80%{transform:translate(-3px,2px)}}
+  .fx{position:absolute;inset:0;pointer-events:none;z-index:3}
+  .slash{position:absolute;width:110px;height:10px;border-radius:999px;background:linear-gradient(90deg,transparent,#fff 30%,#fff 70%,transparent);box-shadow:0 0 12px #fff;animation:slash .32s ease-out forwards;opacity:0}
+  @keyframes slash{0%{transform:rotate(var(--r)) scaleX(0);opacity:1}60%{transform:rotate(var(--r)) scaleX(1);opacity:1}100%{transform:rotate(var(--r)) scaleX(1.1);opacity:0}}
+  .slash.c2{background:linear-gradient(90deg,transparent,#ffd60a 30%,#fff 70%,transparent);box-shadow:0 0 14px #ffd60a}
+  .slash.c3{background:linear-gradient(90deg,transparent,#7fdfff 30%,#fff 70%,transparent);box-shadow:0 0 16px #7fdfff}
+  .spark{position:absolute;width:8px;height:8px;background:#ffd60a;box-shadow:0 0 6px #fff;animation:spark .55s ease-out forwards}
+  @keyframes spark{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+  .hittxt{position:absolute;font-weight:800;font-size:1.3rem;color:#fff;-webkit-text-stroke:1px #1b1b3a;text-shadow:2px 2px 0 #1b1b3a;animation:hittxt .7s ease-out forwards;white-space:nowrap}
+  @keyframes hittxt{0%{transform:translateY(0) scale(.6);opacity:0}25%{transform:translateY(-10px) scale(1.15);opacity:1}100%{transform:translateY(-36px) scale(1);opacity:0}}
+  .flash{position:absolute;inset:0;background:#fff;animation:flash .35s ease-out forwards;pointer-events:none}
+  .flash.big{position:fixed;z-index:60;background:#fffbe6;animation-duration:.5s}
+  @keyframes flash{0%{opacity:.95}100%{opacity:0}}
+  .bolt{position:absolute;top:0;width:60px;animation:bolt .45s ease-out forwards;filter:drop-shadow(0 0 6px #fff)}
+  @keyframes bolt{0%{opacity:0}10%{opacity:1}40%{opacity:.3}55%{opacity:1}100%{opacity:0}}
+  .bmsg{position:absolute;left:0;right:0;bottom:0;padding:5px 10px;background:rgba(0,0,0,.55);color:#fff;font-size:.82rem;font-weight:700;min-height:28px;line-height:1.4;border-top:2px solid rgba(255,255,255,.4);z-index:4}
+  .hud{position:absolute;left:8px;top:6px;color:#fff;font-size:.72rem;font-weight:800;width:120px;z-index:4}
+  .hud .xpbar{height:7px;margin:2px 0 0}
+  .hud .xpbar b{transition:none}
+  .mname{position:absolute;right:8px;top:6px;color:#fff;font-size:.72rem;font-weight:800;background:rgba(0,0,0,.4);padding:1px 8px;border-radius:4px;z-index:4}
+
+  .xpbox{background:#1b1b3a;color:#fff;border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;padding:12px 14px;margin:16px 3px 4px;text-align:left;display:flex;gap:12px;align-items:center}
+  .xpbox .hm{flex:0 0 auto;width:50px;height:60px}
+  .xpbox .g{font-weight:800}.xpbox .g b{color:#ffd60a;font-family:Nunito,sans-serif;font-size:1.2rem}
+  .xpbox .sm{font-size:.76rem;opacity:.92}
+
+  .lvup{position:fixed;inset:0;background:rgba(0,0,10,.82);z-index:70;display:none;align-items:center;justify-content:center;padding:20px}
+  .lvup.on{display:flex}
+  .lvwin{background:#1b1b3a;color:#fff;border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:8px;padding:22px 20px;max-width:380px;width:100%;text-align:center;animation:appear .5s cubic-bezier(.3,1.5,.5,1) both}
+  .lvwin h2{margin:0 0 6px;font-size:1.6rem;color:#ffd60a;font-weight:800;animation:glow 1s ease-in-out infinite alternate}
+  @keyframes glow{from{text-shadow:2px 2px 0 #7a5a00,0 0 0 #fff}to{text-shadow:2px 2px 0 #7a5a00,0 0 18px #ffd60a}}
+  .lvwin .heroes{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px 0}
+  .lvwin .heroes .hm{width:72px;height:86px}
+  .lvwin .heroes .arrow{font-size:1.6rem;color:#ffd60a}
+  .lvwin .heroes .hm.new{animation:newhero 1s ease-in-out infinite alternate}
+  @keyframes newhero{from{filter:drop-shadow(0 0 2px #fff)}to{filter:drop-shadow(0 0 14px #ffd60a)}}
+  .lvwin p{margin:6px 0;font-weight:700;line-height:1.6}
+  .lvwin .num{color:#ffd60a;font-family:Nunito,sans-serif;font-size:1.5rem}
+  .lvwin .items{color:#7fdfff;font-weight:800}
+  .lvwin .btn{margin-top:14px;width:100%;background:#fff;color:#1b1b3a}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🎮 小5 英語 復習ドリル</h1>
+  <h1>🎮 小5 英語 復習ドリル <span class="lvb" id="hLv">Lv 1</span></h1>
   <a href="index.html">📖 文法まとめへ</a>
 </header>
 
@@ -108,7 +196,18 @@
 
 <!-- 単元えらび -->
 <section id="sel" class="screen on">
-  <p class="lead">単元をえらんでスタート！ 英文の <b>主語</b> と <b>動詞</b> をあてよう。全部おわると100点満点で点数が出るよ。</p>
+  <div class="status">
+    <div class="hm" id="sHero"></div>
+    <div style="flex:1;min-width:0">
+      <div class="lv">Lv <b id="sLv">1</b> ゆうしゃ</div>
+      <span class="xpbar"><b id="sXp"></b></span>
+      <div class="sm" id="sXpTxt"></div>
+      <div class="sm" id="sEq"></div>
+      <div class="sm" id="sKills"></div>
+    </div>
+  </div>
+  <details class="zukan"><summary>📖 モンスターずかん（<span id="zCnt">0 / 20</span>）</summary><div class="zgrid" id="zukan"></div></details>
+  <p class="lead">単元をえらんでスタート！ 英文の <b>主語</b> と <b>動詞</b> をあてると、ゆうしゃが モンスターを こうげき！ 点数が <b>けいけんち</b> になって、200たまるごとに <b>レベルアップ</b>するよ。</p>
   <div class="units" id="units"></div>
 </section>
 
@@ -116,6 +215,15 @@
 <section id="drill" class="screen">
   <div class="top"><div class="u" id="dUnit"></div><div class="p" id="dProg"></div></div>
   <div class="bar"><i id="dBar"></i></div>
+  <div class="scene" id="scene">
+    <div class="hud"><span id="bLv">Lv 1 ゆうしゃ</span><span class="xpbar"><b id="bXp"></b></span></div>
+    <div class="mname" id="mName"></div>
+    <div class="ground"></div>
+    <div class="hero" id="hero"></div>
+    <div class="mon" id="mon"></div>
+    <div class="fx" id="fx"></div>
+    <div class="bmsg" id="bMsg"></div>
+  </div>
   <div class="card">
     <p class="ja" id="dJa"></p>
     <div class="sent" id="dSent"></div>
@@ -139,6 +247,7 @@
     <div class="cmt" id="rCmt"></div>
     <div class="detail" id="rDetail"></div>
     <div id="rBest"></div>
+    <div class="xpbox" id="rXp"></div>
     <div class="acts">
       <button class="btn review" id="rReview" type="button">📝 まちがえた文だけおさらい</button>
       <button class="btn main" id="rAgain" type="button">🔁 もう一度</button>
@@ -149,6 +258,18 @@
 </section>
 
 </main>
+
+<!-- レベルアップ -->
+<div class="lvup" id="lvup">
+  <div class="lvwin">
+    <h2>▼ レベルアップ！</h2>
+    <p>ゆうしゃは レベル <b class="num" id="luLv">2</b> に あがった！</p>
+    <div class="heroes"><div class="hm" id="luOld"></div><div class="arrow">▶</div><div class="hm new" id="luNew"></div></div>
+    <p class="items" id="luItems"></p>
+    <p id="luMax" style="display:none;color:#ffd60a">★ レベル MAX！ でんせつの ゆうしゃだ！ ★</p>
+    <button class="btn" id="luOk" type="button">つづける</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -391,6 +512,512 @@
     setTimeout(function(){ box.parentNode&&box.parentNode.removeChild(box); }, ms);
   }
 
+  /* ===== RPG：ゆうしゃとモンスター =====
+     点数＝けいけんち。200ごとにレベルアップ（最大Lv10）。装備はレベルで決まる。 */
+  var XPL=200, LVMAX=10;
+  var PAL={k:'#1a1a2e',w:'#ffffff',r:'#e63946',R:'#9b1d2a',o:'#f4a261',y:'#ffd60a',g:'#52b788',G:'#2d6a4f',b:'#4895ef',B:'#1d4ed8',p:'#b47aea',P:'#6d28d9',n:'#b08968',N:'#6b4423',s:'#ffd6a5',e:'#c9c9c9',E:'#6b7280',c:'#7fdfff',m:'#ff8fab',t:'#e9c46a'};
+  var MONS=[
+    { id:'slime', name:'スライム', lv:1, art:[
+      '............',
+      '......b.....',
+      '.....bbb....',
+      '....bbbbb...',
+      '...bbbbbbb..',
+      '..bbbbbbbbb.',
+      '..bwbbbbbwb.',
+      '..bkbbbbbkb.',
+      '..bbbbbbbbb.',
+      '..bbkbbbkbb.',
+      '...bbkkkbb..',
+      '....bbbbb...' ] },
+    { id:'bat', name:'おおコウモリ', lv:1, art:[
+      '............',
+      '............',
+      '.P........P.',
+      '.PP......PP.',
+      '.PPP.pp.PPP.',
+      '.PPPPppPPPP.',
+      '..PPPppPPP..',
+      '...PwppwP...',
+      '....pkkp....',
+      '.....pp.....',
+      '....p..p....',
+      '............' ] },
+    { id:'crow', name:'おおガラス', lv:2, flip:true, art:[
+      '............',
+      '....kkkk....',
+      '...kkkkkk...',
+      '...kkkkwkyy.',
+      '...kkkkkky..',
+      '.kkkkkkkk...',
+      'kkkkkkkkk...',
+      '.kkkkkkkk...',
+      '..kkkkkk....',
+      '...kkkkk....',
+      '....y..y....',
+      '...yy..yy...' ] },
+    { id:'ghost', name:'ゴースト', lv:2, art:[
+      '............',
+      '....wwww....',
+      '...wwwwww...',
+      '..wwwwwwww..',
+      '..wbwwwwbw..',
+      '..wBwwwwBw..',
+      '..wwwwwwww..',
+      '..wwwkkwww..',
+      '..wwwwwwww..',
+      '..wwwwwwww..',
+      '..wwwwwwww..',
+      '..ww.ww.ww..' ] },
+    { id:'mage', name:'まどうし', lv:3, art:[
+      '.....P......',
+      '....PPP.....',
+      '....PPP.....',
+      '...PPPPP....',
+      '..PPPPPPP...',
+      '.PPPPPPPPP..',
+      '...sssss....',
+      '...skssksst.',
+      '..PPPPPPP.n.',
+      '..PPtPtPP.n.',
+      '.PPPPPPPPPn.',
+      '.PPPPPPPPP..' ] },
+    { id:'skeleton', name:'がいこつ', lv:3, art:[
+      '....wwww....',
+      '...wwwwww...',
+      '...wkwwkw...',
+      '...wwwwww...',
+      '....wkkw....',
+      '.....ww.....',
+      '...wwwwww...',
+      '..w.wwww.w..',
+      '..w.wwww.w..',
+      '....wwww....',
+      '....w..w....',
+      '...ww..ww...' ] },
+    { id:'scorpion', name:'おおサソリ', lv:4, art:[
+      '..........R.',
+      '.........oR.',
+      '.........o..',
+      '.........o..',
+      '..oo....oo..',
+      '.o..ooooooo.',
+      '.o.oRoooooo.',
+      '..oooooooo..',
+      '...o.oo.o...',
+      '..o..oo..o..',
+      '............',
+      '............' ] },
+    { id:'pslime', name:'どくどくスライム', lv:4, art:[
+      '............',
+      '......g.....',
+      '.....ggg....',
+      '....ggGgg...',
+      '...ggggggg..',
+      '..gGgggggGg.',
+      '..gwgggggwg.',
+      '..gkgggGgkg.',
+      '..ggggggggg.',
+      '..gggkkkggg.',
+      '...gGggggG..',
+      '....ggggg...' ] },
+    { id:'mslime', name:'メタルスライム', lv:5, art:[
+      '............',
+      '......e.....',
+      '.....eew....',
+      '....eeeew...',
+      '...eeeeeee..',
+      '..eeeeeeeee.',
+      '..ewweeewwe.',
+      '..ekkeeekke.',
+      '..eeeeeeeee.',
+      '..eeekkkeee.',
+      '...eeeeeee..',
+      '....eeeee...' ] },
+    { id:'mimic', name:'ミミック', lv:5, art:[
+      '............',
+      '..NNNNNNNN..',
+      '.NnnnnnnnnN.',
+      '.NnknnnnknN.',
+      '.NnnnntnnnN.',
+      '.NNNNNNNNNN.',
+      '.NrrrrrrrrN.',
+      '.NwRwRwRwRN.',
+      '.NRRRRRRRRN.',
+      '.NRwRwRwRwN.',
+      '.NNNNNNNNNN.',
+      '..N......N..' ] },
+    { id:'golem', name:'ゴーレム', lv:6, art:[
+      '..NNNNNNNN..',
+      '.NnnnnnnnnN.',
+      '.NnynnnnynN.',
+      '.NnnnnnnnnN.',
+      'NNNNNNNNNNNN',
+      'NnnNnnnnNnnN',
+      'NnnNnnnnNnnN',
+      'NnnNnnnnNnnN',
+      'NnnNNNNNNnnN',
+      '...NnnnnN...',
+      '...NnnnnN...',
+      '..NNN..NNN..' ] },
+    { id:'lizard', name:'リザードマン', lv:6, flip:true, art:[
+      '.....gg..e..',
+      '....gggg.e..',
+      '....gkggge..',
+      '....ggggGe..',
+      '.....gg.ge..',
+      '...GggggG...',
+      '..GgggggggG.',
+      '..G.ggggg...',
+      '....ggggg...',
+      '....gg.gg...',
+      '....gg.gg...',
+      '...GG..GG...' ] },
+    { id:'chimera', name:'キメラ', lv:7, art:[
+      '.b........b.',
+      '.bb......bb.',
+      '.bbb.....bbb',
+      '.bbbb...bbbb',
+      '.yyy.bbbbbb.',
+      'oykyyyyyyyy.',
+      '.yyyyyyyyyy.',
+      '..yyyyyyyyN.',
+      '..yy.yy.yN..',
+      '..yy.yy.....',
+      '.NN..NN.....',
+      '............' ] },
+    { id:'eye', name:'おおめだま', lv:7, art:[
+      '....pppp....',
+      '..pppppppp..',
+      '.ppwwwwwwpp.',
+      '.pwwwbbwwwp.',
+      'pwwwbkkbwwwp',
+      'pwwwbkkbwwwp',
+      '.pwwwbbwwwp.',
+      '.ppwwwwwwpp.',
+      '..pppppppp..',
+      '...p.pp.p...',
+      '..p..pp..p..',
+      '.p...pp...p.' ] },
+    { id:'knight', name:'よろいのきし', lv:8, flip:true, art:[
+      '....EEEE..e.',
+      '...EEEEEE.e.',
+      '...EErEEr.e.',
+      '...EEEEEE.e.',
+      '..EEEEEEEEe.',
+      '.EEEEEEEEEE.',
+      '.EE.EEEE.EE.',
+      '.EE.EEEE.E..',
+      '....EEEE....',
+      '....EEEE....',
+      '...EE..EE...',
+      '...EE..EE...' ] },
+    { id:'wizard', name:'ようじゅつし', lv:8, art:[
+      '.....RR.....',
+      '....RRRR....',
+      '...RRRRRR...',
+      '..RRRRRRRR..',
+      '...kkkkkk...',
+      '...kwkkwk...',
+      '...kkkkkk...',
+      '..RRRRRRRR.t',
+      '..RRRRRRRR.n',
+      '.RRRRRRRRR.n',
+      '.RRRRRRRRR.n',
+      '.RRRRRRRRR..' ] },
+    { id:'troll', name:'トロル', lv:9, flip:true, art:[
+      '............',
+      '....pppp....',
+      '...pppppp...',
+      '...pkppkp...',
+      '...ppwwpp.NN',
+      '..ppppppppNN',
+      '.ppppppppp.N',
+      '.pp.ppppp.pN',
+      '.pp.ppppp.NN',
+      '....ppppp...',
+      '....pp.pp...',
+      '...pp...pp..' ] },
+    { id:'dragon', name:'ドラゴン', lv:9, flip:true, art:[
+      '.........gg.',
+      '........gggg',
+      '........gkgg',
+      '.RR.....ggg.',
+      '.RRR...ggg..',
+      '.RRRRgggggg.',
+      '..RRgggggggg',
+      '...gggggggg.',
+      '..gGgGgGgg..',
+      '..g.gg.gg...',
+      '.gg.gg.gg...',
+      '............' ] },
+    { id:'ddragon', name:'あんこくドラゴン', lv:10, flip:true, map:{g:'P',G:'k',R:'E',k:'r'}, art:[
+      '.........gg.',
+      '........gggg',
+      '........gkgg',
+      '.RR.....ggg.',
+      '.RRR...ggg..',
+      '.RRRRgggggg.',
+      '..RRgggggggg',
+      '...gggggggg.',
+      '..gGgGgGgg..',
+      '..g.gg.gg...',
+      '.gg.gg.gg...',
+      '............' ] },
+    { id:'maou', name:'まおう', lv:10, art:[
+      '.t...tt...t.',
+      '.tt..tt..tt.',
+      '..P.PPPP.P..',
+      '..PPPPPPPP..',
+      '..PPrPPrPP..',
+      '..PPPPPPPP..',
+      '.RRPPkkPPRR.',
+      'RRRPPPPPPRRR',
+      'RRRPPPPPPRRR',
+      'RRR.PPPP.RRR',
+      'RR..PP.PP.RR',
+      '....PP.PP...' ] }
+  ];
+  function gear(lv){
+    return {
+      weapon: lv>=10?'legend':lv>=8?'steel':lv>=5?'iron':lv>=3?'copper':lv>=2?'stick':null,
+      shield: lv>=10?'dragon':lv>=9?'magic':lv>=7?'steel':lv>=5?'iron':lv>=3?'leather':null,
+      armor:  lv>=10?'gold':lv>=9?'magic':lv>=7?'steel':lv>=6?'chain':lv>=4?'leather':'tshirt',
+      helm:   lv>=10?'king':lv>=9?'wing':lv>=7?'iron':null,
+      cape:   lv>=10?'royal':lv>=8?'red':null
+    };
+  }
+  var GN={
+    weapon:{stick:'ひのきのぼう',copper:'どうのつるぎ',iron:'てつのつるぎ',steel:'はがねのつるぎ',legend:'でんせつのつるぎ'},
+    shield:{leather:'かわのたて',iron:'てつのたて',steel:'はがねのたて',magic:'まほうのたて',dragon:'ドラゴンのたて'},
+    armor:{tshirt:'Tシャツとたんパン',leather:'かわのよろい',chain:'くさりかたびら',steel:'はがねのよろい',magic:'まほうのよろい',gold:'おうごんのよろい'},
+    helm:{iron:'てつのかぶと',wing:'はねかぶと',king:'おうのかぶと'},
+    cape:{red:'ゆうしゃのマント',royal:'おうのマント'}
+  };
+  function heroSvg(lv){
+    var g=gear(lv), s='';
+    function R(x,y,w,h,c){ s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(PAL[c]||c)+'"/>'; }
+    var A=g.armor, S=g.shield, H=g.helm, W=g.weapon, C=g.cape;
+
+    /* マント（体の後ろ） */
+    if(C==='red'){ R(7,17,26,18,'r'); R(7,17,26,2,'R'); R(7,33,26,2,'R'); R(7,19,1,14,'R'); R(32,19,1,14,'R'); }
+    if(C==='royal'){ R(6,17,28,19,'P'); R(6,17,28,2,'t'); R(6,34,28,2,'t'); R(6,19,1,15,'t'); R(33,19,1,15,'t'); }
+
+    /* 頭 */
+    R(14,4,12,5,'N');            // 髪
+    R(13,6,1,4,'N'); R(26,6,1,4,'N'); // もみあげ
+    R(14,8,12,8,'s');            // 顔
+    R(15,9,1,1,'N'); R(19,8,1,1,'N'); R(23,9,1,1,'N'); // 前髪のギザ
+    R(17,11,2,2,'k'); R(21,11,2,2,'k'); // 目
+    R(19,14,2,1,'R');            // 口
+    R(18,16,4,2,'s');            // 首
+
+    /* 腕（肌） */
+    R(9,18,4,9,'s'); R(27,18,4,9,'s');
+
+    /* 胴・袖・ズボン */
+    if(A==='tshirt'){
+      R(13,18,14,10,'w'); R(9,18,4,3,'w'); R(27,18,4,3,'w');
+      R(19,21,2,3,'r'); R(18,22,4,1,'r');           // 胸の赤いマーク
+      R(13,28,14,6,'B');                             // 紺の短パン
+    }else if(A==='leather'){
+      R(13,18,14,10,'n'); R(9,18,4,3,'n'); R(27,18,4,3,'n');
+      R(13,26,14,2,'N'); R(19,26,2,2,'t');           // ベルト・バックル
+      R(14,19,1,7,'N'); R(25,19,1,7,'N');            // 縫い目
+      R(13,28,14,6,'N');
+    }else if(A==='chain'){
+      R(13,18,14,10,'e'); R(9,18,4,3,'e'); R(27,18,4,3,'e');
+      for(var yy=19;yy<26;yy++) for(var xx=14;xx<27;xx++) if((xx+yy)%2===0) R(xx,yy,1,1,'E');
+      R(13,26,14,2,'N'); R(19,26,2,2,'t');
+      R(13,28,14,6,'E');
+    }else if(A==='steel'){
+      R(13,18,14,10,'e'); R(9,18,4,3,'e'); R(27,18,4,3,'e');
+      R(15,19,2,7,'w'); R(24,19,1,7,'E');            // ハイライト・影
+      R(8,17,6,4,'E'); R(26,17,6,4,'E'); R(9,18,4,1,'e'); R(27,18,4,1,'e'); // 肩パッド
+      R(13,26,14,2,'E'); R(13,28,14,6,'E');
+    }else if(A==='magic'){
+      R(13,18,14,10,'b'); R(9,18,4,3,'b'); R(27,18,4,3,'b');
+      R(15,19,2,7,'c'); R(24,19,1,7,'B');
+      R(19,21,2,2,'w'); R(18,22,4,1,'c');            // 胸の光
+      R(8,17,6,4,'B'); R(26,17,6,4,'B'); R(9,18,4,1,'c'); R(27,18,4,1,'c');
+      R(13,26,14,2,'B'); R(13,28,14,6,'B');
+    }else if(A==='gold'){
+      R(13,18,14,10,'y'); R(9,18,4,3,'y'); R(27,18,4,3,'y');
+      R(15,19,2,7,'w'); R(24,19,1,7,'t'); R(13,25,14,1,'t');
+      R(19,21,2,2,'r'); R(18,22,4,1,'r'); R(19,20,2,1,'R'); // 赤い宝石
+      R(8,17,6,4,'t'); R(26,17,6,4,'t'); R(9,18,4,1,'y'); R(27,18,4,1,'y');
+      R(13,26,14,2,'t'); R(13,28,14,6,'t');
+    }
+
+    /* 手 */
+    R(9,27,4,3,'s'); R(27,27,4,3,'s');
+
+    /* 足・靴 */
+    var leg = (A==='tshirt'||A==='leather') ? 's' : (A==='gold'?'t':A==='magic'?'B':'E');
+    R(14,34,5,8,leg); R(21,34,5,8,leg);
+    if(A==='tshirt'||A==='leather'){ R(13,42,6,3,'N'); R(21,42,6,3,'N'); }
+    else { R(13,41,6,4,A==='gold'?'t':A==='magic'?'B':'E'); R(21,41,6,4,A==='gold'?'t':A==='magic'?'B':'E'); R(13,44,6,1,'k'); R(21,44,6,1,'k'); }
+
+    /* かぶと */
+    if(H==='iron'){ R(13,3,14,6,'e'); R(14,2,12,1,'e'); R(13,8,14,1,'E'); R(15,4,2,3,'w'); }
+    if(H==='wing'){ R(13,3,14,6,'c'); R(14,2,12,1,'c'); R(13,8,14,1,'b'); R(15,4,2,3,'w');
+      R(10,5,3,2,'w'); R(9,3,2,3,'w'); R(27,5,3,2,'w'); R(29,3,2,3,'w'); }
+    if(H==='king'){ R(13,3,14,6,'t'); R(14,2,12,1,'t'); R(13,8,14,1,'N'); R(15,4,2,3,'y');
+      R(18,0,4,3,'r'); R(19,-1,2,2,'r'); R(16,1,2,2,'y'); R(22,1,2,2,'y'); R(19,5,2,2,'c'); }
+
+    /* 盾（左手の前） */
+    if(S==='leather'){ R(3,19,10,12,'N'); R(4,20,8,10,'n'); R(5,19,6,1,'N'); R(5,31,6,1,'N'); R(7,24,2,2,'N'); }
+    if(S==='iron'){ R(3,18,10,13,'E'); R(4,19,8,11,'e'); R(5,20,2,2,'w'); }
+    if(S==='steel'){ R(3,18,10,13,'E'); R(4,19,8,11,'e'); R(7,20,2,9,'r'); R(4,24,8,2,'r'); R(5,20,1,2,'w'); }
+    if(S==='magic'){ R(3,18,10,13,'c'); R(4,19,8,11,'b'); R(7,21,2,1,'y'); R(6,22,4,1,'y'); R(7,23,2,1,'y'); R(6,24,1,1,'y'); R(9,24,1,1,'y'); R(5,25,1,1,'y'); R(10,25,1,1,'y'); }
+    if(S==='dragon'){ R(3,18,10,13,'t'); R(4,19,8,11,'R'); R(5,20,6,9,'r'); R(6,21,4,2,'y'); R(7,23,2,5,'y'); R(5,25,1,2,'y'); R(10,25,1,2,'y'); }
+
+    /* 武器（右手。最後に描く） */
+    var ws='';
+    function WR(x,y,w,h,c){ ws+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+(PAL[c]||c)+'"/>'; }
+    if(W==='stick'){ WR(28,12,2,19,'n'); WR(28,12,1,19,'N'); }
+    if(W==='copper'){ WR(28,10,3,15,'o'); WR(28,10,1,15,'y'); WR(28,8,3,2,'o'); WR(25,25,9,2,'t'); WR(28,27,3,4,'N'); WR(28,31,3,1,'t'); }
+    if(W==='iron'){ WR(28,6,3,19,'e'); WR(28,6,1,19,'w'); WR(28,4,3,2,'e'); WR(29,3,1,1,'e'); WR(25,25,9,2,'E'); WR(28,27,3,4,'N'); WR(28,31,3,1,'E'); }
+    if(W==='steel'){ WR(27,2,4,23,'e'); WR(27,2,1,23,'w'); WR(28,0,2,2,'e'); WR(24,25,11,2,'t'); WR(25,24,9,1,'t'); WR(28,27,3,4,'N'); WR(28,31,3,1,'t'); }
+    if(W==='legend'){ WR(27,-1,4,26,'y'); WR(27,-1,1,26,'w'); WR(28,-1,2,3,'w'); WR(30,2,1,20,'t'); WR(24,25,11,2,'t'); WR(25,24,9,1,'t'); WR(23,25,1,2,'y'); WR(35,25,1,2,'y'); WR(28,27,3,4,'P'); WR(28,24,3,1,'r'); WR(28,31,3,1,'t'); }
+    if(ws) s+='<g class="wpn'+(W==='legend'?' glow':'')+'">'+ws+'</g>';
+
+    return '<svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" overflow="visible">'+s+'</svg>';
+  }
+  function pixSvg(art,map,flip){
+    var s='';
+    for(var y=0;y<art.length;y++){
+      var row=art[y];
+      for(var x=0;x<row.length;x++){
+        var ch=row.charAt(x); if(ch==='.'||ch===' ') continue;
+        if(map&&map[ch]) ch=map[ch];
+        var col=PAL[ch]; if(!col) continue;
+        s+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+col+'"/>';
+      }
+    }
+    if(flip) s='<g transform="translate(12,0) scale(-1,1)">'+s+'</g>';
+    return '<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">'+s+'</svg>';
+  }
+  function getXp(){ try{ return parseInt(localStorage.getItem('g5rpg_xp')||'0',10)||0; }catch(e){ return 0; } }
+  function setXp(v){ try{ localStorage.setItem('g5rpg_xp',String(v)); }catch(e){} }
+  function getNum(k){ try{ return parseInt(localStorage.getItem(k)||'0',10)||0; }catch(e){ return 0; } }
+  function setNum(k,v){ try{ localStorage.setItem(k,String(v)); }catch(e){} }
+  function getSeen(){ try{ return JSON.parse(localStorage.getItem('g5rpg_seen')||'[]'); }catch(e){ return []; } }
+  function addSeen(id){ var s=getSeen(); if(s.indexOf(id)<0){ s.push(id); try{ localStorage.setItem('g5rpg_seen',JSON.stringify(s)); }catch(e){} } }
+  function lvOf(xp){ return Math.min(LVMAX, Math.floor(xp/XPL)+1); }
+  function tierOf(lv){ return lv>=10?5 : lv>=8?4 : lv>=5?3 : lv>=2?2 : 1; }
+  function xpPct(xp){ if(lvOf(xp)>=LVMAX) return 100; return (xp%XPL)/XPL*100; }
+  function xpText(xp){ var lv=lvOf(xp); if(lv>=LVMAX) return 'けいけんち '+xp+'（レベル MAX！）'; var cur=xp%XPL; return 'けいけんち '+cur+' / '+XPL+'（つぎのレベルまで '+(XPL-cur)+'）'; }
+  function gearText(lv){ var g=gear(lv), a=[]; ['weapon','shield','armor','helm','cape'].forEach(function(k){ if(g[k]) a.push(GN[k][g[k]]); }); return a.join('・'); }
+  function renderHeader(){ $('hLv').textContent='Lv '+lvOf(getXp()); }
+  function renderStatus(){
+    var xp=getXp(), lv=lvOf(xp);
+    $('sHero').innerHTML=heroSvg(lv); $('sLv').textContent=lv;
+    $('sXp').style.width=xpPct(xp)+'%'; $('sXpTxt').textContent=xpText(xp);
+    $('sEq').textContent='そうび: '+gearText(lv);
+    $('sKills').textContent='たおしたモンスター '+getNum('g5rpg_kills')+'体';
+  }
+  function renderZukan(){
+    var seen=getSeen(), box=$('zukan'), cnt=0; box.innerHTML='';
+    MONS.forEach(function(m){
+      var s=seen.indexOf(m.id)>=0; if(s) cnt++;
+      var d=document.createElement('div'); d.className='zc'+(s?'':' un');
+      d.innerHTML=pixSvg(m.art,m.map,m.flip)+'<span class="t">'+(s?m.name:'？？？')+'</span><span class="l">Lv'+m.lv+'〜</span>';
+      box.appendChild(d);
+    });
+    $('zCnt').textContent=cnt+' / '+MONS.length;
+  }
+
+  /* --- 戦闘 --- */
+  var B={mon:null};
+  function pickMon(lv){ var el=MONS.filter(function(m){ return m.lv<=lv; }); el=el.slice(-6); return el[Math.floor(Math.random()*el.length)]; }
+  function bmsg(t){ $('bMsg').textContent=t; }
+  function anim(el, cls, ms){ el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); setTimeout(function(){ el.classList.remove(cls); }, ms); }
+  function fx(html, parent){
+    var e=document.createElement('div'); e.innerHTML=html; var n=e.firstChild;
+    (parent||$('fx')).appendChild(n); setTimeout(function(){ n.parentNode&&n.parentNode.removeChild(n); },1300); return n;
+  }
+  function centerOf(id){ var sc=$('scene').getBoundingClientRect(), r=$(id).getBoundingClientRect(); return {x:r.left-sc.left+r.width/2, y:r.top-sc.top+r.height/2}; }
+  function slashAt(c, ang, cls, delay){ setTimeout(function(){ var n=fx('<div class="slash '+(cls||'')+'"></div>'); n.style.left=(c.x-55)+'px'; n.style.top=(c.y-5)+'px'; n.style.setProperty('--r',ang+'deg'); }, delay||0); }
+  function sparks(c, n, delay){ setTimeout(function(){ for(var i=0;i<n;i++){ var s=fx('<div class="spark"></div>'); var a=Math.random()*Math.PI*2, d=30+Math.random()*55; s.style.left=(c.x-4)+'px'; s.style.top=(c.y-4)+'px'; s.style.setProperty('--dx',Math.cos(a)*d+'px'); s.style.setProperty('--dy',Math.sin(a)*d+'px'); s.style.background=['#ffd60a','#fff','#ff8fab','#7fdfff'][i%4]; } }, delay||0); }
+  function hitText(c, t, delay){ setTimeout(function(){ var n=fx('<div class="hittxt">'+t+'</div>'); n.style.left=(c.x-34)+'px'; n.style.top=(c.y-52)+'px'; }, delay||0); }
+  function flashScene(big, delay){ setTimeout(function(){ fx('<div class="flash'+(big?' big':'')+'"></div>', big?document.body:null); }, delay||0); }
+  function bolt(c, dx, delay){
+    setTimeout(function(){
+      var pts='30,0 22,40 36,44 18,90 40,70 28,66 42,120';
+      var n=fx('<svg class="bolt" viewBox="0 0 60 120" preserveAspectRatio="none"><polyline points="'+pts+'" fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="round"/><polyline points="'+pts+'" fill="none" stroke="#ffd60a" stroke-width="2"/></svg>');
+      n.style.left=(c.x-30+dx)+'px'; n.style.height=(c.y+6)+'px';
+    }, delay||0);
+  }
+  function battleStart(){
+    var lv=lvOf(getXp()), m=pickMon(lv); B.mon=m; addSeen(m.id);
+    var me=$('mon'); me.className='mon'; me.innerHTML=pixSvg(m.art,m.map,m.flip);
+    var h=$('hero').getBoundingClientRect(), r=me.getBoundingClientRect();
+    $('scene').style.setProperty('--d', Math.max(40, r.left-h.right+14)+'px');
+    anim(me,'appear',450);
+    $('mName').textContent=m.name;
+    bmsg(m.name+'が あらわれた！');
+    $('bLv').textContent='Lv '+lv+' ゆうしゃ'; $('bXp').style.width=xpPct(getXp())+'%';
+  }
+  function battleAttack(last){
+    var lv=lvOf(getXp()), t=tierOf(lv), hero=$('hero'), mon=$('mon'), sc=$('scene'), c=centerOf('mon'), hitAt;
+    if(t===1){ anim(hero,'lunge',600); hitAt=270; }
+    else { anim(hero,'swing',550); anim(hero,'step',550); hitAt=300; }
+    sndSlash(t);
+    bmsg('ゆうしゃの こうげき！');
+    setTimeout(function(){
+      anim(mon,'hit',450);
+      if(t===1){ hitText(c,'ポカッ！'); sparks(c,4); }
+      if(t===2){ slashAt(c,-40); hitText(c,'ズバッ！'); sparks(c,6); }
+      if(t===3){ slashAt(c,-40); slashAt(c,40,'c2',90); hitText(c,'ズバズバッ！'); sparks(c,12); flashScene(false); }
+      if(t===4){ slashAt(c,-40); slashAt(c,40,'c2',80); slashAt(c,0,'c3',160); hitText(c,'ズバババッ！'); sparks(c,18); flashScene(false); anim(sc,'shake',400); }
+      if(t===5){ bolt(c,-20,0); bolt(c,18,80); slashAt(c,-40,'c2',60); slashAt(c,40,'c3',130); slashAt(c,0,'',200); slashAt(c,90,'c2',270); hitText(c,'ドゴォォン！！'); sparks(c,28); flashScene(true); anim(sc,'shake3',600); sndThunder(); }
+      if(last){ setTimeout(function(){ mon.classList.add('die'); sndDie(); setNum('g5rpg_kills', getNum('g5rpg_kills')+1); bmsg(B.mon.name+'を たおした！'); },380); }
+    }, hitAt);
+  }
+  function battleHurt(){
+    var m=B.mon, mon=$('mon'), hero=$('hero'), sc=$('scene');
+    anim(mon,'atk',500);
+    setTimeout(function(){ anim(hero,'hurt',500); anim(sc,'shake',400); hitText(centerOf('hero'),'いたい！'); },200);
+    bmsg(m.name+'の こうげき！ ゆうしゃは ダメージを うけた…');
+  }
+
+  /* --- RPGの音 --- */
+  function noise(dur, vol, hp, at){
+    try{
+      AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+      var sr=AC.sampleRate, buf=AC.createBuffer(1, Math.floor(sr*dur), sr), d=buf.getChannelData(0);
+      for(var i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+      var src=AC.createBufferSource(); src.buffer=buf;
+      var f=AC.createBiquadFilter(); if(hp>0){ f.type='highpass'; f.frequency.value=hp; } else { f.type='lowpass'; f.frequency.value=300; }
+      var g=AC.createGain(), t0=AC.currentTime+(at||0);
+      g.gain.setValueAtTime(vol,t0); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+      src.connect(f); f.connect(g); g.connect(AC.destination); src.start(t0);
+    }catch(e){}
+  }
+  function sndSlash(t){ noise(0.12+t*0.03, 0.07+t*0.03, 2500, 0.05); if(t>=3) note([N.E6,N.B5],0.1,0.12,'square',0.04); if(t>=4) noise(0.25,0.12,1500,0.2); }
+  function sndThunder(){ noise(0.7,0.35,0,0.25); }
+  function sndDie(){ note(N.G5,0,0.06,'square',0.07); note(N.E5,0.06,0.06,'square',0.07); note(N.C5,0.12,0.16,'square',0.07); }
+  function sndLevelUp(){
+    // オリジナルの8bit風ファンファーレ：かけ上がり → 高らかなメロディ → 大きな和音
+    var lead=[[N.C5,.07],[N.D5,.07],[N.E5,.07],[N.F5,.07],[N.G5,.07],[N.A5,.07],[N.B5,.07],[N.C6,.28],[0,.05],
+              [N.E6,.16],[N.D6,.16],[N.C6,.16],[N.G5,.16],[[N.C6,N.E6],.45],[0,.05],
+              [N.G6,.12],[[N.C6,N.E6,N.G6,N.C7],1.2]];
+    var len=seq(lead,'square',0.11);
+    seq([[0,.56],[N.C4,.16],[N.G4,.16],[N.E4,.16],[N.C4,.16],[[N.C4,N.G4],.45],[0,.05],[N.G4,.12],[[N.C4,N.G4],1.2]],'triangle',0.14);
+    return len;
+  }
+  function showLevelUp(lv0, lv1){
+    var g0=gear(lv0), g1=gear(lv1), items=[];
+    ['weapon','shield','armor','helm','cape'].forEach(function(k){ if(g1[k] && g1[k]!==g0[k]) items.push('「'+GN[k][g1[k]]+'」'); });
+    $('luLv').textContent=lv1; $('luOld').innerHTML=heroSvg(lv0); $('luNew').innerHTML=heroSvg(lv1);
+    $('luItems').textContent = items.length ? items.join(' と ')+' を 手に入れた！' : 'さらに 強くなった！';
+    $('luMax').style.display = lv1>=LVMAX ? 'block' : 'none';
+    $('lvup').classList.add('on');
+    sndLevelUp(); confetti(4500);
+  }
+  $('luOk').addEventListener('click', function(){ $('lvup').classList.remove('on'); });
+
   var synth = window.speechSynthesis, voice=null, voiceJa=null;
   function pickVoice(){
     if(!synth) return;
@@ -435,6 +1062,7 @@
       b.addEventListener('click', function(){ start(u); });
       box.appendChild(b);
     });
+    renderHeader(); renderStatus(); renderZukan();
   }
 
   /* ===== ドリル本体 ===== */
@@ -442,6 +1070,7 @@
   function start(unit, items, review){
     G = { unit:unit, order:shuffle(items||unit.items), i:0, miss:[], missTotal:0, cur:null, review:!!review };
     $('dUnit').innerHTML = '<b>'+unit.n+'</b>'+unit.title+(review?' <small style="color:var(--ok)">おさらい</small>':'');
+    $('hero').innerHTML = heroSvg(lvOf(getXp()));
     show('drill');
     nextItem();
   }
@@ -456,6 +1085,7 @@
     $('dAfter').classList.remove('on');
     renderSentence();
     renderChoices();
+    battleStart();
     speakJa(G.cur.ja);
   }
   function renderSentence(){
@@ -487,14 +1117,17 @@
     if(w===blank.ans){
       btn.classList.add('ok'); sndOk();
       Array.prototype.forEach.call($('dChoices').children, function(c){ c.disabled=true; });
+      var last = G.cur.bi+1>=G.cur.blanks.length;
+      battleAttack(last);
       G.cur.bi++;
       setTimeout(function(){
         renderSentence();
         if(G.cur.bi>=G.cur.blanks.length){ itemDone(); }
         else { renderChoices(); }
-      }, 350);
+      }, last?900:650);
     }else{
       btn.classList.add('ng'); btn.disabled=true; sndNg();
+      battleHurt();
       G.cur.m++;
       $('dMsg').textContent = 'ちがうよ。もう一度えらんでみよう'; $('dMsg').className='msg ng';
     }
@@ -546,6 +1179,19 @@
     if(G.miss.length){
       miss.innerHTML = '<h3>まちがえた文（おさらいしよう）</h3><ul>'+G.miss.map(function(x){ return '<li>'+x.en+'<small>まちがい '+x.m+'回</small></li>'; }).join('')+'</ul>';
     } else miss.innerHTML='';
+    /* けいけんち（点数ぶん加算）とレベルアップ判定 */
+    var xp0=getXp(), lv0=lvOf(xp0), xp1=xp0+score, lv1=lvOf(xp1);
+    setXp(xp1); setNum('g5rpg_runs', getNum('g5rpg_runs')+1);
+    $('rXp').innerHTML = '<div class="hm">'+heroSvg(lv0)+'</div><div style="flex:1;min-width:0"><div class="g">けいけんち <b>+'+score+'</b>　Lv <span id="rLv">'+lv0+'</span></div><span class="xpbar"><b id="rXpBar" style="width:'+xpPct(xp0)+'%"></b></span><div class="sm" id="rXpTxt">'+xpText(xp0)+'</div></div>';
+    setTimeout(function(){
+      var bar=$('rXpBar');
+      if(lv1>lv0){
+        bar.style.width='100%';
+        setTimeout(function(){ bar.style.transition='none'; bar.style.width='0%'; void bar.offsetWidth; bar.style.transition=''; bar.style.width=xpPct(xp1)+'%'; $('rLv').textContent=lv1; $('rXpTxt').textContent=xpText(xp1); }, 1000);
+      } else { bar.style.width=xpPct(xp1)+'%'; $('rXpTxt').textContent=xpText(xp1); }
+    }, 400);
+    if(lv1>lv0) setTimeout(function(){ showLevelUp(lv0, lv1); }, stars>=3 ? 5800 : 1900);
+    renderHeader();
     show('res');
     if(stars>=3) sndPerfect(); else sndResult(stars);
   }
