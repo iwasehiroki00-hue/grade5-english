@@ -72,8 +72,47 @@
   .btn.say{flex:0 0 auto;background:var(--sub-bg);color:var(--sub);border:2px solid #cfe0ff}
   .btn.review{background:var(--ok);color:#fff}
   .btn.review[hidden]{display:none}
-  .quit{margin-top:18px;text-align:center}
-  .quit button{font:inherit;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.85rem}
+  .top .q{font:inherit;font-size:.74rem;font-weight:700;background:#fff;border:2px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted);cursor:pointer;white-space:nowrap}
+  .top .p{margin-left:auto}
+
+  /* ドリル中（html.lock / body.lock）: 縦スクロールなしの固定レイアウト。
+     戦闘シーンと進み具合を上に固定し、問題カードを残りの高さにぴったり収める */
+  html.lock,body.lock{overflow:hidden;height:100%;overscroll-behavior:none}
+  body.lock main{padding:8px 12px 6px;height:calc(100vh - var(--hdr,56px));height:calc(100dvh - var(--hdr,56px));display:flex;flex-direction:column;box-sizing:border-box}
+  body.lock #drill.on{display:flex;flex-direction:column;flex:1;min-height:0}
+  body.lock .top{margin-bottom:4px}
+  body.lock .top .u{font-size:.95rem}
+  body.lock .bar{margin-bottom:8px;height:6px}
+  body.lock .scene{height:148px;margin:0 3px 8px;flex:0 0 auto}
+  body.lock .hero{bottom:26px}
+  body.lock .mon{bottom:28px}
+  body.lock .card{flex:1;min-height:0;overflow:auto;padding:10px 12px;display:flex;flex-direction:column;-webkit-overflow-scrolling:touch}
+  body.lock .ja{margin:0 0 6px;padding:6px 10px;font-size:.92rem;line-height:1.45}
+  body.lock .ja small{font-size:.66rem;margin-bottom:0}
+  body.lock .sent{font-size:1.3rem;line-height:1.9}
+  body.lock .ask{margin:8px 0 6px;font-size:.9rem}
+  body.lock .choices{gap:8px}
+  body.lock .ch{min-height:48px;padding:9px 6px;font-size:1.15rem}
+  body.lock .msg{margin-top:6px;min-height:1.5em;font-size:.95rem}
+  body.lock .after{margin-top:6px}
+  body.lock .after .btn{padding:11px 14px}
+  @media (max-height:700px){
+    body.lock .scene{height:124px}
+    body.lock .hero{bottom:22px;width:62px;height:74px}
+    body.lock .mon{bottom:24px;width:88px;height:88px}
+    body.lock .sent{font-size:1.15rem;line-height:1.8}
+    body.lock .ch{min-height:42px;font-size:1.05rem}
+  }
+  @media (max-height:580px){
+    body.lock .scene{height:104px}
+    body.lock .hero{bottom:18px;width:54px;height:64px}
+    body.lock .mon{bottom:20px;width:74px;height:74px}
+    body.lock .hud{font-size:.64rem;width:100px}
+    body.lock .sent{font-size:1.05rem;line-height:1.7}
+    body.lock .ja{font-size:.85rem;padding:4px 8px}
+    body.lock .ch{min-height:38px;font-size:1rem;padding:6px 4px}
+    body.lock .msg{min-height:1.3em;font-size:.88rem;margin-top:4px}
+  }
 
   /* 結果 */
   .result{background:var(--paper);border:2px solid var(--line);border-radius:18px;padding:24px 16px;text-align:center}
@@ -114,28 +153,6 @@
   .zc.un svg{filter:brightness(0) opacity(.35)}
   .zc .t{display:block;line-height:1.2}
   .zc .l{display:block;font-size:.6rem;opacity:.7}
-  .sndbody{margin-top:8px;font-size:.88rem}
-  .sndbody label{display:block;font-weight:700;margin:8px 0 4px}
-  .sndbody textarea{width:100%;font:inherit;font-family:Nunito,monospace;font-size:1rem;border:2px solid var(--line);border-radius:10px;padding:8px 10px;resize:vertical}
-  .sndbody .help{font-size:.74rem;color:var(--muted);margin:4px 0 6px;line-height:1.5}
-  .sndbody .help code{background:var(--accent-soft);padding:0 4px;border-radius:4px}
-  .sndbtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px}
-  .sndbtns .btn{flex:0 0 auto;padding:8px 14px;font-size:.9rem}
-  .sndbtns input[type=file]{font-size:.8rem;max-width:100%}
-  .hero img,.mon img,.hm img,.zc img{width:100%;height:100%;object-fit:contain;display:block;image-rendering:pixelated}
-  .hero img{animation:bob 1.4s ease-in-out infinite}
-  .mon img{animation:bob 1.8s ease-in-out infinite .5s}
-  .zc.un img{filter:brightness(0) opacity(.35)}
-  .zc img{width:44px;height:44px;margin:0 auto 2px}
-  .imggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-  .islot{position:relative;background:#1b1b3a;border-radius:8px;padding:6px 2px 4px;text-align:center;color:#fff;font-size:.64rem;font-weight:700;cursor:pointer}
-  .islot .pic{width:48px;height:52px;margin:0 auto 2px}
-  .islot .pic svg,.islot .pic img{width:100%;height:100%;object-fit:contain;display:block;image-rendering:pixelated}
-  .islot .t{display:block;line-height:1.2}
-  .islot.custom{outline:2px solid #ffd60a}
-  .islot input{display:none}
-  .islot .x{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#ef4444;color:#fff;border:2px solid #fff;font-size:.7rem;line-height:16px;display:none;cursor:pointer}
-  .islot.custom .x{display:block}
 
   .scene{position:relative;height:176px;background:radial-gradient(ellipse at 50% 115%,#2a2a5e 0%,#0e0e24 70%);border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;margin:0 3px 14px;overflow:hidden;user-select:none;--d:150px}
   .scene .ground{position:absolute;left:0;right:0;bottom:30px;height:2px;background:rgba(255,255,255,.15)}
@@ -234,35 +251,13 @@
     </div>
   </div>
   <details class="zukan"><summary>📖 モンスターずかん（<span id="zCnt">0 / 20</span>）</summary><div class="zgrid" id="zukan"></div></details>
-  <details class="zukan snd" id="sndSet">
-    <summary>🎵 レベルアップの音楽（このスマホだけの設定）</summary>
-    <div class="sndbody">
-      <label><input type="radio" name="sndMode" value="orig" checked> オリジナルのファンファーレ</label>
-      <label><input type="radio" name="sndMode" value="melody"> じぶんで入力したメロディ</label>
-      <textarea id="melodyTxt" rows="3" placeholder="れい: C5 E5 G5 C6*3 - G5 C6*4"></textarea>
-      <p class="help">音名（C D E F G A B）＋オクターブ（3〜7）、半音は C#5 や Bb4。<code>*2</code> で2倍の長さ、<code>-</code> は休み、<code>C5+E5</code> で和音。スペースで区切る。</p>
-      <div class="sndbtns"><button type="button" class="btn sub" id="melodyTry">▶ ためしに鳴らす</button><button type="button" class="btn main" id="melodySave">保存</button></div>
-      <label><input type="radio" name="sndMode" value="file"> 音声ファイル（mp3 など）を鳴らす</label>
-      <div class="sndbtns"><input type="file" id="sndFile" accept="audio/*"><button type="button" class="btn sub" id="sndFileTry">▶ ためしに鳴らす</button></div>
-      <p class="help" id="sndStatus"></p>
-      <p class="help">※ 設定とファイルはこのスマホのブラウザ内にだけ保存され、ネット上には出ません。</p>
-    </div>
-  </details>
-  <details class="zukan snd" id="imgSet">
-    <summary>🖼 ゆうしゃとモンスターの絵をかえる（このスマホだけの設定）</summary>
-    <div class="sndbody">
-      <p class="help">各ますをタップして、スマホの中の画像（png / jpg / gif。背景が透明なpngがきれい）をえらぶと、その絵に入れかわります。画像はこのスマホのブラウザ内にだけ保存され、ネット上には出ません。もとにもどすには「✕」。</p>
-      <div class="imggrid" id="imgGrid"></div>
-      <p class="help" id="imgStatus"></p>
-    </div>
-  </details>
   <p class="lead">単元をえらんでスタート！ 英文の <b>主語</b> と <b>動詞</b> をあてると、ゆうしゃが モンスターを こうげき！ 点数が <b>けいけんち</b> になって、たまると <b>レベルアップ</b>するよ（Lv4までは50ずつ、そのあとは100ずつ）。</p>
   <div class="units" id="units"></div>
 </section>
 
 <!-- ドリル -->
 <section id="drill" class="screen">
-  <div class="top"><div class="u" id="dUnit"></div><div class="p" id="dProg"></div></div>
+  <div class="top"><div class="u" id="dUnit"></div><div class="p" id="dProg"></div><button type="button" class="q" id="dQuit" title="やめて単元えらびにもどる">✕ やめる</button></div>
   <div class="bar"><i id="dBar"></i></div>
   <div class="scene" id="scene">
     <div class="hud"><span id="bLv">Lv 1 ゆうしゃ</span><span class="xpbar"><b id="bXp"></b></span></div>
@@ -284,7 +279,6 @@
       <button class="btn main" id="dNext" type="button">つぎへ ▶</button>
     </div>
   </div>
-  <div class="quit"><button type="button" id="dQuit">やめて単元えらびにもどる</button></div>
 </section>
 
 <!-- 結果 -->
@@ -489,7 +483,14 @@
   function bestKey(n){ return 'g5drill_best_u'+n; }
   function getBest(n){ try{ var v=localStorage.getItem(bestKey(n)); return v===null?null:parseInt(v,10); }catch(e){ return null; } }
   function setBest(n,v){ try{ localStorage.setItem(bestKey(n), String(v)); }catch(e){} }
-  function show(id){ ['sel','drill','res'].forEach(function(s){ $(s).classList.toggle('on', s===id); }); window.scrollTo(0,0); }
+  function show(id){
+    ['sel','drill','res'].forEach(function(s){ $(s).classList.toggle('on', s===id); });
+    // ドリル中はページ全体のスクロールを止め、画面にぴったり収める
+    var lock = id==='drill';
+    document.documentElement.classList.toggle('lock', lock); document.body.classList.toggle('lock', lock);
+    document.documentElement.style.setProperty('--hdr', document.querySelector('header').offsetHeight+'px');
+    window.scrollTo(0,0);
+  }
 
   /* ===== 音 ===== */
   var AC = null;
@@ -1871,9 +1872,10 @@
   ];
   function gear(lv){
     return {
-      weapon: lv>=10?'legend':lv>=8?'steel':lv>=5?'iron':lv>=3?'copper':lv>=2?'stick':null,
-      shield: lv>=10?'dragon':lv>=9?'magic':lv>=7?'steel':lv>=5?'iron':lv>=3?'leather':null,
-      armor:  lv>=10?'gold':lv>=9?'magic':lv>=7?'steel':lv>=6?'chain':lv>=4?'leather':'tshirt',
+      /* Lv1 はっぱ一まい → Lv2 パンツ → Lv3 Tシャツと短パン → Lv4 ひのきのぼう → Lv5 銅の剣＋革の盾＋革の鎧 → … → Lv10 でんせつの装備 */
+      weapon: lv>=10?'legend':lv>=8?'steel':lv>=6?'iron':lv>=5?'copper':lv>=4?'stick':null,
+      shield: lv>=10?'dragon':lv>=9?'magic':lv>=7?'steel':lv>=6?'iron':lv>=5?'leather':null,
+      armor:  lv>=10?'gold':lv>=9?'magic':lv>=7?'steel':lv>=6?'chain':lv>=5?'leather':lv>=3?'tshirt':lv>=2?'pants':'leaf',
       helm:   lv>=10?'king':lv>=9?'wing':lv>=7?'iron':null,
       cape:   lv>=10?'royal':lv>=8?'red':null
     };
@@ -1881,7 +1883,7 @@
   var GN={
     weapon:{stick:'ひのきのぼう',copper:'どうのつるぎ',iron:'てつのつるぎ',steel:'はがねのつるぎ',legend:'でんせつのつるぎ'},
     shield:{leather:'かわのたて',iron:'てつのたて',steel:'はがねのたて',magic:'まほうのたて',dragon:'ドラゴンのたて'},
-    armor:{tshirt:'Tシャツとたんパン',leather:'かわのよろい',chain:'くさりかたびら',steel:'はがねのよろい',magic:'まほうのよろい',gold:'おうごんのよろい'},
+    armor:{leaf:'はっぱ一まい',pants:'パンツいっちょう',tshirt:'Tシャツとたんパン',leather:'かわのよろい',chain:'くさりかたびら',steel:'はがねのよろい',magic:'まほうのよろい',gold:'おうごんのよろい'},
     helm:{iron:'てつのかぶと',wing:'はねかぶと',king:'おうのかぶと'},
     cape:{red:'ゆうしゃのマント',royal:'おうのマント'}
   };
@@ -1997,7 +1999,26 @@
     function shoulders(fc,ec,hi){ L.box(14,33,14,9,fc,ec); L.box(52,33,14,9,fc,ec); L.fill(15,34,12,1,hi); L.fill(53,34,12,1,hi); L.fill(16,36,10,1,hi); L.fill(54,36,10,1,hi); }
     function belt(fc,ec,buck,buckE){ L.box(26,52,28,4,fc,ec); if(buck){ L.box(37,51,6,5,buck,buckE); L.fill(39,53,2,1,'w'); } }
 
-    if(A==='tshirt'){
+    if(A==='leaf' || A==='pants'){
+      /* はだかの上半身（おへそつき）・はだし */
+      torso('s','s1','s2','s1');
+      L.fill(39,48,2,1,'s1'); L.px(40,49,'s1');
+      if(A==='leaf'){
+        /* 腰は肌色、股間に葉っぱ一枚 */
+        L.box(26,56,28,12,'s','s1'); L.fill(28,57,2,9,'s2');
+        L.fill(39,54,2,3,'N1');                       /* くき */
+        L.fill(33,57,14,2,'g'); L.fill(32,59,16,4,'g'); L.fill(33,63,14,2,'g'); L.fill(35,65,10,2,'g'); L.fill(37,67,6,2,'g'); L.fill(39,69,2,1,'g');
+        L.fill(32,59,1,4,'G'); L.fill(47,59,1,4,'G'); L.fill(33,63,1,2,'G'); L.fill(46,63,1,2,'G');
+        L.fill(40,57,1,13,'G');                       /* 葉脈 */
+        L.fill(36,61,4,1,'G'); L.fill(41,61,4,1,'G'); L.fill(37,65,3,1,'G'); L.fill(41,65,3,1,'G');
+        L.fill(34,58,3,1,'j'); L.fill(35,60,2,1,'j');  /* ハイライト */
+      }else{
+        /* 白いパンツ一丁 */
+        pants('w','w1','w','w1'); L.fill(27,56,26,2,'B2');
+      }
+      legs('s','s1','s2');
+      shoes('s','s1','s2');
+    }else if(A==='tshirt'){
       torso('w','w1','w','w1');
       /* 胸のハートマーク */
       L.fill(37,41,2,1,'r'); L.fill(41,41,2,1,'r'); L.fill(36,42,8,2,'r'); L.fill(37,44,6,1,'r'); L.fill(38,45,4,1,'r'); L.fill(39,46,2,1,'r');
@@ -2155,12 +2176,10 @@
     if(flip) s='<g transform="translate('+W+',0) scale(-1,1)">'+s+'</g>';
     return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">'+s+'</svg>';
   }
-  /* 端末内に保存した画像（IndexedDB）があればそれを、なければドット絵を返す */
-  var IMG={};
-  function heroHtml(lv){ var u=IMG['hero:'+lv]||IMG['hero:all']; return u ? '<img src="'+u+'" alt="">' : heroSvg(lv); }
-  function monHtml(m){ var u=IMG['mon:'+m.id]; return u ? '<img src="'+u+'" alt="">' : pixSvg(m.art,m.map,m.flip); }
   function getXp(){ try{ return parseInt(localStorage.getItem('g5rpg_xp')||'0',10)||0; }catch(e){ return 0; } }
   function setXp(v){ try{ localStorage.setItem('g5rpg_xp',String(v)); }catch(e){} }
+  function getStr(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+  function setStr(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
   function getNum(k){ try{ return parseInt(localStorage.getItem(k)||'0',10)||0; }catch(e){ return 0; } }
   function setNum(k,v){ try{ localStorage.setItem(k,String(v)); }catch(e){} }
   function getSeen(){ try{ return JSON.parse(localStorage.getItem('g5rpg_seen')||'[]'); }catch(e){ return []; } }
@@ -2173,7 +2192,7 @@
   function renderHeader(){ $('hLv').textContent='Lv '+lvOf(getXp()); }
   function renderStatus(){
     var xp=getXp(), lv=lvOf(xp);
-    $('sHero').innerHTML=heroHtml(lv); $('sLv').textContent=lv;
+    $('sHero').innerHTML=heroSvg(lv); $('sLv').textContent=lv;
     $('sXp').style.width=xpPct(xp)+'%'; $('sXpTxt').textContent=xpText(xp);
     $('sEq').textContent='そうび: '+gearText(lv);
     $('sKills').textContent='たおしたモンスター '+getNum('g5rpg_kills')+'体';
@@ -2183,7 +2202,7 @@
     MONS.forEach(function(m){
       var s=seen.indexOf(m.id)>=0; if(s) cnt++;
       var d=document.createElement('div'); d.className='zc'+(s?'':' un');
-      d.innerHTML=monHtml(m)+'<span class="t">'+(s?m.name:'？？？')+'</span><span class="l">Lv'+m.lv+'〜</span>';
+      d.innerHTML=pixSvg(m.art,m.map,m.flip)+'<span class="t">'+(s?m.name:'？？？')+'</span><span class="l">Lv'+m.lv+'〜</span>';
       box.appendChild(d);
     });
     $('zCnt').textContent=cnt+' / '+MONS.length;
@@ -2217,7 +2236,7 @@
     var lv=lvOf(getXp()), m=pickMon(lv); B.mon=m; addSeen(m.id);
     var sp = Math.random()<SP_RATE ? FAMILY[Math.floor(Math.random()*FAMILY.length)] : '';
     B.name = m.name + sp;
-    var me=$('mon'); me.className='mon'; me.innerHTML=monHtml(m);
+    var me=$('mon'); me.className='mon'; me.innerHTML=pixSvg(m.art,m.map,m.flip);
     var h=$('hero').getBoundingClientRect(), r=me.getBoundingClientRect();
     $('scene').style.setProperty('--d', Math.max(40, r.left-h.right+14)+'px');
     anim(me,'appear',450);
@@ -2277,133 +2296,14 @@
   function showLevelUp(lv0, lv1){
     var g0=gear(lv0), g1=gear(lv1), items=[];
     ['weapon','shield','armor','helm','cape'].forEach(function(k){ if(g1[k] && g1[k]!==g0[k]) items.push('「'+GN[k][g1[k]]+'」'); });
-    $('luLv').textContent=lv1; $('luOld').innerHTML=heroHtml(lv0); $('luNew').innerHTML=heroHtml(lv1);
+    $('luLv').textContent=lv1; $('luOld').innerHTML=heroSvg(lv0); $('luNew').innerHTML=heroSvg(lv1);
     $('luItems').textContent = items.length ? items.join(' と ')+' を 手に入れた！' : 'さらに 強くなった！';
     $('luMax').style.display = lv1>=LVMAX ? 'block' : 'none';
     $('lvup').classList.add('on');
-    playLevelUpSound(); confetti(4500);
+    sndLevelUp(); confetti(4500);
   }
   $('luOk').addEventListener('click', function(){ $('lvup').classList.remove('on'); });
 
-  /* --- レベルアップ音の設定（この端末のブラウザ内だけに保存。公開ページには入らない） --- */
-  function getStr(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
-  function setStr(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-  var NOTE_IDX={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
-  // "C5 E5 G5 C6*3 - G5 C6*4" → [[周波数(配列なら和音), 長さ(秒)], ...]
-  function parseMelody(str){
-    var unit=0.11, out=[], errs=[];
-    str.replace(/　/g,' ').trim().split(/\s+/).forEach(function(tok){
-      if(!tok) return;
-      var m=tok.match(/^(.+?)(?:\*(\d+(?:\.\d+)?))?$/), body=m[1], len=unit*(m[2]?parseFloat(m[2]):1);
-      if(body==='-'||body==='_'){ out.push([0,len]); return; }
-      var fs=[], ok=true;
-      body.split('+').forEach(function(n){
-        var mm=n.match(/^([A-Ga-g])([#b]?)(\d)$/); if(!mm){ ok=false; return; }
-        var midi=12*(parseInt(mm[3],10)+1)+NOTE_IDX[mm[1].toUpperCase()]+(mm[2]==='#'?1:mm[2]==='b'?-1:0);
-        fs.push(440*Math.pow(2,(midi-69)/12));
-      });
-      if(!ok){ errs.push(tok); return; }
-      out.push([fs.length>1?fs:fs[0], len]);
-    });
-    return {list:out, errs:errs};
-  }
-  function playMelody(str){
-    var p=parseMelody(str);
-    if(p.errs.length) return 'よみとれない音: '+p.errs.join(' ');
-    if(!p.list.length) return 'メロディが空です';
-    seq(p.list,'square',0.12);
-    return '';
-  }
-  // 音声ファイルは IndexedDB に保存
-  function idb(cb){ try{ var r=indexedDB.open('g5drill',1); r.onupgradeneeded=function(){ r.result.createObjectStore('kv'); }; r.onsuccess=function(){ cb(r.result); }; r.onerror=function(){ cb(null); }; }catch(e){ cb(null); } }
-  function idbPut(k,v,done){ idb(function(db){ if(!db) return done&&done(false); var tx=db.transaction('kv','readwrite'); tx.objectStore('kv').put(v,k); tx.oncomplete=function(){ done&&done(true); }; tx.onerror=function(){ done&&done(false); }; }); }
-  function idbGet(k,cb){ idb(function(db){ if(!db) return cb(null); var rq=db.transaction('kv').objectStore('kv').get(k); rq.onsuccess=function(){ cb(rq.result||null); }; rq.onerror=function(){ cb(null); }; }); }
-  function playFileSound(fallback){
-    idbGet('lvupSound', function(blob){
-      if(!blob){ fallback&&fallback(); return; }
-      try{ var a=new Audio(URL.createObjectURL(blob)); a.play().catch(function(){ fallback&&fallback(); }); }catch(e){ fallback&&fallback(); }
-    });
-  }
-  function playLevelUpSound(){
-    var mode=getStr('g5rpg_sndmode');
-    if(mode==='melody' && getStr('g5rpg_melody')){ if(!playMelody(getStr('g5rpg_melody'))) return; }
-    if(mode==='file'){ playFileSound(sndLevelUp); return; }
-    sndLevelUp();
-  }
-  function sndStatus(t){ $('sndStatus').textContent=t; }
-  function initSndSetting(){
-    var mode=getStr('g5rpg_sndmode')||'orig';
-    Array.prototype.forEach.call(document.querySelectorAll('input[name=sndMode]'), function(r){
-      r.checked = r.value===mode;
-      r.addEventListener('change', function(){ if(r.checked){ setStr('g5rpg_sndmode', r.value); sndStatus('レベルアップの音を「'+r.parentNode.textContent.trim()+'」にしました'); } });
-    });
-    $('melodyTxt').value=getStr('g5rpg_melody');
-    $('melodyTry').addEventListener('click', function(){ sndStatus(playMelody($('melodyTxt').value)||'♪ 鳴らしています'); });
-    $('melodySave').addEventListener('click', function(){
-      var v=$('melodyTxt').value.trim(), p=parseMelody(v);
-      if(p.errs.length){ sndStatus('よみとれない音があります: '+p.errs.join(' ')); return; }
-      setStr('g5rpg_melody', v); setStr('g5rpg_sndmode', v?'melody':'orig');
-      document.querySelector('input[name=sndMode][value='+(v?'melody':'orig')+']').checked=true;
-      sndStatus(v ? 'メロディを保存して、レベルアップの音にしました' : 'メロディを消して、オリジナルに戻しました');
-    });
-    $('sndFile').addEventListener('change', function(){
-      var f=this.files&&this.files[0]; if(!f) return;
-      if(f.size>8*1024*1024){ sndStatus('ファイルが大きすぎます（8MBまで）'); return; }
-      idbPut('lvupSound', f, function(ok){
-        if(!ok){ sndStatus('このブラウザでは保存できませんでした'); return; }
-        setStr('g5rpg_sndmode','file'); document.querySelector('input[name=sndMode][value=file]').checked=true;
-        sndStatus('「'+f.name+'」を保存して、レベルアップの音にしました');
-      });
-    });
-    $('sndFileTry').addEventListener('click', function(){ playFileSound(function(){ sndStatus('音声ファイルがまだ保存されていません'); }); });
-    idbGet('lvupSound', function(b){ if(b && mode==='file') sndStatus('保存ずみの音声ファイルを使います'); });
-  }
-  initSndSetting();
-
-  /* --- 絵の差しかえ（画像は IndexedDB の "img:〜" キーに保存。この端末内のみ） --- */
-  function idbAll(prefix, cb){
-    idb(function(db){
-      var out={}; if(!db) return cb(out);
-      try{
-        var rq=db.transaction('kv').objectStore('kv').openCursor();
-        rq.onsuccess=function(){ var c=rq.result; if(!c){ cb(out); return; } if(String(c.key).indexOf(prefix)===0) out[String(c.key).slice(prefix.length)]=c.value; c.continue(); };
-        rq.onerror=function(){ cb(out); };
-      }catch(e){ cb(out); }
-    });
-  }
-  function idbDel(k,done){ idb(function(db){ if(!db) return done&&done(false); var tx=db.transaction('kv','readwrite'); tx.objectStore('kv').delete(k); tx.oncomplete=function(){ done&&done(true); }; tx.onerror=function(){ done&&done(false); }; }); }
-  function loadImgs(cb){
-    var fired=false;
-    setTimeout(function(){ if(!fired){ fired=true; cb(); } }, 1500); // IndexedDB が応答しなくても画面は出す
-    idbAll('img:', function(map){ for(var k in map){ try{ IMG[k]=URL.createObjectURL(map[k]); }catch(e){} } fired=true; cb(); });
-  }
-  function imgSlots(){
-    var s=[{key:'hero:all', label:'ゆうしゃ（全レベル）', html:function(){ return heroSvg(1); }}];
-    for(var l=1;l<=LVMAX;l++) (function(l){ s.push({key:'hero:'+l, label:'ゆうしゃ Lv'+l, html:function(){ return heroSvg(l); }}); })(l);
-    MONS.forEach(function(m){ s.push({key:'mon:'+m.id, label:m.name, html:function(){ return pixSvg(m.art,m.map,m.flip); }}); });
-    return s;
-  }
-  function renderImgGrid(){
-    var box=$('imgGrid'); if(!box) return; box.innerHTML='';
-    imgSlots().forEach(function(sl){
-      var d=document.createElement('label'); d.className='islot'+(IMG[sl.key]?' custom':'');
-      d.innerHTML='<div class="pic">'+(IMG[sl.key]?'<img src="'+IMG[sl.key]+'" alt="">':sl.html())+'</div><span class="t">'+sl.label+'</span><input type="file" accept="image/*"><span class="x" title="もとにもどす">✕</span>';
-      d.querySelector('input').addEventListener('change', function(){
-        var f=this.files&&this.files[0]; if(!f) return;
-        if(f.size>3*1024*1024){ $('imgStatus').textContent='画像が大きすぎます（3MBまで）'; return; }
-        idbPut('img:'+sl.key, f, function(ok){
-          if(!ok){ $('imgStatus').textContent='このブラウザでは保存できませんでした'; return; }
-          IMG[sl.key]=URL.createObjectURL(f); $('imgStatus').textContent='「'+sl.label+'」の絵を入れかえました';
-          renderImgGrid(); renderStatus(); renderZukan();
-        });
-      });
-      d.querySelector('.x').addEventListener('click', function(ev){
-        ev.preventDefault(); ev.stopPropagation();
-        idbDel('img:'+sl.key, function(){ delete IMG[sl.key]; $('imgStatus').textContent='「'+sl.label+'」をもとの絵にもどしました'; renderImgGrid(); renderStatus(); renderZukan(); });
-      });
-      box.appendChild(d);
-    });
-  }
 
   var synth = window.speechSynthesis, voice=null, voiceJa=null;
   function pickVoice(){
@@ -2457,7 +2357,7 @@
   function start(unit, items, review){
     G = { unit:unit, order:shuffle(items||unit.items), i:0, miss:[], missTotal:0, cur:null, review:!!review };
     $('dUnit').innerHTML = '<b>'+unit.n+'</b>'+unit.title+(review?' <small style="color:var(--ok)">おさらい</small>':'');
-    $('hero').innerHTML = heroHtml(lvOf(getXp()));
+    $('hero').innerHTML = heroSvg(lvOf(getXp()));
     show('drill');
     nextItem();
   }
@@ -2569,7 +2469,7 @@
     /* けいけんち（点数ぶん加算）とレベルアップ判定 */
     var xp0=getXp(), lv0=lvOf(xp0), xp1=xp0+score, lv1=lvOf(xp1);
     setXp(xp1); setNum('g5rpg_runs', getNum('g5rpg_runs')+1);
-    $('rXp').innerHTML = '<div class="hm">'+heroHtml(lv0)+'</div><div style="flex:1;min-width:0"><div class="g">けいけんち <b>+'+score+'</b>　Lv <span id="rLv">'+lv0+'</span></div><span class="xpbar"><b id="rXpBar" style="width:'+xpPct(xp0)+'%"></b></span><div class="sm" id="rXpTxt">'+xpText(xp0)+'</div></div>';
+    $('rXp').innerHTML = '<div class="hm">'+heroSvg(lv0)+'</div><div style="flex:1;min-width:0"><div class="g">けいけんち <b>+'+score+'</b>　Lv <span id="rLv">'+lv0+'</span></div><span class="xpbar"><b id="rXpBar" style="width:'+xpPct(xp0)+'%"></b></span><div class="sm" id="rXpTxt">'+xpText(xp0)+'</div></div>';
     setTimeout(function(){
       var bar=$('rXpBar');
       if(lv1>lv0){
@@ -2587,7 +2487,7 @@
   $('rOther').addEventListener('click', function(){ G=null; renderUnits(); show('sel'); });
 
   /* けいけんちのリセット。RESET_VER を変えると、次にページを開いたとき一度だけ全員の記録が 0 に戻る */
-  var RESET_VER='2026-10-25a';
+  var RESET_VER='2026-10-25b';
   function resetProgress(){ setXp(0); setNum('g5rpg_kills',0); try{ localStorage.removeItem('g5rpg_seen'); }catch(e){} }
   if(getStr('g5rpg_reset')!==RESET_VER){ resetProgress(); setStr('g5rpg_reset',RESET_VER); }
   (function(){
@@ -2599,7 +2499,7 @@
     });
   })();
 
-  loadImgs(function(){ renderUnits(); renderImgGrid(); });
+  renderUnits();
 })();
 </script>
 </body>
