@@ -122,6 +122,20 @@
   .sndbtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px}
   .sndbtns .btn{flex:0 0 auto;padding:8px 14px;font-size:.9rem}
   .sndbtns input[type=file]{font-size:.8rem;max-width:100%}
+  .hero img,.mon img,.hm img,.zc img{width:100%;height:100%;object-fit:contain;display:block;image-rendering:pixelated}
+  .hero img{animation:bob 1.4s ease-in-out infinite}
+  .mon img{animation:bob 1.8s ease-in-out infinite .5s}
+  .zc.un img{filter:brightness(0) opacity(.35)}
+  .zc img{width:44px;height:44px;margin:0 auto 2px}
+  .imggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+  .islot{position:relative;background:#1b1b3a;border-radius:8px;padding:6px 2px 4px;text-align:center;color:#fff;font-size:.64rem;font-weight:700;cursor:pointer}
+  .islot .pic{width:48px;height:52px;margin:0 auto 2px}
+  .islot .pic svg,.islot .pic img{width:100%;height:100%;object-fit:contain;display:block;image-rendering:pixelated}
+  .islot .t{display:block;line-height:1.2}
+  .islot.custom{outline:2px solid #ffd60a}
+  .islot input{display:none}
+  .islot .x{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#ef4444;color:#fff;border:2px solid #fff;font-size:.7rem;line-height:16px;display:none;cursor:pointer}
+  .islot.custom .x{display:block}
 
   .scene{position:relative;height:176px;background:radial-gradient(ellipse at 50% 115%,#2a2a5e 0%,#0e0e24 70%);border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;margin:0 3px 14px;overflow:hidden;user-select:none;--d:150px}
   .scene .ground{position:absolute;left:0;right:0;bottom:30px;height:2px;background:rgba(255,255,255,.15)}
@@ -227,6 +241,14 @@
       <div class="sndbtns"><input type="file" id="sndFile" accept="audio/*"><button type="button" class="btn sub" id="sndFileTry">▶ ためしに鳴らす</button></div>
       <p class="help" id="sndStatus"></p>
       <p class="help">※ 設定とファイルはこのスマホのブラウザ内にだけ保存され、ネット上には出ません。</p>
+    </div>
+  </details>
+  <details class="zukan snd" id="imgSet">
+    <summary>🖼 ゆうしゃとモンスターの絵をかえる（このスマホだけの設定）</summary>
+    <div class="sndbody">
+      <p class="help">各ますをタップして、スマホの中の画像（png / jpg / gif。背景が透明なpngがきれい）をえらぶと、その絵に入れかわります。画像はこのスマホのブラウザ内にだけ保存され、ネット上には出ません。もとにもどすには「✕」。</p>
+      <div class="imggrid" id="imgGrid"></div>
+      <p class="help" id="imgStatus"></p>
     </div>
   </details>
   <p class="lead">単元をえらんでスタート！ 英文の <b>主語</b> と <b>動詞</b> をあてると、ゆうしゃが モンスターを こうげき！ 点数が <b>けいけんち</b> になって、200たまるごとに <b>レベルアップ</b>するよ。</p>
@@ -907,8 +929,8 @@
     return '<svg viewBox="0 0 40 48" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" overflow="visible">'+s+'</svg>';
   }
   function pixSvg(art,map,flip){
-    var s='';
-    for(var y=0;y<art.length;y++){
+    var s='', W=art[0].length, H=art.length;
+    for(var y=0;y<H;y++){
       var row=art[y];
       for(var x=0;x<row.length;x++){
         var ch=row.charAt(x); if(ch==='.'||ch===' ') continue;
@@ -917,9 +939,13 @@
         s+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+col+'"/>';
       }
     }
-    if(flip) s='<g transform="translate(12,0) scale(-1,1)">'+s+'</g>';
-    return '<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">'+s+'</svg>';
+    if(flip) s='<g transform="translate('+W+',0) scale(-1,1)">'+s+'</g>';
+    return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">'+s+'</svg>';
   }
+  /* 端末内に保存した画像（IndexedDB）があればそれを、なければドット絵を返す */
+  var IMG={};
+  function heroHtml(lv){ var u=IMG['hero:'+lv]||IMG['hero:all']; return u ? '<img src="'+u+'" alt="">' : heroSvg(lv); }
+  function monHtml(m){ var u=IMG['mon:'+m.id]; return u ? '<img src="'+u+'" alt="">' : pixSvg(m.art,m.map,m.flip); }
   function getXp(){ try{ return parseInt(localStorage.getItem('g5rpg_xp')||'0',10)||0; }catch(e){ return 0; } }
   function setXp(v){ try{ localStorage.setItem('g5rpg_xp',String(v)); }catch(e){} }
   function getNum(k){ try{ return parseInt(localStorage.getItem(k)||'0',10)||0; }catch(e){ return 0; } }
@@ -934,7 +960,7 @@
   function renderHeader(){ $('hLv').textContent='Lv '+lvOf(getXp()); }
   function renderStatus(){
     var xp=getXp(), lv=lvOf(xp);
-    $('sHero').innerHTML=heroSvg(lv); $('sLv').textContent=lv;
+    $('sHero').innerHTML=heroHtml(lv); $('sLv').textContent=lv;
     $('sXp').style.width=xpPct(xp)+'%'; $('sXpTxt').textContent=xpText(xp);
     $('sEq').textContent='そうび: '+gearText(lv);
     $('sKills').textContent='たおしたモンスター '+getNum('g5rpg_kills')+'体';
@@ -944,7 +970,7 @@
     MONS.forEach(function(m){
       var s=seen.indexOf(m.id)>=0; if(s) cnt++;
       var d=document.createElement('div'); d.className='zc'+(s?'':' un');
-      d.innerHTML=pixSvg(m.art,m.map,m.flip)+'<span class="t">'+(s?m.name:'？？？')+'</span><span class="l">Lv'+m.lv+'〜</span>';
+      d.innerHTML=monHtml(m)+'<span class="t">'+(s?m.name:'？？？')+'</span><span class="l">Lv'+m.lv+'〜</span>';
       box.appendChild(d);
     });
     $('zCnt').textContent=cnt+' / '+MONS.length;
@@ -973,7 +999,7 @@
   }
   function battleStart(){
     var lv=lvOf(getXp()), m=pickMon(lv); B.mon=m; addSeen(m.id);
-    var me=$('mon'); me.className='mon'; me.innerHTML=pixSvg(m.art,m.map,m.flip);
+    var me=$('mon'); me.className='mon'; me.innerHTML=monHtml(m);
     var h=$('hero').getBoundingClientRect(), r=me.getBoundingClientRect();
     $('scene').style.setProperty('--d', Math.max(40, r.left-h.right+14)+'px');
     anim(me,'appear',450);
@@ -1032,7 +1058,7 @@
   function showLevelUp(lv0, lv1){
     var g0=gear(lv0), g1=gear(lv1), items=[];
     ['weapon','shield','armor','helm','cape'].forEach(function(k){ if(g1[k] && g1[k]!==g0[k]) items.push('「'+GN[k][g1[k]]+'」'); });
-    $('luLv').textContent=lv1; $('luOld').innerHTML=heroSvg(lv0); $('luNew').innerHTML=heroSvg(lv1);
+    $('luLv').textContent=lv1; $('luOld').innerHTML=heroHtml(lv0); $('luNew').innerHTML=heroHtml(lv1);
     $('luItems').textContent = items.length ? items.join(' と ')+' を 手に入れた！' : 'さらに 強くなった！';
     $('luMax').style.display = lv1>=LVMAX ? 'block' : 'none';
     $('lvup').classList.add('on');
@@ -1115,6 +1141,51 @@
   }
   initSndSetting();
 
+  /* --- 絵の差しかえ（画像は IndexedDB の "img:〜" キーに保存。この端末内のみ） --- */
+  function idbAll(prefix, cb){
+    idb(function(db){
+      var out={}; if(!db) return cb(out);
+      try{
+        var rq=db.transaction('kv').objectStore('kv').openCursor();
+        rq.onsuccess=function(){ var c=rq.result; if(!c){ cb(out); return; } if(String(c.key).indexOf(prefix)===0) out[String(c.key).slice(prefix.length)]=c.value; c.continue(); };
+        rq.onerror=function(){ cb(out); };
+      }catch(e){ cb(out); }
+    });
+  }
+  function idbDel(k,done){ idb(function(db){ if(!db) return done&&done(false); var tx=db.transaction('kv','readwrite'); tx.objectStore('kv').delete(k); tx.oncomplete=function(){ done&&done(true); }; tx.onerror=function(){ done&&done(false); }; }); }
+  function loadImgs(cb){
+    var fired=false;
+    setTimeout(function(){ if(!fired){ fired=true; cb(); } }, 1500); // IndexedDB が応答しなくても画面は出す
+    idbAll('img:', function(map){ for(var k in map){ try{ IMG[k]=URL.createObjectURL(map[k]); }catch(e){} } fired=true; cb(); });
+  }
+  function imgSlots(){
+    var s=[{key:'hero:all', label:'ゆうしゃ（全レベル）', html:function(){ return heroSvg(1); }}];
+    for(var l=1;l<=LVMAX;l++) (function(l){ s.push({key:'hero:'+l, label:'ゆうしゃ Lv'+l, html:function(){ return heroSvg(l); }}); })(l);
+    MONS.forEach(function(m){ s.push({key:'mon:'+m.id, label:m.name, html:function(){ return pixSvg(m.art,m.map,m.flip); }}); });
+    return s;
+  }
+  function renderImgGrid(){
+    var box=$('imgGrid'); if(!box) return; box.innerHTML='';
+    imgSlots().forEach(function(sl){
+      var d=document.createElement('label'); d.className='islot'+(IMG[sl.key]?' custom':'');
+      d.innerHTML='<div class="pic">'+(IMG[sl.key]?'<img src="'+IMG[sl.key]+'" alt="">':sl.html())+'</div><span class="t">'+sl.label+'</span><input type="file" accept="image/*"><span class="x" title="もとにもどす">✕</span>';
+      d.querySelector('input').addEventListener('change', function(){
+        var f=this.files&&this.files[0]; if(!f) return;
+        if(f.size>3*1024*1024){ $('imgStatus').textContent='画像が大きすぎます（3MBまで）'; return; }
+        idbPut('img:'+sl.key, f, function(ok){
+          if(!ok){ $('imgStatus').textContent='このブラウザでは保存できませんでした'; return; }
+          IMG[sl.key]=URL.createObjectURL(f); $('imgStatus').textContent='「'+sl.label+'」の絵を入れかえました';
+          renderImgGrid(); renderStatus(); renderZukan();
+        });
+      });
+      d.querySelector('.x').addEventListener('click', function(ev){
+        ev.preventDefault(); ev.stopPropagation();
+        idbDel('img:'+sl.key, function(){ delete IMG[sl.key]; $('imgStatus').textContent='「'+sl.label+'」をもとの絵にもどしました'; renderImgGrid(); renderStatus(); renderZukan(); });
+      });
+      box.appendChild(d);
+    });
+  }
+
   var synth = window.speechSynthesis, voice=null, voiceJa=null;
   function pickVoice(){
     if(!synth) return;
@@ -1167,7 +1238,7 @@
   function start(unit, items, review){
     G = { unit:unit, order:shuffle(items||unit.items), i:0, miss:[], missTotal:0, cur:null, review:!!review };
     $('dUnit').innerHTML = '<b>'+unit.n+'</b>'+unit.title+(review?' <small style="color:var(--ok)">おさらい</small>':'');
-    $('hero').innerHTML = heroSvg(lvOf(getXp()));
+    $('hero').innerHTML = heroHtml(lvOf(getXp()));
     show('drill');
     nextItem();
   }
@@ -1279,7 +1350,7 @@
     /* けいけんち（点数ぶん加算）とレベルアップ判定 */
     var xp0=getXp(), lv0=lvOf(xp0), xp1=xp0+score, lv1=lvOf(xp1);
     setXp(xp1); setNum('g5rpg_runs', getNum('g5rpg_runs')+1);
-    $('rXp').innerHTML = '<div class="hm">'+heroSvg(lv0)+'</div><div style="flex:1;min-width:0"><div class="g">けいけんち <b>+'+score+'</b>　Lv <span id="rLv">'+lv0+'</span></div><span class="xpbar"><b id="rXpBar" style="width:'+xpPct(xp0)+'%"></b></span><div class="sm" id="rXpTxt">'+xpText(xp0)+'</div></div>';
+    $('rXp').innerHTML = '<div class="hm">'+heroHtml(lv0)+'</div><div style="flex:1;min-width:0"><div class="g">けいけんち <b>+'+score+'</b>　Lv <span id="rLv">'+lv0+'</span></div><span class="xpbar"><b id="rXpBar" style="width:'+xpPct(xp0)+'%"></b></span><div class="sm" id="rXpTxt">'+xpText(xp0)+'</div></div>';
     setTimeout(function(){
       var bar=$('rXpBar');
       if(lv1>lv0){
@@ -1296,7 +1367,7 @@
   $('rReview').addEventListener('click', function(){ if(G.missItems && G.missItems.length) start(G.unit, G.missItems, true); });
   $('rOther').addEventListener('click', function(){ G=null; renderUnits(); show('sel'); });
 
-  renderUnits();
+  loadImgs(function(){ renderUnits(); renderImgGrid(); });
 })();
 </script>
 </body>
