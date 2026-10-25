@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ドリルの効果音テスト</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0e0e24;color:#fff;font-family:"M PLUS Rounded 1c",sans-serif;padding:28px}
+  h1{font-size:1.3rem;margin:0 0 6px}
+  p{color:#aab;margin:0 0 18px;font-size:.9rem}
+  .row{display:flex;flex-wrap:wrap;gap:12px;max-width:760px}
+  button{font:inherit;font-weight:800;font-size:1.05rem;border:3px solid #fff;outline:3px solid #1b1b3a;background:#1b1b3a;color:#fff;border-radius:8px;padding:16px 20px;cursor:pointer;min-width:200px;text-align:left}
+  button.big{background:#ffd60a;color:#1b1b3a;font-size:1.3rem;width:100%;max-width:760px;text-align:center;padding:22px}
+  button:active{transform:scale(.98)}
+  small{display:block;font-weight:700;opacity:.75;font-size:.78rem;margin-top:2px}
+</style>
+</head>
+<body>
+<h1>🎵 ドリルの効果音テスト</h1>
+<p>ブラウザの仕様で自動再生はできないので、ボタンを押すと鳴ります。PCの音量をご確認ください。</p>
+<button class="big" id="lv">▶ レベルアップ！（オリジナル8bit風ファンファーレ）</button>
+<p style="margin-top:18px">ほかの音もついでに確認できます。</p>
+<div class="row">
+  <button id="ok">正解<small>ピンポン</small></button>
+  <button id="ng">まちがい<small>ブー</small></button>
+  <button id="s1">攻撃 Lv1<small>パンチ</small></button>
+  <button id="s3">攻撃 Lv5〜7<small>斬撃＋きらめき</small></button>
+  <button id="s5">攻撃 Lv10<small>斬撃＋雷</small></button>
+  <button id="die">モンスターをたおした</button>
+  <button id="r2">結果 ★★<small>70点以上</small></button>
+  <button id="pf">結果 ★★★ パーフェクト<small>長いファンファーレ</small></button>
+</div>
+<script>
+  var AC=null;
+  function note(freqs, at, dur, type, vol){
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    var t0 = AC.currentTime + at;
+    [].concat(freqs).forEach(function(f){
+      var o=AC.createOscillator(), g=AC.createGain();
+      o.type=type||'triangle'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t0);
+      g.gain.exponentialRampToValueAtTime(vol||0.2,t0+0.015);
+      g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+      o.connect(g); g.connect(AC.destination); o.start(t0); o.stop(t0+dur+0.03);
+    });
+  }
+  function seq(list, type, vol){ var t=0; list.forEach(function(n){ if(n[0]) note(n[0], t, n[1]*0.95, type, vol); t+=n[1]; }); return t; }
+  var N={C4:262,D4:294,E4:330,F4:349,G4:392,A4:440,B4:494,C5:523,D5:587,E5:659,F5:698,G5:784,A5:880,B5:988,C6:1047,D6:1175,E6:1319,F6:1397,G6:1568,A6:1760,B6:1976,C7:2093};
+  function noise(dur, vol, hp, at){
+    AC = AC || new (window.AudioContext||window.webkitAudioContext)();
+    var sr=AC.sampleRate, buf=AC.createBuffer(1, Math.floor(sr*dur), sr), d=buf.getChannelData(0);
+    for(var i=0;i<d.length;i++) d[i]=Math.random()*2-1;
+    var src=AC.createBufferSource(); src.buffer=buf;
+    var f=AC.createBiquadFilter(); if(hp>0){ f.type='highpass'; f.frequency.value=hp; } else { f.type='lowpass'; f.frequency.value=300; }
+    var g=AC.createGain(), t0=AC.currentTime+(at||0);
+    g.gain.setValueAtTime(vol,t0); g.gain.exponentialRampToValueAtTime(0.0001,t0+dur);
+    src.connect(f); f.connect(g); g.connect(AC.destination); src.start(t0);
+  }
+  function sndOk(){ note(N.C6,0,0.14,'sine',0.25); note(N.E6,0.14,0.32,'sine',0.25); }
+  function sndNg(){ note([150,152],0,0.28,'square',0.045); }
+  function sndSlash(t){ noise(0.12+t*0.03, 0.07+t*0.03, 2500, 0.05); if(t>=3) note([N.E6,N.B5],0.1,0.12,'square',0.04); if(t>=4) noise(0.25,0.12,1500,0.2); }
+  function sndThunder(){ noise(0.7,0.35,0,0.25); }
+  function sndDie(){ note(N.G5,0,0.06,'square',0.07); note(N.E5,0.06,0.06,'square',0.07); note(N.C5,0.12,0.16,'square',0.07); }
+  function sndResult(stars){ if(stars===2) seq([[N.C5,.13],[N.E5,.13],[N.G5,.13],[N.C6,.13],[[N.C6,N.E6,N.G6],.7]]); }
+  function sndPerfect(){
+    var m=[[N.G4,.14],[N.G4,.14],[N.G4,.14],[[N.C5,N.E5,N.G5],.6],[0,.08],[N.E5,.14],[N.D5,.14],[N.C5,.14],[[N.E5,N.G5,N.C6],.6],[0,.1],
+      [N.C5,.09],[N.D5,.09],[N.E5,.09],[N.F5,.09],[N.G5,.09],[N.A5,.09],[N.B5,.09],[N.C6,.3],[0,.06],
+      [N.G5,.18],[N.E5,.18],[N.C5,.18],[N.G5,.18],[N.C6,.36],[N.E6,.18],[N.D6,.18],[N.C6,.5],[0,.1],
+      [[N.C5,N.E5,N.G5,N.C6],.25],[[N.C5,N.E5,N.G5,N.C6],.25],[[N.C5,N.E5,N.G5,N.C6,N.E6],1.6]];
+    var len=seq(m,'triangle',0.2); var t=0.1; while(t<len){ note([N.C7,N.G6][Math.round(t*10)%2],t,0.08,'sine',0.05); t+=0.25; }
+  }
+  function sndLevelUp(){
+    var lead=[[N.C5,.07],[N.D5,.07],[N.E5,.07],[N.F5,.07],[N.G5,.07],[N.A5,.07],[N.B5,.07],[N.C6,.28],[0,.05],
+              [N.E6,.16],[N.D6,.16],[N.C6,.16],[N.G5,.16],[[N.C6,N.E6],.45],[0,.05],
+              [N.G6,.12],[[N.C6,N.E6,N.G6,N.C7],1.2]];
+    seq(lead,'square',0.11);
+    seq([[0,.56],[N.C4,.16],[N.G4,.16],[N.E4,.16],[N.C4,.16],[[N.C4,N.G4],.45],[0,.05],[N.G4,.12],[[N.C4,N.G4],1.2]],'triangle',0.14);
+  }
+  var map={lv:sndLevelUp, ok:sndOk, ng:sndNg, s1:function(){ sndSlash(1); }, s3:function(){ sndSlash(3); }, s5:function(){ sndSlash(5); sndThunder(); }, die:sndDie, r2:function(){ sndResult(2); }, pf:sndPerfect};
+  Object.keys(map).forEach(function(id){ document.getElementById(id).addEventListener('click', map[id]); });
+</script>
+</body>
+</html>

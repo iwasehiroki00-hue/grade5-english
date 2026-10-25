@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サプライズ：家族の名前モンスター</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0e0e24;color:#fff;font-family:"M PLUS Rounded 1c",sans-serif;padding:24px}
+  h1{font-size:1.3rem;margin:0 0 4px}
+  h2{font-size:1.05rem;margin:26px 0 10px;color:#ffd60a}
+  p.sub{margin:0 0 14px;color:#aab;font-size:.9rem;line-height:1.6}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;max-width:1100px}
+  .card{background:#1b1b3a;border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:8px;padding:12px 8px 10px;text-align:center}
+  .pic{width:140px;height:140px;margin:0 auto 6px}
+  .pic svg{width:100%;height:100%;display:block}
+  .tag{display:inline-block;background:linear-gradient(90deg,#b8860b,#ffd60a,#fff4c2,#ffd60a,#b8860b);color:#1b1b3a;font-weight:800;border-radius:6px;padding:2px 10px;font-size:.95rem;box-shadow:0 0 10px #ffd60a}
+  .tag.plain{background:rgba(0,0,0,.4);color:#fff;box-shadow:none}
+  .lv{font-family:Nunito,sans-serif;font-weight:800;color:#aab;font-size:.8rem;margin-top:4px}
+  .scene{position:relative;height:200px;max-width:560px;background:radial-gradient(ellipse at 50% 115%,#2a2a5e 0%,#0e0e24 70%);border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;overflow:hidden;margin-top:8px}
+  .scene .mon{position:absolute;right:8%;bottom:36px;width:108px;height:108px}
+  .scene .mon svg{width:100%;height:100%}
+  .scene .hero{position:absolute;left:8%;bottom:34px;width:76px;height:91px}
+  .scene .hero svg{width:100%;height:100%;overflow:visible}
+  .scene .mname{position:absolute;right:8px;top:6px}
+  .scene .bmsg{position:absolute;left:0;right:0;bottom:0;padding:6px 10px;background:rgba(0,0,0,.55);font-size:.9rem;font-weight:700;border-top:2px solid rgba(255,255,255,.4)}
+  .names{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px}
+  .names span{background:#1b1b3a;border:2px solid #ffd60a;border-radius:999px;padding:4px 14px;font-weight:800}
+</style>
+</head>
+<body>
+<h1>🎁 サプライズ：家族の名前モンスター</h1>
+<p class="sub">ときどき（6回に1回くらい）、モンスターの名前のうしろに家族の名前がつきます。名前は金色のタグで表示され、「★ まおうリョウジが あらわれた！」のように登場し、たおすと「まおうリョウジを たおした！」になります。どのモンスターにも、どの名前もつきます。</p>
+<div class="names"><span>ユミ</span><span>ヒロキ</span><span>アヤ</span><span>タク</span><span>リョウジ</span></div>
+
+<h2>戦闘画面での見え方</h2>
+<div class="scene" id="scene">
+  <div class="hero" id="hero"></div>
+  <div class="mon" id="smon"></div>
+  <div class="mname"><span class="tag" id="stag"></span></div>
+  <div class="bmsg" id="smsg"></div>
+</div>
+
+<h2>組み合わせの例（20体 × 名前）</h2>
+<div class="grid" id="m"></div>
+
+<script src="monsters3.js"></script>
+<script src="hero2.js"></script>
+<script>
+  var FAMILY=['ユミ','ヒロキ','アヤ','タク','リョウジ'];
+  function pixSvg(art,map,flip){
+    var s='', W=art[0].length, H=art.length;
+    for(var y=0;y<H;y++){ var row=art[y], x=0; while(x<row.length){ var ch=row.charAt(x); if(ch==='.'||ch===' '){ x++; continue; } var k=(map&&map[ch])?map[ch]:ch, col=PAL[k], x0=x; while(x<row.length && row.charAt(x)===ch) x++; if(col) s+='<rect x="'+x0+'" y="'+y+'" width="'+(x-x0)+'" height="1" fill="'+col+'"/>'; } }
+    if(flip) s='<g transform="translate('+W+',0) scale(-1,1)">'+s+'</g>';
+    return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';
+  }
+  var g=document.getElementById('m');
+  MONS.forEach(function(mo,i){
+    var nm=mo.name+FAMILY[(i*3+1)%FAMILY.length];
+    var d=document.createElement('div'); d.className='card';
+    d.innerHTML='<div class="pic">'+pixSvg(mo.art,mo.map,mo.flip)+'</div><span class="tag">★ '+nm+'</span><div class="lv">Lv'+mo.lv+'〜</div>';
+    g.appendChild(d);
+  });
+  // 戦闘画面の見本：まおうリョウジ
+  var maou=MONS[MONS.length-1];
+  document.getElementById('hero').innerHTML=heroSvg(10);
+  document.getElementById('smon').innerHTML=pixSvg(maou.art,maou.map,maou.flip);
+  document.getElementById('stag').textContent='★ まおうリョウジ';
+  document.getElementById('smsg').textContent='★ まおうリョウジが あらわれた！';
+</script>
+</body>
+</html>

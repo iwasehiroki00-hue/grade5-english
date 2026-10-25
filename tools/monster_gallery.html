@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>モンスターギャラリー 20体</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0e0e24;color:#fff;font-family:"M PLUS Rounded 1c",sans-serif;padding:24px}
+  h1{font-size:1.3rem;margin:0 0 4px}
+  p.sub{margin:0 0 16px;color:#aab;font-size:.9rem}
+  .toggle{margin:0 0 16px}
+  .toggle button{font:inherit;font-weight:800;background:#fff;color:#1b1b3a;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;margin-right:8px}
+  .toggle button.on{background:#ffd60a}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;max-width:1100px}
+  .card{background:#1b1b3a;border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:8px;padding:14px 10px 12px;text-align:center}
+  .pic{width:150px;height:150px;margin:0 auto 8px}
+  .pic svg{width:100%;height:100%;display:block;shape-rendering:crispEdges}
+  .nm{font-weight:800;font-size:1.05rem}
+  .lv{font-family:Nunito,sans-serif;font-weight:800;color:#ffd60a;font-size:.9rem}
+  .no{color:#aab;font-size:.75rem}
+</style>
+</head>
+<body>
+<h1>👾 モンスター 20体</h1>
+<p class="sub">出現レベル順。画面右に出て左の勇者と向き合うので、すべて左向きです。Lvが上がるほど強そうな顔ぶれになります。</p>
+<div class="toggle"><button id="bNew" class="on">最新の絵（64×64）</button><button id="bMid">前の絵（24×24）</button><button id="bOld">最初の絵（12×12）</button><button id="bBig">大きく表示</button></div>
+<div class="grid" id="m"></div>
+<script src="monsters3.js"></script>
+<script>var NEWM=MONS, NEWP=PAL;</script>
+<script src="monsters2.js"></script>
+<script>var MIDM=MONS, MIDP=PAL;</script>
+<script src="monsters.js"></script>
+<script>
+  var OLDM=MONS, OLDP=PAL, cur=NEWM, curP=NEWP, big=false;
+  function pixSvg(art,map,flip,P){
+    var s='', W=art[0].length, H=art.length;
+    for(var y=0;y<H;y++){ var row=art[y], x=0; while(x<row.length){ var ch=row.charAt(x); if(ch==='.'||ch===' '){ x++; continue; } var k=(map&&map[ch])?map[ch]:ch, col=P[k], x0=x; while(x<row.length && row.charAt(x)===ch) x++; if(col) s+='<rect x="'+x0+'" y="'+y+'" width="'+(x-x0)+'" height="1" fill="'+col+'"/>'; } }
+    if(flip) s='<g transform="translate('+W+',0) scale(-1,1)">'+s+'</g>';
+    return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';
+  }
+  function sel(id, M, P){ cur=M; curP=P; ['bNew','bMid','bOld'].forEach(function(b){ document.getElementById(b).classList.toggle('on', b===id); }); render(); }
+  document.getElementById('bMid').onclick=function(){ sel('bMid', MIDM, MIDP); };
+  function render(){
+    var g=document.getElementById('m'); g.innerHTML='';
+    g.style.gridTemplateColumns = big ? 'repeat(3,1fr)' : '';
+    cur.forEach(function(mo,i){
+      var d=document.createElement('div'); d.className='card';
+      d.innerHTML='<div class="pic" style="'+(big?'width:260px;height:260px':'')+'">'+pixSvg(mo.art,mo.map,mo.flip,curP)+'</div><div class="no">No.'+(i+1)+'</div><div class="nm">'+mo.name+'</div><div class="lv">Lv'+mo.lv+'〜 に出現</div>';
+      g.appendChild(d);
+    });
+  }
+  document.getElementById('bNew').onclick=function(){ sel('bNew', NEWM, NEWP); };
+  document.getElementById('bOld').onclick=function(){ sel('bOld', OLDM, OLDP); };
+  document.getElementById('bBig').onclick=function(){ big=!big; this.classList.toggle('on',big); render(); };
+  render();
+</script>
+</body>
+</html>

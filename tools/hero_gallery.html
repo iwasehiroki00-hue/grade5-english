@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>勇者ギャラリー Lv1〜10</title>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;800&family=Nunito:wght@800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0e0e24;color:#fff;font-family:"M PLUS Rounded 1c",sans-serif;padding:24px}
+  h1{font-size:1.3rem;margin:0 0 4px}
+  p.sub{margin:0 0 18px;color:#aab;font-size:.9rem}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;max-width:1100px}
+  .card{background:#1b1b3a;border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:8px;padding:14px 10px 12px;text-align:center}
+  .pic{width:150px;height:180px;margin:0 auto 8px}
+  .pic svg{width:100%;height:100%;overflow:visible;display:block}
+  .lv{font-family:Nunito,sans-serif;font-weight:800;font-size:1.3rem;color:#ffd60a}
+  .eq{font-size:.78rem;line-height:1.5;color:#dde;min-height:5.5em}
+  .eq b{color:#7fdfff}
+  .toggle{margin:0 0 16px}
+  .toggle button{font:inherit;font-weight:800;background:#fff;color:#1b1b3a;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;margin-right:8px}
+  .toggle button.on{background:#ffd60a}
+</style>
+</head>
+<body>
+<h1>⚔ ゆうしゃの成長 Lv1 → Lv10</h1>
+<p class="sub">点数＝けいけんち。200ごとにレベルアップして装備が変わります。</p>
+<div class="toggle"><button id="bNew" class="on">新しい絵（輪郭・陰影つき）</button><button id="bOld">前の絵</button><button id="bBig">大きく表示</button></div>
+<div class="grid" id="g"></div>
+<h1 style="margin-top:32px">👾 モンスター 20体（24×24ドット版）</h1>
+<p class="sub">出現レベル順。左向き＝勇者と向き合う向き。</p>
+<div class="grid" id="m"></div>
+<script src="monsters2.js"></script>
+<script>
+  function pixSvg(art,map,flip){
+    var s='', W=art[0].length, H=art.length;
+    for(var y=0;y<H;y++){ var row=art[y]; for(var x=0;x<row.length;x++){ var ch=row.charAt(x); if(ch==='.'||ch===' ') continue; if(map&&map[ch]) ch=map[ch]; var col=PAL[ch]; if(!col) continue; s+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+col+'"/>'; } }
+    if(flip) s='<g transform="translate('+W+',0) scale(-1,1)">'+s+'</g>';
+    return '<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">'+s+'</svg>';
+  }
+  (function(){ var g=document.getElementById('m'); MONS.forEach(function(mo){ var d=document.createElement('div'); d.className='card'; d.innerHTML='<div class="pic" style="height:150px">'+pixSvg(mo.art,mo.map,mo.flip)+'</div><div class="lv">'+mo.name+'</div><div class="eq" style="min-height:1.5em">Lv'+mo.lv+'〜 に出現</div>'; g.appendChild(d); }); })();
+</script>
+<script src="hero2.js"></script>
+<script>
+  var NEW={gear:gear,GN:GN,heroSvg:heroSvg};
+</script>
+<script src="hero.js"></script>
+<script>
+  var OLD={gear:gear,GN:GN,heroSvg:heroSvg};
+  var cur=NEW, big=false;
+  function render(){
+    var g=document.getElementById('g'); g.innerHTML='';
+    for(var lv=1;lv<=10;lv++){
+      var gr=cur.gear(lv), names=[];
+      ['weapon','shield','armor','helm','cape'].forEach(function(k){ if(gr[k]) names.push('<b>'+cur.GN[k][gr[k]]+'</b>'); });
+      var d=document.createElement('div'); d.className='card';
+      d.innerHTML='<div class="pic" style="'+(big?'width:260px;height:312px':'')+'">'+cur.heroSvg(lv)+'</div><div class="lv">Lv '+lv+'</div><div class="eq">'+names.join('<br>')+'</div>';
+      g.appendChild(d);
+    }
+  }
+  document.getElementById('bNew').onclick=function(){ cur=NEW; this.classList.add('on'); document.getElementById('bOld').classList.remove('on'); render(); };
+  document.getElementById('bOld').onclick=function(){ cur=OLD; this.classList.add('on'); document.getElementById('bNew').classList.remove('on'); render(); };
+  document.getElementById('bBig').onclick=function(){ big=!big; this.classList.toggle('on',big); document.getElementById('g').style.gridTemplateColumns=big?'repeat(3,1fr)':''; render(); };
+  render();
+</script>
+</body>
+</html>
