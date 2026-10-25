@@ -114,6 +114,14 @@
   .zc.un svg{filter:brightness(0) opacity(.35)}
   .zc .t{display:block;line-height:1.2}
   .zc .l{display:block;font-size:.6rem;opacity:.7}
+  .sndbody{margin-top:8px;font-size:.88rem}
+  .sndbody label{display:block;font-weight:700;margin:8px 0 4px}
+  .sndbody textarea{width:100%;font:inherit;font-family:Nunito,monospace;font-size:1rem;border:2px solid var(--line);border-radius:10px;padding:8px 10px;resize:vertical}
+  .sndbody .help{font-size:.74rem;color:var(--muted);margin:4px 0 6px;line-height:1.5}
+  .sndbody .help code{background:var(--accent-soft);padding:0 4px;border-radius:4px}
+  .sndbtns{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px}
+  .sndbtns .btn{flex:0 0 auto;padding:8px 14px;font-size:.9rem}
+  .sndbtns input[type=file]{font-size:.8rem;max-width:100%}
 
   .scene{position:relative;height:176px;background:radial-gradient(ellipse at 50% 115%,#2a2a5e 0%,#0e0e24 70%);border:3px solid #fff;outline:3px solid #1b1b3a;border-radius:6px;margin:0 3px 14px;overflow:hidden;user-select:none;--d:150px}
   .scene .ground{position:absolute;left:0;right:0;bottom:30px;height:2px;background:rgba(255,255,255,.15)}
@@ -207,6 +215,20 @@
     </div>
   </div>
   <details class="zukan"><summary>📖 モンスターずかん（<span id="zCnt">0 / 20</span>）</summary><div class="zgrid" id="zukan"></div></details>
+  <details class="zukan snd" id="sndSet">
+    <summary>🎵 レベルアップの音楽（このスマホだけの設定）</summary>
+    <div class="sndbody">
+      <label><input type="radio" name="sndMode" value="orig" checked> オリジナルのファンファーレ</label>
+      <label><input type="radio" name="sndMode" value="melody"> じぶんで入力したメロディ</label>
+      <textarea id="melodyTxt" rows="3" placeholder="れい: C5 E5 G5 C6*3 - G5 C6*4"></textarea>
+      <p class="help">音名（C D E F G A B）＋オクターブ（3〜7）、半音は C#5 や Bb4。<code>*2</code> で2倍の長さ、<code>-</code> は休み、<code>C5+E5</code> で和音。スペースで区切る。</p>
+      <div class="sndbtns"><button type="button" class="btn sub" id="melodyTry">▶ ためしに鳴らす</button><button type="button" class="btn main" id="melodySave">保存</button></div>
+      <label><input type="radio" name="sndMode" value="file"> 音声ファイル（mp3 など）を鳴らす</label>
+      <div class="sndbtns"><input type="file" id="sndFile" accept="audio/*"><button type="button" class="btn sub" id="sndFileTry">▶ ためしに鳴らす</button></div>
+      <p class="help" id="sndStatus"></p>
+      <p class="help">※ 設定とファイルはこのスマホのブラウザ内にだけ保存され、ネット上には出ません。</p>
+    </div>
+  </details>
   <p class="lead">単元をえらんでスタート！ 英文の <b>主語</b> と <b>動詞</b> をあてると、ゆうしゃが モンスターを こうげき！ 点数が <b>けいけんち</b> になって、200たまるごとに <b>レベルアップ</b>するよ。</p>
   <div class="units" id="units"></div>
 </section>
@@ -1014,9 +1036,84 @@
     $('luItems').textContent = items.length ? items.join(' と ')+' を 手に入れた！' : 'さらに 強くなった！';
     $('luMax').style.display = lv1>=LVMAX ? 'block' : 'none';
     $('lvup').classList.add('on');
-    sndLevelUp(); confetti(4500);
+    playLevelUpSound(); confetti(4500);
   }
   $('luOk').addEventListener('click', function(){ $('lvup').classList.remove('on'); });
+
+  /* --- レベルアップ音の設定（この端末のブラウザ内だけに保存。公開ページには入らない） --- */
+  function getStr(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+  function setStr(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+  var NOTE_IDX={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
+  // "C5 E5 G5 C6*3 - G5 C6*4" → [[周波数(配列なら和音), 長さ(秒)], ...]
+  function parseMelody(str){
+    var unit=0.11, out=[], errs=[];
+    str.replace(/　/g,' ').trim().split(/\s+/).forEach(function(tok){
+      if(!tok) return;
+      var m=tok.match(/^(.+?)(?:\*(\d+(?:\.\d+)?))?$/), body=m[1], len=unit*(m[2]?parseFloat(m[2]):1);
+      if(body==='-'||body==='_'){ out.push([0,len]); return; }
+      var fs=[], ok=true;
+      body.split('+').forEach(function(n){
+        var mm=n.match(/^([A-Ga-g])([#b]?)(\d)$/); if(!mm){ ok=false; return; }
+        var midi=12*(parseInt(mm[3],10)+1)+NOTE_IDX[mm[1].toUpperCase()]+(mm[2]==='#'?1:mm[2]==='b'?-1:0);
+        fs.push(440*Math.pow(2,(midi-69)/12));
+      });
+      if(!ok){ errs.push(tok); return; }
+      out.push([fs.length>1?fs:fs[0], len]);
+    });
+    return {list:out, errs:errs};
+  }
+  function playMelody(str){
+    var p=parseMelody(str);
+    if(p.errs.length) return 'よみとれない音: '+p.errs.join(' ');
+    if(!p.list.length) return 'メロディが空です';
+    seq(p.list,'square',0.12);
+    return '';
+  }
+  // 音声ファイルは IndexedDB に保存
+  function idb(cb){ try{ var r=indexedDB.open('g5drill',1); r.onupgradeneeded=function(){ r.result.createObjectStore('kv'); }; r.onsuccess=function(){ cb(r.result); }; r.onerror=function(){ cb(null); }; }catch(e){ cb(null); } }
+  function idbPut(k,v,done){ idb(function(db){ if(!db) return done&&done(false); var tx=db.transaction('kv','readwrite'); tx.objectStore('kv').put(v,k); tx.oncomplete=function(){ done&&done(true); }; tx.onerror=function(){ done&&done(false); }; }); }
+  function idbGet(k,cb){ idb(function(db){ if(!db) return cb(null); var rq=db.transaction('kv').objectStore('kv').get(k); rq.onsuccess=function(){ cb(rq.result||null); }; rq.onerror=function(){ cb(null); }; }); }
+  function playFileSound(fallback){
+    idbGet('lvupSound', function(blob){
+      if(!blob){ fallback&&fallback(); return; }
+      try{ var a=new Audio(URL.createObjectURL(blob)); a.play().catch(function(){ fallback&&fallback(); }); }catch(e){ fallback&&fallback(); }
+    });
+  }
+  function playLevelUpSound(){
+    var mode=getStr('g5rpg_sndmode');
+    if(mode==='melody' && getStr('g5rpg_melody')){ if(!playMelody(getStr('g5rpg_melody'))) return; }
+    if(mode==='file'){ playFileSound(sndLevelUp); return; }
+    sndLevelUp();
+  }
+  function sndStatus(t){ $('sndStatus').textContent=t; }
+  function initSndSetting(){
+    var mode=getStr('g5rpg_sndmode')||'orig';
+    Array.prototype.forEach.call(document.querySelectorAll('input[name=sndMode]'), function(r){
+      r.checked = r.value===mode;
+      r.addEventListener('change', function(){ if(r.checked){ setStr('g5rpg_sndmode', r.value); sndStatus('レベルアップの音を「'+r.parentNode.textContent.trim()+'」にしました'); } });
+    });
+    $('melodyTxt').value=getStr('g5rpg_melody');
+    $('melodyTry').addEventListener('click', function(){ sndStatus(playMelody($('melodyTxt').value)||'♪ 鳴らしています'); });
+    $('melodySave').addEventListener('click', function(){
+      var v=$('melodyTxt').value.trim(), p=parseMelody(v);
+      if(p.errs.length){ sndStatus('よみとれない音があります: '+p.errs.join(' ')); return; }
+      setStr('g5rpg_melody', v); setStr('g5rpg_sndmode', v?'melody':'orig');
+      document.querySelector('input[name=sndMode][value='+(v?'melody':'orig')+']').checked=true;
+      sndStatus(v ? 'メロディを保存して、レベルアップの音にしました' : 'メロディを消して、オリジナルに戻しました');
+    });
+    $('sndFile').addEventListener('change', function(){
+      var f=this.files&&this.files[0]; if(!f) return;
+      if(f.size>8*1024*1024){ sndStatus('ファイルが大きすぎます（8MBまで）'); return; }
+      idbPut('lvupSound', f, function(ok){
+        if(!ok){ sndStatus('このブラウザでは保存できませんでした'); return; }
+        setStr('g5rpg_sndmode','file'); document.querySelector('input[name=sndMode][value=file]').checked=true;
+        sndStatus('「'+f.name+'」を保存して、レベルアップの音にしました');
+      });
+    });
+    $('sndFileTry').addEventListener('click', function(){ playFileSound(function(){ sndStatus('音声ファイルがまだ保存されていません'); }); });
+    idbGet('lvupSound', function(b){ if(b && mode==='file') sndStatus('保存ずみの音声ファイルを使います'); });
+  }
+  initSndSetting();
 
   var synth = window.speechSynthesis, voice=null, voiceJa=null;
   function pickVoice(){
